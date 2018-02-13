@@ -1,0 +1,141 @@
+package chtml;
+
+//import java.io.*;
+import java_cup.runtime.*;
+import java.util.ArrayList;
+
+init with {:
+
+:};
+parser code
+{:
+// METODOS Y VARIABLES GLOBALES DEL PARSER, PUEDEN SER PUBLICAS O PRIVADAS
+
+ 
+public void syntax_error(Symbol s){
+/**Metodo al que se llama automaticamente ante algun error sintactico.*/
+        System.out.println("Error Sintactico en la Linea " + (s.right+1) +" Columna "+s.left+ ". Identificador " +s.value + " no reconocido." );
+int linea = s.right+1; int columna = s.left; 
+String texto = "Identificador " +s.value + " no reconocido.";
+
+}            
+public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+/**Metodo al que se llama en el momento en que ya no es posible una recuperacion de errores.*/
+        System.out.println("Error Sintactico no recuperable en la Linea " + (s.right+1)+ " Columna "+s.left+". Identificador " + s.value + " no reconocido.");
+}
+:}
+
+action code
+{:
+:}
+
+terminal String chtml,finchtml,encabezado,finencabezado,cjs,fincjs,ruta,ccss,finccss,fondo,cuerpo,fincuerpo,titulo,fintitulo,
+panel,finpanel,cajatexto,fincajatexto,texto,fintexto,click,imagen,finimagen,boton,finboton,enlace,finenlace,tabla,fintabla,
+filt,finfilt,cb,fincb,ct,finct,textoa,fintextoa,caja,fincaja,opcion,finopcion,valor,spinner,finspinner,saltofin,grupo,alto,
+ancho,alineado,idd,id,entero,decimal,puntoComa,parentesisA,parentesisC,cadenasalto,cadena,cadenasin,igual,mayor,menor,css;
+
+non terminal Caracter INICIO,RAIZ,ENCABEZADO,CUERPO,INFORMACION,I,ATRIBUTOS,HTML,ETIQUETAS,ETIQUETA,
+PANEL,TEXTO,IMAGEN,BOTON,ENLACE,TABLA,CAJATEXTO,CAJA,ELEMENTOS,ELEMENTO,TEXTOA,OPCION,SPINNER,FILA,CELDAS,CELDA,OPCIONES;
+
+//precedence left mas, menos;
+
+start with INICIO;
+
+INICIO::=RAIZ{::};
+
+RAIZ::= chtml HTML finchtml
+|chtml finchtml;
+
+HTML ::= ENCABEZADO CUERPO;
+
+ENCABEZADO::= encabezado INFORMACION finencabezado
+|encabezado finencabezado;
+
+INFORMACION::=INFORMACION I
+|I;
+
+I::= cjs ruta igual cadena puntoComa mayor fincjs
+|ccss ruta igual cadena puntoComa mayor finccss
+|titulo cadenasin fintitulo;
+
+CUERPO::=cuerpo fondo igual cadena puntoComa mayor ETIQUETAS fincuerpo
+|cuerpo mayor ETIQUETAS fincuerpo
+|cuerpo mayor fincuerpo;
+
+ETIQUETAS::=ETIQUETAS ETIQUETA
+|ETIQUETA; 
+
+ETIQUETA::=PANEL
+|TEXTO
+|IMAGEN
+|BOTON
+|ENLACE
+|TABLA
+|TEXTOA
+|CAJATEXTO
+|CAJA
+|OPCION
+|SPINNER
+|saltofin;
+
+PANEL::=panel ETIQUETAS finpanel
+|panel finpanel;
+
+TEXTO::=texto cadenasalto fintexto
+|texto fintexto;
+
+IMAGEN::= imagen ELEMENTOS mayor cadenasin finimagen
+|imagen mayor cadenasin finimagen
+|imagen mayor finimagen;
+
+ELEMENTOS::= ELEMENTOS ELEMENTO
+|ELEMENTO;
+
+ELEMENTO::= ruta igual cadena puntoComa
+|click igual id parentesisA parentesisC puntoComa
+|idd igual id puntoComa
+|grupo igual id
+|alto igual entero
+|ancho igual entero
+|alineado igual id
+|css igual id
+|valor igual cadena;
+
+BOTON::= boton ELEMENTOS mayor cadenasin finboton
+|boton mayor cadenasin finboton
+|boton mayor finboton;
+
+ENLACE::= enlace ELEMENTOS mayor cadenasin finenlace
+|enlace mayor cadenasin finenlace
+|enlace mayor finenlace;
+
+TABLA::= tabla FILA fintabla
+tabla fintabla;
+
+FILA::= filt CELDAS finfilt
+|filt finfilt;
+
+CELDAS::= CELDAS CELDA
+|CELDA;
+
+CELDA::= cb texto fincb
+|ct texto finct
+|cb fincb
+|ct finct;
+
+TEXTOA::= textoa cadenasalto fintextoa;
+
+CAJATEXTO::=cajatexto cadenasin fincajatexto
+|cajatexto fincajatexto;
+
+CAJA::=caja OPCIONES fincaja
+|caja fincaja;
+
+OPCIONES::= OPCIONES OPCION
+|OPCION;
+
+OPCION::= opcion mayor cadenasin finopcion
+|opcion mayor finopcion;
+
+SPINNER::= spinner entero finspinner
+|spinner finspinner;

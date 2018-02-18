@@ -6,5 +6,5 @@ package chtml;
  * @author Aroche
  */
 public class Caracter {
-   //public NodoG nodo;
+      public NodoCHTML nodo;
 }

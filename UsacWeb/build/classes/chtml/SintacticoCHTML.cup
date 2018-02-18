@@ -32,10 +32,11 @@ action code
 terminal String chtml,finchtml,encabezado,finencabezado,cjs,fincjs,ruta,ccss,finccss,fondo,cuerpo,fincuerpo,titulo,fintitulo,
 panel,finpanel,cajatexto,fincajatexto,texto,fintexto,click,imagen,finimagen,boton,finboton,enlace,finenlace,tabla,fintabla,
 filt,finfilt,cb,fincb,ct,finct,textoa,fintextoa,caja,fincaja,opcion,finopcion,valor,spinner,finspinner,saltofin,grupo,alto,
-ancho,alineado,idd,id,entero,decimal,puntoComa,parentesisA,parentesisC,cadenasalto,cadena,cadenasin,igual,mayor,menor,css;
+ancho,alineado,idd,id,entero,decimal,puntoComa,parentesisA,parentesisC,cadenacon,cadena,cadenasin,igual,css,
+prueba,cadenasalto;
 
 non terminal Caracter INICIO,RAIZ,ENCABEZADO,CUERPO,INFORMACION,I,ATRIBUTOS,HTML,ETIQUETAS,ETIQUETA,
-PANEL,TEXTO,IMAGEN,BOTON,ENLACE,TABLA,CAJATEXTO,CAJA,ELEMENTOS,ELEMENTO,TEXTOA,OPCION,SPINNER,FILA,CELDAS,CELDA,OPCIONES;
+PANEL,TEXTO,IMAGEN,BOTON,ENLACE,TABLA,CAJATEXTO,CAJA,ELEMENTOS,ELEMENTO,TEXTOA,OPCION,SPINNER,FILA,CELDAS,CELDA,OPCIONES,R;
 
 //precedence left mas, menos;
 
@@ -43,8 +44,7 @@ start with INICIO;
 
 INICIO::=RAIZ{::};
 
-RAIZ::= chtml HTML finchtml
-|chtml finchtml;
+RAIZ::=  chtml HTML finchtml;
 
 HTML ::= ENCABEZADO CUERPO;
 
@@ -54,13 +54,14 @@ ENCABEZADO::= encabezado INFORMACION finencabezado
 INFORMACION::=INFORMACION I
 |I;
 
-I::= cjs ruta igual cadena puntoComa mayor fincjs
-|ccss ruta igual cadena puntoComa mayor finccss
-|titulo cadenasin fintitulo;
+I::=  cjs ruta igual cadena puntoComa  fincjs 
+| ccss  ruta igual cadena puntoComa  finccss 
+| titulo cadenacon fintitulo ;
 
-CUERPO::=cuerpo fondo igual cadena puntoComa mayor ETIQUETAS fincuerpo
-|cuerpo mayor ETIQUETAS fincuerpo
-|cuerpo mayor fincuerpo;
+CUERPO::= cuerpo fondo igual cadena puntoComa  ETIQUETAS  fincuerpo 
+| cuerpo fondo igual cadena puntoComa   fincuerpo 
+| cuerpo  ETIQUETAS  fincuerpo 
+| cuerpo   fincuerpo ;
 
 ETIQUETAS::=ETIQUETAS ETIQUETA
 |ETIQUETA; 
@@ -81,12 +82,12 @@ ETIQUETA::=PANEL
 PANEL::=panel ETIQUETAS finpanel
 |panel finpanel;
 
-TEXTO::=texto cadenasalto fintexto
+TEXTO::=texto cadenacon fintexto
 |texto fintexto;
 
-IMAGEN::= imagen ELEMENTOS mayor cadenasin finimagen
-|imagen mayor cadenasin finimagen
-|imagen mayor finimagen;
+IMAGEN::= imagen ELEMENTOS  cadenasin finimagen
+|imagen  cadenasin finimagen
+|imagen  finimagen;
 
 ELEMENTOS::= ELEMENTOS ELEMENTO
 |ELEMENTO;
@@ -101,13 +102,13 @@ ELEMENTO::= ruta igual cadena puntoComa
 |css igual id
 |valor igual cadena;
 
-BOTON::= boton ELEMENTOS mayor cadenasin finboton
-|boton mayor cadenasin finboton
-|boton mayor finboton;
+BOTON::= boton ELEMENTOS  cadenasin finboton
+|boton  cadenasin finboton
+|boton  finboton;
 
-ENLACE::= enlace ELEMENTOS mayor cadenasin finenlace
-|enlace mayor cadenasin finenlace
-|enlace mayor finenlace;
+ENLACE::= enlace ELEMENTOS  cadenasin finenlace
+|enlace  cadenasin finenlace
+|enlace  finenlace;
 
 TABLA::= tabla FILA fintabla
 tabla fintabla;
@@ -123,7 +124,7 @@ CELDA::= cb texto fincb
 |cb fincb
 |ct finct;
 
-TEXTOA::= textoa cadenasalto fintextoa;
+TEXTOA::= textoa cadenacon fintextoa;
 
 CAJATEXTO::=cajatexto cadenasin fincajatexto
 |cajatexto fincajatexto;
@@ -134,8 +135,8 @@ CAJA::=caja OPCIONES fincaja
 OPCIONES::= OPCIONES OPCION
 |OPCION;
 
-OPCION::= opcion mayor cadenasin finopcion
-|opcion mayor finopcion;
+OPCION::= opcion  cadenasin finopcion
+|opcion  finopcion;
 
 SPINNER::= spinner entero finspinner
 |spinner finspinner;

@@ -1,0 +1,672 @@
+package cjs;
+
+//import java.io.*;
+import java_cup.runtime.*;
+import java.util.ArrayList;
+init with {:
+
+:};
+parser code
+{:
+// METODOS Y VARIABLES GLOBALES DEL PARSER, PUEDEN SER PUBLICAS O PRIVADAS
+
+public void syntax_error(Symbol s){
+/**Metodo al que se llama automaticamente ante algun error sintactico.*/
+        System.out.println("Error Sintactico en la Linea " + (s.right+1) +" Columna "+s.left+ ". Identificador " +s.value + " no reconocido." );
+int linea = s.right+1; int columna = s.left; 
+String texto = "Identificador " +s.value + " no reconocido.";
+
+}            
+public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+/**Metodo al que se llama en el momento en que ya no es posible una recuperacion de errores.*/
+        System.out.println("Error Sintactico no recuperable en la Linea " + (s.right+1)+ " Columna "+s.left+". Identificador " + s.value + " no reconocido.");
+}
+:}
+
+action code
+{:
+:}
+
+terminal String dimv,atexto,funcion,mensaje,documento,obtener,observador,set,parentesisA,parentesisC,coma,
+retornar,si,sino,selecciona,caso,defecto,mientras,detener,mas,menos,mayor,menor,mayorIgual,menorIgual,igual,
+diferente,or,and,not,id,corcheteA,corcheteC,disminuir,para,por,dosPuntos,imprimir,verdadero,falso,igualDoble,
+potencia,llaveA,llaveC,puntoComa,ERROR,numero,aumentar,modulo,dividido,cadena,decimal,entero,punto,caracter,
+conteo,fecha,hora;
+
+non terminal Caracter INICIO,INSTRUCCIONES,FUNCION,LLAMADA,IF,ELSE,CICLO,SWITCH,PARAMETROS,OP,CASO,VALORES,
+IMPRIMIR,ASIGNACION,INSTRUCCION,OPCION,VARIABLE,DEFECTO,E,ASIGNAR,PARA,MENSAJE,DOCUMENTO,SET,ACCESO,VECTOR,
+OPERADOR,MasVARIABLE;
+
+precedence left mas, menos;
+precedence left por, dividido;
+precedence left potencia, modulo;
+precedence left or,and;
+precedence right not;
+precedence left mayor,menor,mayorIgual,menorIgual;
+precedence left aumentar,disminuir;
+precedence left igual,diferente,igualDoble;
+precedence left si,sino;
+precedence left mientras;
+precedence left id; 
+precedence left imprimir;
+precedence left coma,puntoComa;
+
+start with INICIO;
+
+INICIO::=INSTRUCCION:i{:
+    cjs.NODO = i.nodo;
+:};
+
+INSTRUCCION ::= INSTRUCCION:i OPCION:n {:
+    RESULT = new Caracter();
+    NodoCJS INSTRUCCION = new NodoCJS("INSTRUCCION");
+    INSTRUCCION.insertar(i.nodo); INSTRUCCION.insertar(n.nodo);
+    RESULT.nodo = INSTRUCCION;
+:}
+|OPCION:n{:
+    NodoCJS INSTRUCCION = new NodoCJS("INSTRUCCION");
+    RESULT = new Caracter();
+    INSTRUCCION.insertar(n.nodo); 
+    RESULT.nodo = INSTRUCCION;
+:};
+
+
+OPCION::=SWITCH:n{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|CICLO:n{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|IF:n{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|VARIABLE:n{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|VECTOR:n{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|FUNCION:n{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|ASIGNACION:n{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|PARA:n{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|IMPRIMIR:n{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|MENSAJE:n{:
+    NodoCJS OPCION = new NodoCJS("MENSAJE");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|LLAMADA:n puntoComa{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|DOCUMENTO:n puntoComa{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|SET:n{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(n.nodo);
+    RESULT.nodo = OPCION;
+:}
+|detener:i puntoComa{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(new NodoCJS("detener",iright,ileft)); OPCION.insertar(new NodoCJS(";"));
+    RESULT.nodo = OPCION;
+:}
+|retornar:i puntoComa{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(new NodoCJS("retornar",iright,ileft)); OPCION.insertar(new NodoCJS(";"));
+    RESULT.nodo = OPCION;
+:}
+|retornar:i OP:n puntoComa{:
+    NodoCJS OPCION = new NodoCJS("OPCION");
+    RESULT = new Caracter();
+    OPCION.insertar(new NodoCJS("retornar",iright,ileft)); OPCION.insertar(n.nodo); OPCION.insertar(new NodoCJS(";"));
+    RESULT.nodo = OPCION;
+:};
+
+
+VARIABLE::=dimv:d MasVARIABLE:i puntoComa{://2
+    NodoCJS V = new NodoCJS("VARIABLE");
+    RESULT = new Caracter();
+    V.insertar(new NodoCJS("dimv",dright,dleft)); V.insertar(i.nodo); 
+    RESULT.nodo = V;
+:}
+|dimv:d MasVARIABLE:i  ASIGNAR:a puntoComa{: //4
+    NodoCJS V = new NodoCJS("VARIABLE");
+    RESULT = new Caracter();
+    V.insertar(new NodoCJS("dimv",dright,dleft)); V.insertar(i.nodo); V.insertar(a.nodo);  
+    RESULT.nodo = V;
+:};
+
+
+MasVARIABLE::= MasVARIABLE:m coma id:i{: //3
+    NodoCJS MasVARIABLE = new NodoCJS("MasVARIABLE");
+    RESULT = new Caracter();
+    MasVARIABLE.insertar(m.nodo);  MasVARIABLE.insertar(new NodoCJS(",")); MasVARIABLE.insertar(new NodoCJS(i,iright,ileft));
+    RESULT.nodo = MasVARIABLE;
+:}
+|id:i {: //1
+    NodoCJS MasVARIABLE = new NodoCJS("MasVARIABLE");
+    RESULT = new Caracter();
+    MasVARIABLE.insertar(new NodoCJS(i,iright,ileft));
+    RESULT.nodo = MasVARIABLE;
+:};
+
+
+VECTOR::=dimv id:i llaveA OP:n llaveC puntoComa{://3
+    NodoCJS V = new NodoCJS("VECTOR");
+    RESULT = new Caracter();
+    V.insertar(new NodoCJS("dimv")); V.insertar(new NodoCJS(i,iright,ileft)); V.insertar(n.nodo); V.insertar(new NodoCJS(";")); 
+    RESULT.nodo = V;
+:}
+|dimv id:i llaveA OP:n llaveC ASIGNAR:a puntoComa{: //4
+    NodoCJS V = new NodoCJS("VECTOR");
+    RESULT = new Caracter();
+    V.insertar(new NodoCJS("dimv")); V.insertar(new NodoCJS(i,iright,ileft)); V.insertar(n.nodo); V.insertar(a.nodo);  V.insertar(new NodoCJS(";")); 
+    RESULT.nodo = V;
+:};
+
+
+ASIGNACION::=id:i ASIGNAR:a puntoComa{: //3
+    NodoCJS ASIGNACION = new NodoCJS("ASIGNACION");
+    RESULT = new Caracter();
+    ASIGNACION.insertar(new NodoCJS(i,iright,ileft));  ASIGNACION.insertar(a.nodo); ASIGNACION.insertar(new NodoCJS(";")); 
+    RESULT.nodo = ASIGNACION;
+:}
+|id:i llaveA OP:n llaveC ASIGNAR:a puntoComa{: //2 (?)
+    NodoCJS ASIGNACION = new NodoCJS("ASIGNACION");
+    RESULT = new Caracter();
+    ASIGNACION.insertar(new NodoCJS(i,iright,ileft));  ASIGNACION.insertar(n.nodo); ASIGNACION.insertar(a.nodo); ASIGNACION.insertar(new NodoCJS(";")); 
+    RESULT.nodo = ASIGNACION;
+:};
+
+
+ASIGNAR ::= dosPuntos OP:n{:
+    NodoCJS ASIGNAR = new NodoCJS("ASIGNAR");
+    RESULT = new Caracter();
+    ASIGNAR.insertar(new NodoCJS(":"));  ASIGNAR.insertar(n.nodo);
+    RESULT.nodo = ASIGNAR;
+:}
+|dosPuntos llaveA VALORES:v llaveC{://1
+    NodoCJS ASIGNAR = new NodoCJS("ASIGNAR");
+    RESULT = new Caracter();
+    ASIGNAR.insertar(new NodoCJS(":"));  ASIGNAR.insertar(new NodoCJS("{")); ASIGNAR.insertar(v.nodo);  ASIGNAR.insertar(new NodoCJS("}")); 
+    RESULT.nodo = ASIGNAR;
+:};
+
+
+VALORES ::= VALORES:v coma OP:n{:
+    NodoCJS VALORES = new NodoCJS("VALORES");
+    RESULT = new Caracter();
+    VALORES.insertar(v.nodo); VALORES.insertar(new NodoCJS(",")); VALORES.insertar(n.nodo); 
+    RESULT.nodo = VALORES;
+:}
+|OP:n{:
+    NodoCJS VALORES = new NodoCJS("VALORES");
+    RESULT = new Caracter();
+    VALORES.insertar(n.nodo); 
+    RESULT.nodo = VALORES;
+:};
+
+
+FUNCION ::= funcion id:i parentesisA PARAMETROS:p parentesisC llaveA INSTRUCCION:n llaveC{: //8
+    NodoCJS E = new NodoCJS("FUNCION");
+    RESULT = new Caracter();
+    E.insertar(new NodoCJS("funcion")); E.insertar(new NodoCJS(i,iright,ileft)); E.insertar(new NodoCJS("(")); E.insertar(p.nodo); E.insertar(new NodoCJS(")"));
+    E.insertar(new NodoCJS("{")); E.insertar(n.nodo); E.insertar(new NodoCJS("}"));
+    RESULT.nodo = E;
+:}
+|funcion id:i parentesisA parentesisC llaveA INSTRUCCION:n llaveC{://7
+    NodoCJS E = new NodoCJS("FUNCION");
+    RESULT = new Caracter();
+    E.insertar(new NodoCJS("funcion")); E.insertar(new NodoCJS(i,iright,ileft)); E.insertar(new NodoCJS("(")); E.insertar(new NodoCJS(")"));
+    E.insertar(new NodoCJS("{")); E.insertar(n.nodo); E.insertar(new NodoCJS("}"));
+    RESULT.nodo = E;
+:};
+
+
+PARAMETROS::=PARAMETROS:n coma id:i{:  //3
+    NodoCJS PARAMETROS = new NodoCJS("PARAMETROS");
+    RESULT = new Caracter();
+    PARAMETROS.insertar(n.nodo); PARAMETROS.insertar(new NodoCJS(i,iright,ileft)); 
+    RESULT.nodo = PARAMETROS;
+:}
+|id:i{: //2
+    NodoCJS PARAMETROS = new NodoCJS("PARAMETROS");
+    RESULT = new Caracter();
+    PARAMETROS.insertar(new NodoCJS(i,iright,ileft)); 
+    RESULT.nodo = PARAMETROS;
+:};
+
+
+IMPRIMIR::=imprimir parentesisA OP:n parentesisC puntoComa{:
+    NodoCJS IMPRIMIR = new NodoCJS("IMPRIMIR");
+    RESULT = new Caracter();
+    IMPRIMIR.insertar(new NodoCJS("imprimir")); IMPRIMIR.insertar(new NodoCJS("(")); IMPRIMIR.insertar(n.nodo);
+    IMPRIMIR.insertar(new NodoCJS(")")); IMPRIMIR.insertar(new NodoCJS(";")); 
+    RESULT.nodo = IMPRIMIR;
+:};
+
+
+IF::=si parentesisA OP:n parentesisC llaveA INSTRUCCION:i llaveC{://7
+    NodoCJS IF = new NodoCJS("IF");
+    RESULT = new Caracter();
+    IF.insertar(new NodoCJS("if")); IF.insertar(new NodoCJS("(")); IF.insertar(n.nodo); IF.insertar(new NodoCJS(")")); IF.insertar(new NodoCJS("{")); 
+    IF.insertar(i.nodo); IF.insertar(new NodoCJS("}")); 
+    RESULT.nodo = IF;
+:}
+|si parentesisA OP:n parentesisC llaveA INSTRUCCION:i llaveC ELSE:l{://8
+    NodoCJS IF = new NodoCJS("IF");
+    RESULT = new Caracter();
+    IF.insertar(new NodoCJS("si")); IF.insertar(new NodoCJS("(")); IF.insertar(n.nodo); IF.insertar(new NodoCJS(")")); IF.insertar(new NodoCJS("{")); 
+    IF.insertar((i.nodo)); IF.insertar(new NodoCJS("}"));IF.insertar(l.nodo); 
+    RESULT.nodo = IF;    
+:};
+
+
+ELSE::=sino llaveA INSTRUCCION:i llaveC{: //4
+    NodoCJS ELSE = new NodoCJS("ELSE");
+    RESULT = new Caracter();
+    ELSE.insertar(new NodoCJS("sino")); ELSE.insertar(new NodoCJS("{")); ELSE.insertar((i.nodo)); ELSE.insertar(new NodoCJS("}")); 
+    RESULT.nodo = ELSE;
+:};
+
+
+SWITCH::=selecciona parentesisA OP:n parentesisC llaveA CASO:c llaveC{://7
+    NodoCJS SWITCH = new NodoCJS("SWITCH");
+    RESULT = new Caracter();
+    SWITCH.insertar(new NodoCJS("Selecciona")); SWITCH.insertar(new NodoCJS("(")); SWITCH.insertar(n.nodo); SWITCH.insertar(new NodoCJS(")")); SWITCH.insertar(new NodoCJS("{"));
+    SWITCH.insertar(c.nodo); SWITCH.insertar(new NodoCJS("}"));
+    RESULT.nodo = SWITCH;
+:}
+|selecciona parentesisA OP:n parentesisC llaveA CASO:c DEFECTO:d llaveC{://8
+    NodoCJS SWITCH = new NodoCJS("SWITCH");
+    RESULT = new Caracter();
+    SWITCH.insertar(new NodoCJS("Selecciona")); SWITCH.insertar(new NodoCJS("(")); SWITCH.insertar(n.nodo); SWITCH.insertar(new NodoCJS(")")); SWITCH.insertar(new NodoCJS("{"));
+    SWITCH.insertar(c.nodo); SWITCH.insertar(d.nodo); SWITCH.insertar(new NodoCJS("}"));
+    RESULT.nodo = SWITCH;
+:}
+|selecciona parentesisA OP:n parentesisC llaveA DEFECTO:d llaveC{://7
+    NodoCJS SWITCH = new NodoCJS("SWITCH");
+    RESULT = new Caracter();
+    SWITCH.insertar(new NodoCJS("Selecciona")); SWITCH.insertar(new NodoCJS("(")); SWITCH.insertar(n.nodo); SWITCH.insertar(new NodoCJS(")")); SWITCH.insertar(new NodoCJS("{"));
+    SWITCH.insertar(d.nodo); SWITCH.insertar(new NodoCJS("}"));
+    RESULT.nodo = SWITCH;
+:};
+
+
+CASO::=CASO:c caso OP:n dosPuntos INSTRUCCION:i{:
+    NodoCJS CASO = new NodoCJS("CASO");
+    RESULT = new Caracter();
+    CASO.insertar(c.nodo); CASO.insertar(new NodoCJS("case")); CASO.insertar(n.nodo); CASO.insertar(new NodoCJS(":")); CASO.insertar(i.nodo);
+    RESULT.nodo = CASO;
+:}
+|caso OP:n dosPuntos INSTRUCCION:i{:
+    NodoCJS CASO = new NodoCJS("CASO");
+    RESULT = new Caracter();
+    CASO.insertar(new NodoCJS("case")); CASO.insertar(n.nodo); CASO.insertar(new NodoCJS(":")); CASO.insertar(i.nodo);
+    RESULT.nodo = CASO;
+:};
+
+
+DEFECTO::=defecto dosPuntos INSTRUCCION:i{:
+    NodoCJS DEFECTO = new NodoCJS("DEFECTO");
+    RESULT = new Caracter();
+    DEFECTO.insertar(new NodoCJS("default")); DEFECTO.insertar(new NodoCJS(":")); DEFECTO.insertar(i.nodo);
+    RESULT.nodo = DEFECTO;
+:};
+
+
+PARA::= para parentesisA VARIABLE:a OP:n1 puntoComa OPERADOR:n2 parentesisC llaveA INSTRUCCION:i llaveC{:  //10
+    NodoCJS PARA = new NodoCJS("PARA");
+    RESULT = new Caracter();
+    PARA.insertar(new NodoCJS("Para")); PARA.insertar(new NodoCJS("(")); PARA.insertar(a.nodo);  PARA.insertar(n1.nodo); PARA.insertar(new NodoCJS(";"));//5
+    PARA.insertar(n2.nodo); PARA.insertar(new NodoCJS(")")); PARA.insertar(new NodoCJS("{"));  PARA.insertar(i.nodo);  PARA.insertar(new NodoCJS("}"));
+    RESULT.nodo = PARA;
+:}
+|para parentesisA id:d ASIGNAR:a puntoComa OP:n1 puntoComa OPERADOR:n2 parentesisC llaveA INSTRUCCION:i llaveC{:  //12
+    NodoCJS PARA = new NodoCJS("PARA");
+    RESULT = new Caracter();
+    PARA.insertar(new NodoCJS("Para")); PARA.insertar(new NodoCJS("("));  PARA.insertar(new NodoCJS(d));  PARA.insertar(a.nodo);PARA.insertar(new NodoCJS(";")); PARA.insertar(n1.nodo);  PARA.insertar(new NodoCJS(";"));
+    PARA.insertar(n2.nodo); PARA.insertar(new NodoCJS(")")); PARA.insertar(new NodoCJS("{"));  PARA.insertar(i.nodo);  PARA.insertar(new NodoCJS("}"));
+    RESULT.nodo = PARA;
+:};
+
+
+OPERADOR::=aumentar:i{:
+    NodoCJS OPERADOR = new NodoCJS("OPERADOR");
+    RESULT = new Caracter();
+    OPERADOR.insertar(new NodoCJS("++",iright,ileft));
+    RESULT.nodo = OPERADOR;
+:}
+|disminuir:i{:
+    NodoCJS OPERADOR = new NodoCJS("OPERADOR");
+    RESULT = new Caracter();
+    OPERADOR.insertar(new NodoCJS("--",iright,ileft));
+    RESULT.nodo = OPERADOR;
+:};
+
+
+CICLO::=mientras parentesisA OP:n parentesisC llaveA INSTRUCCION:i llaveC{://7
+    NodoCJS CICLO = new NodoCJS("CICLO");
+    RESULT = new Caracter();
+    CICLO.insertar(new NodoCJS("while")); CICLO.insertar(new NodoCJS("(")); CICLO.insertar(n.nodo); CICLO.insertar(new NodoCJS(")")); CICLO.insertar(new NodoCJS("{"));
+    CICLO.insertar(i.nodo); CICLO.insertar(new NodoCJS("}"));
+    RESULT.nodo = CICLO;
+:};
+
+
+MENSAJE::=mensaje parentesisA OP:n parentesisC puntoComa{:
+    NodoCJS IMPRIMIR = new NodoCJS("MENSAJE");
+    RESULT = new Caracter();
+    IMPRIMIR.insertar(new NodoCJS("mensaje")); IMPRIMIR.insertar(new NodoCJS("(")); IMPRIMIR.insertar(n.nodo);
+    IMPRIMIR.insertar(new NodoCJS(")")); IMPRIMIR.insertar(new NodoCJS(";")); 
+    RESULT.nodo = IMPRIMIR;
+:};
+
+
+DOCUMENTO::=documento punto obtener parentesisA OP:n parentesisC{: //2
+    NodoCJS A = new NodoCJS("DOCUMENTO");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS("documento.obtener(")); A.insertar(n.nodo); 
+    RESULT.nodo = A;
+:}
+|documento punto observador parentesisA cadena:n coma LLAMADA:l parentesisC{: //5
+    NodoCJS A = new NodoCJS("DOCUMENTO");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS("documento.observador(")); A.insertar(new NodoCJS(n));  A.insertar(new NodoCJS(",")); A.insertar(l.nodo); 
+    A.insertar(new NodoCJS(")")); 
+    RESULT.nodo = A;
+:}
+|documento punto observador parentesisA cadena:n coma funcion parentesisA parentesisC llaveA INSTRUCCION:l llaveC parentesisC{: //5
+    NodoCJS A = new NodoCJS("DOCUMENTO");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS("documento.observador("));A.insertar(new NodoCJS(n)); A.insertar(new NodoCJS(",funcion(){"));A.insertar(l.nodo); 
+    A.insertar(new NodoCJS("})"));
+    RESULT.nodo = A;
+:}
+|id:i punto observador parentesisA cadena:n coma LLAMADA:l parentesisC{: //6
+    NodoCJS A = new NodoCJS("DOCUMENTO");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS(i,iright,ileft)); A.insertar(new NodoCJS(".observador(")); A.insertar(new NodoCJS(n));  A.insertar(new NodoCJS(",")); A.insertar(l.nodo); 
+    A.insertar(new NodoCJS(")")); 
+    RESULT.nodo = A;
+:};
+
+
+SET::=documento punto obtener parentesisA OP:n parentesisC punto set parentesisA cadena:s coma OP:m parentesisC puntoComa{: //5
+    NodoCJS A = new NodoCJS("SET");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS("documento.obtener(")); A.insertar(n.nodo);A.insertar(new NodoCJS(").setElemento("));  A.insertar(new NodoCJS(s)); A.insertar(new NodoCJS(","));A.insertar(m.nodo);
+    A.insertar(new NodoCJS(")")); ; A.insertar(new NodoCJS(";"));
+    RESULT.nodo = A;
+:}
+|id:i punto set parentesisA cadena:s coma OP:n parentesisC puntoComa{: //5
+    NodoCJS A = new NodoCJS("SET");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS(i,iright,ileft)); A.insertar(new NodoCJS(").setElemento("));  A.insertar(new NodoCJS(s)); A.insertar(new NodoCJS(","));A.insertar(n.nodo); A.insertar(new NodoCJS(")")); ; A.insertar(new NodoCJS(";")); 
+    RESULT.nodo = A;
+:};
+
+
+LLAMADA::=id:i parentesisA parentesisC{: //3
+    NodoCJS INSTANCIA = new NodoCJS("LLAMADA");
+    RESULT = new Caracter();
+    INSTANCIA.insertar(new NodoCJS(i,iright,ileft));  INSTANCIA.insertar(new NodoCJS("(")); INSTANCIA.insertar(new NodoCJS(")"));
+    RESULT.nodo = INSTANCIA;
+:}
+|id:i parentesisA VALORES:n parentesisC{: //4
+    NodoCJS INSTANCIA = new NodoCJS("LLAMADA");
+    RESULT = new Caracter();
+    INSTANCIA.insertar(new NodoCJS(i,iright,ileft)); INSTANCIA.insertar(new NodoCJS("(")); INSTANCIA.insertar(n.nodo); INSTANCIA.insertar(new NodoCJS(")")); 
+    RESULT.nodo = INSTANCIA;
+:};
+
+
+ACCESO::=id:i llaveA OP:n llaveC{: 
+    NodoCJS A = new NodoCJS("ACCESO");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS(i,iright,ileft)); A.insertar(new NodoCJS("{")); A.insertar(n.nodo); A.insertar(new NodoCJS("}")); 
+    RESULT.nodo = A;
+:}
+|id:i punto conteo{: 
+    NodoCJS A = new NodoCJS("ACCESO");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS(i,iright,ileft)); A.insertar(new NodoCJS(".")); A.insertar(new NodoCJS("conteo")); 
+    RESULT.nodo = A;
+:}
+|id:i punto atexto{: 
+    NodoCJS A = new NodoCJS("ACCESO");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS(i,iright,ileft)); A.insertar(new NodoCJS(".")); A.insertar(new NodoCJS("atexto()")); 
+    RESULT.nodo = A;
+:};
+
+
+OP::=E:e{:
+    NodoCJS OP = new NodoCJS("OP");
+    RESULT = new Caracter();
+    OP.insertar(e.nodo);
+    RESULT.nodo = OP;
+:};
+
+
+E::=parentesisA E:a parentesisC{:
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(new NodoCJS("(")); E.insertar(a.nodo); E.insertar(new NodoCJS(")"));
+    RESULT.nodo = E;
+:}
+|E:a mas:i E:b{: 
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("+",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+:}
+|E:a menos:i E:b{:
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("-",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+ :}
+|E:a por:i E:b{: 
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("*",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+:}
+|E:a dividido:i E:b{: 
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("/",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+:}
+|E:a modulo:i E:b{: 
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("%",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+:}
+|E:a aumentar:i{: 
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("++",iright,ileft));
+    RESULT.nodo = E;
+:}
+|E:a disminuir:i{: 
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("--",iright,ileft));
+    RESULT.nodo = E;
+:} 
+|E:a mayor:i E:b{: 
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS(">",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+:}
+|E:a menor:i E:b{: 
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("<",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+:}
+|E:a mayorIgual:i E:b{:
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS(">=",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+ :}
+|E:a menorIgual:i E:b{: 
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("<=",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+:}
+|E:a igualDoble:i E:b{:
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("==",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+ :}
+|E:a diferente:i E:b{:
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("!=",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+:}
+|verdadero:i{:
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(new NodoCJS("verdadero","bool",iright,ileft));
+    RESULT.nodo = E;
+ :}
+|falso:i{:
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(new NodoCJS("falso","bool",iright,ileft));
+    RESULT.nodo = E;
+ :}
+|E:a or:i E:b{:
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("||",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+ :}
+|E:a and:i E:b{: 
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("&&",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+:}
+| not:i E:b{:
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(new NodoCJS("!",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+:}
+|E:a potencia:i E:b {:
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCJS("^",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+:}
+|menos:i E:b{:
+    NodoCJS E = new NodoCJS("E");
+    RESULT = new Caracter();
+    E.insertar(new NodoCJS("-",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+:}
+|cadena:n{:
+    RESULT = new Caracter();
+    n = n.replace("\"","");
+    NodoCJS E = new NodoCJS("E");
+    E.insertar(new NodoCJS(n,"cadena",nright,nleft));
+    RESULT.nodo = E;
+:}
+|entero:n{:
+    RESULT = new Caracter();
+    NodoCJS E = new NodoCJS("E");
+    E.insertar(new NodoCJS(n,"entero",nright,nleft));
+    RESULT.nodo = E;
+:}
+|decimal:n{:
+    RESULT = new Caracter();
+    NodoCJS E = new NodoCJS("E");
+    E.insertar(new NodoCJS(n,"decimal",nright,nleft));
+    RESULT.nodo = E;
+:}
+|id:i{:
+    RESULT = new Caracter();
+    NodoCJS E = new NodoCJS("E");
+    E.insertar(new NodoCJS(i,"id",iright,ileft));
+    RESULT.nodo = E;
+:}
+|fecha:i{:
+    RESULT = new Caracter();
+    NodoCJS E = new NodoCJS("E");
+    E.insertar(new NodoCJS(i,"fecha",iright,ileft));
+    RESULT.nodo = E;
+:}
+|hora:i{:
+    RESULT = new Caracter();
+    NodoCJS E = new NodoCJS("E");
+    E.insertar(new NodoCJS(i,"hora",iright,ileft));
+    RESULT.nodo = E;
+:}
+|DOCUMENTO:i{:
+    RESULT = new Caracter();
+    NodoCJS E = new NodoCJS("E");
+    E.insertar(i.nodo);
+    RESULT.nodo = E;
+:}
+|ACCESO:i{:
+    RESULT = new Caracter();
+    NodoCJS E = new NodoCJS("E");
+    E.insertar(i.nodo);
+    RESULT.nodo = E;
+:};

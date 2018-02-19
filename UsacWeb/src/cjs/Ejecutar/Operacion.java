@@ -1,8 +1,8 @@
 package cjs.Ejecutar;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import cjs.NodoCJS;
+import java.util.Date;
 import usacweb.Errores;
 
 public class Operacion {
@@ -42,7 +42,7 @@ public class Operacion {
                                 if (s != null) {
                                     return s;
                                 } else { //Buscar en lista
-                                    Errores.agregarError("Error Semantico", "No se encontro el id : " + dato, 0, 0);
+                                    Errores.agregarError("Error Semantico", "No se encontro el id : " + dato, nodo.hijos[0].fila, nodo.hijos[0].col);
                                     return "";
                                 }
                             case "bool":
@@ -50,6 +50,12 @@ public class Operacion {
                                     return true;
                                 }
                                 return false;
+                            case "fecha":
+                                Date fecha = Fecha.StringToDate(dato.replace("'", ""));
+                                return fecha;
+                            case "hora":
+                                Date hora = Fecha.StringToDate(dato.replace("'", ""));
+                                return hora;
 
                             default:
                                 return "";
@@ -57,12 +63,7 @@ public class Operacion {
                 }
             case 2:
                 Object F1 = "";
-                if (nodo.hijos[1].texto.equals("ARREGLO")) {
-                    Recorrido r = new Recorrido();
-                    ArrayList coordenada = (ArrayList) r.Recorrido(nodo.hijos[1]);
-                    Object result = null;// = VariableG.obtenerValorArreglo(nodo.hijos[0].texto, coordenada);
-                    return result;
-                } else if (nodo.hijos[0].texto.equals("-")) {
+                if (nodo.hijos[0].texto.equals("-")) {
                     F1 = expresion(nodo.hijos[1]);
                     try {
                         if (F1 instanceof Double) {
@@ -76,7 +77,7 @@ public class Operacion {
                             int n = v1 * (-1);
                             return n;
                         } else {
-                            ////paradigmas.ReporteError.agregarErrorGK((String) F1, "Error Semantico", "No se puede negar el valor", 0, 0);
+                            Errores.agregarError("Error Semantico", "No se puede negar el valor", nodo.hijos[0].fila, nodo.hijos[0].col);
                         }
                     } catch (Exception e) {
                         System.out.println("E-(): " + e);
@@ -86,28 +87,23 @@ public class Operacion {
                     if (F1 instanceof Boolean) {
                         return !((Boolean) F1);
                     }
-                    //  //paradigmas.ReporteError.agregarErrorGK("!", "Error Semantico", "Error al operar !", 0, 0);
+                    Errores.agregarError("Error Semantico", "Error al operar !", nodo.hijos[0].fila, nodo.hijos[0].col);
                     return false;
                 } else if (nodo.hijos[1].texto.equals("++")) {
                     F1 = expresion(nodo.hijos[0]);
                     try {
-//                        if (F1 instanceof Double) {
-//                            Double n = (Double) F1 + 1;
-//                            VariableG.asignarValor(nodo.hijos[0].hijos[0].texto, n);
-//                            return n;
-//                        } else if (F1 instanceof Integer) {
-//                            int n = (Integer) F1 + 1;
-//                            VariableG.asignarValor(nodo.hijos[0].hijos[0].texto, n);
-//                            return n;
-//                        } else if (F1 instanceof Character) {
-//                            int v1 = ((String) F1).codePointAt(0);
-//                            int n = v1 + 1;
-//                            VariableG.asignarValor(nodo.hijos[0].hijos[0].texto, n);
-//                            return n;
-//                        } else {
-//                            //paradigmas.ReporteError.agregarErrorGK("++", "Error Semantico", "Operadores ++ incorrectos", 0, 0);
-//                            return (Double) 0.0;
-//                        }
+                        if (F1 instanceof Double) {
+                            Double n = (Double) F1 + 1;
+                            //VariableCJS.asignarValor(nodo.hijos[0].hijos[0].texto, n);
+                            return n;
+                        } else if (F1 instanceof Integer) {
+                            int n = (Integer) F1 + 1;
+                            //VariableCJS.asignarValor(nodo.hijos[0].hijos[0].texto, n);
+                            return n;
+                        } else {
+                            Errores.agregarError("Error Semantico", "Operadores ++ incorrectos", nodo.hijos[1].fila, nodo.hijos[1].col);
+                            return (Double) 0.0;
+                        }
                     } catch (Exception e) {
                         System.out.println("E++ :" + e);
                         return (Double) 0.0;
@@ -115,23 +111,18 @@ public class Operacion {
                 } else if (nodo.hijos[1].texto.equals("--")) {
                     F1 = expresion(nodo.hijos[0]);
                     try {
-//                        if (F1 instanceof Double) {
-//                            Double n = (Double) F1 - 1;
-//                            VariableG.asignarValor(nodo.hijos[0].hijos[0].texto, n);
-//                            return n;
-//                        } else if (F1 instanceof Integer) {
-//                            int n = (Integer) F1 - 1;
-//                            VariableG.asignarValor(nodo.hijos[0].hijos[0].texto, n);
-//                            return n;
-//                        } else if (F1 instanceof Character) {
-//                            int v1 = ((String) F1).codePointAt(0);
-//                            int n = v1 - 1;
-//                            VariableG.asignarValor(nodo.hijos[0].hijos[0].texto, n);
-//                            return n;
-//                        } else {
-//                            //paradigmas.ReporteError.agregarErrorGK("--", "Error Semantico", "Operadores ++ incorrectos", 0, 0);
-//                            return (Double) 0.0;
-//                        }
+                        if (F1 instanceof Double) {
+                            Double n = (Double) F1 - 1;
+                            // VariableCJS.asignarValor(nodo.hijos[0].hijos[0].texto, n);
+                            return n;
+                        } else if (F1 instanceof Integer) {
+                            int n = (Integer) F1 - 1;
+                            //VariableCJS.asignarValor(nodo.hijos[0].hijos[0].texto, n);
+                            return n;
+                        } else {
+                            Errores.agregarError("Error Semantico", "Operadores ++ incorrectos", nodo.hijos[1].fila, nodo.hijos[1].col);
+                            return (Double) 0.0;
+                        }
                     } catch (Exception e) {
                         System.out.println("E-- :" + e);
                         return (Double) 0.0;
@@ -139,7 +130,6 @@ public class Operacion {
                 } else {
                     return "";
                 }
-
             case 3: //Nodo binario
                 Object E1 = "";
                 Object E2 = "";
@@ -229,9 +219,9 @@ public class Operacion {
                                 String r = String.valueOf(E1) + String.valueOf(E2);
                                 return r;
                             }
-                            // //paradigmas.ReporteError.agregarErrorGK("+", "Error Semantico", "Error al castear suma ", 0, 0);
+                            Errores.agregarError("Error Semantico", "Error al castear suma ", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
-                        } catch (Exception e) {
+                        } catch (NumberFormatException e) {
                             System.out.println("E+ :" + e);
                             return "";
                         }
@@ -310,9 +300,9 @@ public class Operacion {
                                     return (Integer) E1 - (Integer) E2;
                                 }
                             }
-                            // //paradigmas.ReporteError.agregarErrorGK("-", "Error Semantico", "Error al castear resta ", 0, 0);
+                            Errores.agregarError("Error Semantico", "Error al castear resta ", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
-                        } catch (Exception e) {
+                        } catch (NumberFormatException e) {
                             System.out.println("E- :" + e);
                             return "";
                         }
@@ -394,10 +384,10 @@ public class Operacion {
                             } else if ((E1 instanceof Boolean) && (E2 instanceof Boolean)) {
                                 return (Boolean) E1 == true && (Boolean) E2 == true;
                             }
-                            //paradigmas.ReporteError.agregarErrorGK("*", "Error Semantico", "Error al castear multiplicación ", 0, 0);
+                            Errores.agregarError("Error Semantico", "Error al castear multiplicación ", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
 
-                        } catch (Exception e) {
+                        } catch (NumberFormatException e) {
                             System.out.println("E");
                             return "";
                         }
@@ -439,7 +429,7 @@ public class Operacion {
                                         Double v1 = (Double) E1 / 1;
                                         return v1;
                                     } else {
-                                        //paradigmas.ReporteError.agregarErrorGK("falso", "Error Semantico", "No se puede dividir dentro de 0", 0, 0);
+                                        Errores.agregarError("Error Semantico", "No se puede dividir dentro de 0", nodo.hijos[1].fila, nodo.hijos[1].col);
                                         return (Double) 0.0;
                                     }
                                 } else if ((E1 instanceof Double) && (E2 instanceof Double)) {//Double
@@ -471,7 +461,7 @@ public class Operacion {
                                         int v1 = (Integer) E1 / 1;
                                         return v1;
                                     } else {
-                                        //paradigmas.ReporteError.agregarErrorGK("falso", "Error Semantico", "No se puede dividir dentro de 0", 0, 0);
+                                        Errores.agregarError("Error Semantico", "No se puede dividir dentro de 0", nodo.hijos[1].fila, nodo.hijos[1].col);
                                         return (Double) 0.0;
                                     }
                                 } else if ((E1 instanceof Integer) && (E2 instanceof Integer)) {//Enteross
@@ -482,10 +472,10 @@ public class Operacion {
                                 }
                                 //BOOL
                             }
-                            //paradigmas.ReporteError.agregarErrorGK("/", "Error Semantico", "Error al castear dividar ", 0, 0);
+                            Errores.agregarError("Error Semantico", "Error al castear dividar ", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
 
-                        } catch (Exception e) {
+                        } catch (NumberFormatException e) {
                             System.out.println("E");
                             return "";
                         }
@@ -569,10 +559,10 @@ public class Operacion {
                                     return v1.intValue();
                                 }
                             }
-                            //paradigmas.ReporteError.agregarErrorGK("^", "Error Semantico", "Error al castear potencia ", 0, 0);
+                            Errores.agregarError("Error Semantico", "Error al castear potencia ", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
 
-                        } catch (Exception e) {
+                        } catch (NumberFormatException e) {
                             System.out.println("E");
                             return "";
                         }
@@ -659,7 +649,7 @@ public class Operacion {
                             } else if ((E1 instanceof String && E2 instanceof String)) {
                                 return compararMayor((String) E1, (String) E2);
                             } else {
-                                //paradigmas.ReporteError.agregarErrorGK(">", "Error Semantico", "Error al usar operador relacional >", 0, 0);
+                                Errores.agregarError("Error Semantico", "Error al usar operador relacional >", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
                         } catch (Exception e) {
                             System.out.println("E>: " + e);
@@ -749,7 +739,7 @@ public class Operacion {
                                 return compararMenor((String) E1, (String) E2);
 
                             } else {
-                                //paradigmas.ReporteError.agregarErrorGK("<", "Error Semantico", "Error al usar operador relacional <", 0, 0);
+                                Errores.agregarError("Error Semantico", "Error al usar operador relacional <", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
                         } catch (Exception e) {
                             System.out.println("E<: " + e);
@@ -849,7 +839,7 @@ public class Operacion {
                                 }
                                 return comp;
                             } else {
-                                //paradigmas.ReporteError.agregarErrorGK(">=", "Error Semantico", "Error al usar operador relacional >=", 0, 0);
+                                Errores.agregarError("Error Semantico", "Error al usar operador relacional >=", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
                         } catch (Exception e) {
                             System.out.println("E>=: " + e);
@@ -950,7 +940,7 @@ public class Operacion {
                                 }
                                 return comp;
                             } else {
-                                //paradigmas.ReporteError.agregarErrorGK("<=", "Error Semantico", "Error al usar operador relacional <=", 0, 0);
+                                Errores.agregarError("Error Semantico", "Error al usar operador relacional <=", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
                         } catch (Exception e) {
                             System.out.println("E<=: " + e);
@@ -1038,7 +1028,7 @@ public class Operacion {
                             } else if ((E1 instanceof String && E2 instanceof String)) {
                                 return compararIgual((String) E1, (String) E2);
                             } else {
-                                //paradigmas.ReporteError.agregarErrorGK("==", "Error Semantico", "Error al usar operador relacional ==", 0, 0);
+                                Errores.agregarError("Error Semantico", "Error al usar operador relacional ==", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
                         } catch (Exception e) {
                             System.out.println("E==: " + e);
@@ -1103,7 +1093,7 @@ public class Operacion {
                                     return var1 != var2;
                                 } else {
                                     int var1 = (Integer) (E1);
-                                    int var2 = obtenerBoolean(E2);;
+                                    int var2 = obtenerBoolean(E2);
                                     return var1 != var2;
                                 }
                             } else if ((E1 instanceof Boolean || E2 instanceof Boolean) && (E1 instanceof Character || E2 instanceof Character)) {
@@ -1127,7 +1117,7 @@ public class Operacion {
                             } else if ((E1 instanceof String && E2 instanceof String)) {
                                 return !compararIgual((String) E1, (String) E2);
                             } else {
-                                //paradigmas.ReporteError.agregarErrorGK("!=", "Error Semantico", "Error al usar operador relacional !=", 0, 0);
+                                Errores.agregarError("Error Semantico", "Error al usar operador relacional !=", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
                         } catch (Exception e) {
                             System.out.println("E!=: " + e);
@@ -1140,7 +1130,7 @@ public class Operacion {
                         if (E1 instanceof Boolean && E2 instanceof Boolean) {
                             return (Boolean) E1 == true && (Boolean) E2 == true;
                         }
-                        //paradigmas.ReporteError.agregarErrorGK("&&", "Error Semantico", "Error al operar &&", 0, 0);
+                        Errores.agregarError("Error Semantico", "Error al operar &&", nodo.hijos[1].fila, nodo.hijos[1].col);
                         return false;
 
                     case "||":
@@ -1150,17 +1140,7 @@ public class Operacion {
                         if (E1 instanceof Boolean && E2 instanceof Boolean) {
                             return (Boolean) E1 == true || (Boolean) E2 == true;
                         }
-                        //paradigmas.ReporteError.agregarErrorGK("||", "Error Semantico", "Error al operar ||", 0, 0);
-                        return false;
-
-                    case "&|":
-                        E1 = expresion(nodo.hijos[0]);
-                        E2 = expresion(nodo.hijos[2]);
-
-                        if (E1 instanceof Boolean && E2 instanceof Boolean) {
-                            return !(Objects.equals((Boolean) E1, (Boolean) E2));
-                        }
-                        //paradigmas.ReporteError.agregarErrorGK("&|", "Error Semantico", "Error al operar &|", 0, 0);
+                        Errores.agregarError("Error Semantico", "Error al operar ||", nodo.hijos[1].fila, nodo.hijos[1].col);
                         return false;
                     default: //(E)
                         return expresion(nodo.hijos[1]);

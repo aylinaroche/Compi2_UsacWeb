@@ -1,8 +1,6 @@
 package chtml;
 
-//import java.io.*;
 import java_cup.runtime.*;
-import java.util.ArrayList;
 
 init with {:
 

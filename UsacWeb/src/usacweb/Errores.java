@@ -20,7 +20,7 @@ public class Errores {
         e.fila = f;
         e.columna = c;
         errores.add(e);
-        System.out.println("-> " + t + ": " + d);
+        System.out.println("-> " + t + ": " + d + ": " + f + ": " + c);
     }
 
     public static void reporteErrores(ArrayList errores, String nombre) {
@@ -61,7 +61,7 @@ public class Errores {
                     Errror s = (Errror) errores.get(i);
                     salida.write("<tr>");
                     salida.write("<th><font color=\"white\">" + s.tipo + "</font></th>");
-              //      salida.write("<th><font color=\"white\">" + s.lexema + "</font></th>");
+                    //      salida.write("<th><font color=\"white\">" + s.lexema + "</font></th>");
                     salida.write("<th><font color=\"white\">" + s.descripcion + "</font></th>");
 //                    salida.write("<th><font color=\"white\">" + s.columna+ "</font></th>");
 //                    salida.write("<th><font color=\"white\">" + s.fila+ "</font></th>");

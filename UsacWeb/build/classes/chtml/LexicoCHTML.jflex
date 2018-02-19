@@ -23,6 +23,7 @@ Comentario = "<//" [^/] ~"//>" | "<//" "/"+ "//>"
 
 CadenaComillas = "\"" {SinSaltos}* ~"\"" |  “ {SinSaltos}* ~” |” {SinSaltos}* ~”
 CadenaSinSaltos  = "saber" 
+CadenaConSaltos = ">" {Saltos} (("<"{Saltos}"/")|[^<])+ {Saltos} "<"
 
 
 
@@ -103,7 +104,8 @@ public String lexeme;
 
 {CadenaComillas} {lexeme=yytext(); return new Symbol(sym.cadena ,yycolumn, yyline,new String(yytext()));}
 {CadenaSinSaltos} {lexeme=yytext(); return new Symbol(sym.cadenasin ,yycolumn, yyline,new String(yytext()));}
-">" [^<] ~"<"  {lexeme=yytext(); return new Symbol(sym.cadenacon ,yycolumn, yyline,new String(yytext()));}
+">" [^<] ~"<"  {lexeme=yytext(); return new Symbol(sym.prueba ,yycolumn, yyline,new String(yytext()));}
+{CadenaConSaltos} {lexeme=yytext(); return new Symbol(sym.cadenasalto ,yycolumn, yyline,new String(yytext()));}
 
 
 . {//return new Symbol(sym.ERROR, yycolumn, yyline,new String(yytext()));

@@ -59,9 +59,10 @@ INSTRUCCION ::= INSTRUCCION:i BLOQUE:n {:
 BLOQUE::=id:i corcheteA OPCION:n corcheteC{:
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("BLOQUE");
-    E.insertar(new NodoCCSS(i)); E.insertar(new NodoCCSS("[")); E.insertar(n.nodo); E.insertar(new NodoCCSS("]"));
+    E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS("[")); E.insertar(n.nodo); E.insertar(new NodoCCSS("]"));
     RESULT.nodo = E;
 :};
+
 
 OPCION ::= OPCION:i TIPO:n {:
     RESULT = new Caracter();
@@ -80,17 +81,30 @@ OPCION ::= OPCION:i TIPO:n {:
 TIPO::=grupo parentesisA id:i parentesisC puntoComa ESTILOS:e{:
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("BLOQUE");
-    E.insertar(new NodoCCSS("grupo")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i)); E.insertar(new NodoCCSS(")")); 
+    E.insertar(new NodoCCSS("grupo")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
     E.insertar(e.nodo);
     RESULT.nodo = E;
 :}
 |idd parentesisA id:i parentesisC puntoComa ESTILOS:e{:
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("BLOQUE");
-    E.insertar(new NodoCCSS("id")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i)); E.insertar(new NodoCCSS(")")); 
+    E.insertar(new NodoCCSS("id")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
     E.insertar(e.nodo);
     RESULT.nodo = E;
+:}
+|grupo parentesisA id:i parentesisC puntoComa{:
+    RESULT = new Caracter();
+    NodoCCSS E = new NodoCCSS("BLOQUE");
+    E.insertar(new NodoCCSS("grupo")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
+    RESULT.nodo = E;
+:}
+|idd parentesisA id:i parentesisC puntoComa{:
+    RESULT = new Caracter();
+    NodoCCSS E = new NodoCCSS("BLOQUE");
+    E.insertar(new NodoCCSS("id")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
+    RESULT.nodo = E;
 :};
+
 
 ESTILOS ::= ESTILOS:i ESTILO:n {:
     RESULT = new Caracter();
@@ -105,72 +119,72 @@ ESTILOS ::= ESTILOS:i ESTILO:n {:
     RESULT.nodo = E;
 :};
 
-ESTILO::=alineado igual ALINEADO:v puntoComa{: //4
+ESTILO::=alineado:i igual ALINEADO:v puntoComa{: //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("alineado"));E.insertar(new NodoCCSS("=")); E.insertar(v.nodo); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("alineado",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(v.nodo); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 :}
-|texto igual cadena:n puntoComa{: //4
+|texto:i igual cadena:n puntoComa{: //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("alineado"));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS(n)); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("texto",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS(n,nright,nleft)); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 :}
-|formato igual FORMATOS:v puntoComa{: //4
+|formato:i igual FORMATOS:v puntoComa{: //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("alineado"));E.insertar(new NodoCCSS("=")); E.insertar(v.nodo); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("formato",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(v.nodo); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 :}
-|letra igual cadena:n puntoComa{: //4
+|letra:i igual cadena:n puntoComa{: //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("alineado"));E.insertar(new NodoCCSS("="));E.insertar(new NodoCCSS(n));E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("letra",iright,ileft));E.insertar(new NodoCCSS("="));E.insertar(new NodoCCSS(n,nright,nleft));E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 :}
-|tamtex igual numero:n puntoComa{: //4
+|tamtex:i igual numero:n puntoComa{: //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("alineado"));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS(n)); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("tamtex",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS(n,nright,nleft)); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 :}
-|fondo igual cadena:n puntoComa{: //4
+|fondo:i igual cadena:n puntoComa{: //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("alineado"));E.insertar(new NodoCCSS("="));E.insertar(new NodoCCSS(n)); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("fondo",iright,ileft));E.insertar(new NodoCCSS("="));E.insertar(new NodoCCSS(n,nright,nleft)); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 :}
-|auto igual corcheteA VALOR:v coma AREA:a corcheteC puntoComa{: //8
+|auto:i igual corcheteA VALOR:v coma AREA:a corcheteC puntoComa{: //8
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("auto"));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS("[")); E.insertar(v.nodo);E.insertar(new NodoCCSS(","));
+    E.insertar(new NodoCCSS("auto",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS("[")); E.insertar(v.nodo);E.insertar(new NodoCCSS(","));
     E.insertar(a.nodo);  E.insertar(new NodoCCSS("]")); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 :}
-|visible igual VALOR:v puntoComa{: //4
+|visible:i igual VALOR:v puntoComa{: //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("alineado"));E.insertar(new NodoCCSS("=")); E.insertar(v.nodo); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("visible",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(v.nodo); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 :}
-|borde igual corcheteA numero:n coma cadena:c coma VALOR:v corcheteC puntoComa{: //10
+|borde:i igual corcheteA numero:n coma cadena:c coma VALOR:v corcheteC puntoComa{: //10
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("borde"));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS("[")); E.insertar(new NodoCCSS(n));E.insertar(new NodoCCSS(","));
+    E.insertar(new NodoCCSS("borde",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS("[")); E.insertar(new NodoCCSS(n,nright,nleft));E.insertar(new NodoCCSS(","));
     E.insertar(new NodoCCSS(c));  E.insertar(new NodoCCSS(","));  E.insertar(v.nodo);  E.insertar(new NodoCCSS("]")); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 :}
-|opaque igual VALOR:v puntoComa{: //4
+|opaque:i igual VALOR:v puntoComa{: //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("alineado"));E.insertar(new NodoCCSS("=")); E.insertar(v.nodo); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("opaque",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(v.nodo); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 :}
-|colortext igual cadena:n puntoComa {: //4
+|colortext:i igual cadena:n puntoComa {: //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("alineado"));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS(n)); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("colortext",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS(n,nright,nleft)); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 :};
 

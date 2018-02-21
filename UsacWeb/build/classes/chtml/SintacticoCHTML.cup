@@ -30,111 +30,629 @@ action code
 terminal String chtml,finchtml,encabezado,finencabezado,cjs,fincjs,ruta,ccss,finccss,fondo,cuerpo,fincuerpo,titulo,fintitulo,
 panel,finpanel,cajatexto,fincajatexto,texto,fintexto,click,imagen,finimagen,boton,finboton,enlace,finenlace,tabla,fintabla,
 filt,finfilt,cb,fincb,ct,finct,textoa,fintextoa,caja,fincaja,opcion,finopcion,valor,spinner,finspinner,saltofin,grupo,alto,
-ancho,alineado,idd,id,entero,decimal,puntoComa,parentesisA,parentesisC,cadenacon,cadena,cadenasin,igual,css,
-prueba,cadenasalto;
+ancho,alineado,idd,id,entero,decimal,puntoComa,parentesisA,parentesisC,cadenacon,cadena,cadenasin,igual,css,cadenasalto,
+mayor,menor,cadenaSaltos,cadenaNormal;
 
-non terminal Caracter INICIO,RAIZ,ENCABEZADO,CUERPO,INFORMACION,I,ATRIBUTOS,HTML,ETIQUETAS,ETIQUETA,
+non terminal Caracter INICIO,RAIZ,ENCABEZADO,CUERPO,INFORMACION,INFO,CONTENIDO,HTML,ETIQUETAS,ETIQUETA,LISTAFILA,
 PANEL,TEXTO,IMAGEN,BOTON,ENLACE,TABLA,CAJATEXTO,CAJA,ELEMENTOS,ELEMENTO,TEXTOA,OPCION,SPINNER,FILA,CELDAS,CELDA,OPCIONES,R;
 
 //precedence left mas, menos;
 
 start with INICIO;
 
-INICIO::=RAIZ{::};
+INICIO::=RAIZ:r{:
+     chtml.NODO = r.nodo;
+:};
 
-RAIZ::=  chtml HTML finchtml;
 
-HTML ::= ENCABEZADO CUERPO;
+RAIZ::=  chtml:i HTML:n finchtml{:
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("RAIZ");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo); E.insertar(new NodoCHTML("finhtml"));
+    RESULT.nodo = E;
+:};
 
-ENCABEZADO::= encabezado INFORMACION finencabezado
-|encabezado finencabezado;
 
-INFORMACION::=INFORMACION I
-|I;
+HTML ::= ENCABEZADO:e CUERPO:c{:
+    NodoCHTML E = new NodoCHTML("HTML");
+    RESULT = new Caracter();
+    E.insertar(e.nodo); E.insertar(c.nodo);
+    RESULT.nodo = E;
+:};
 
-I::=  cjs ruta igual cadena puntoComa  fincjs 
-| ccss  ruta igual cadena puntoComa  finccss 
-| titulo cadenacon fintitulo ;
 
-CUERPO::= cuerpo fondo igual cadena puntoComa  ETIQUETAS  fincuerpo 
-| cuerpo fondo igual cadena puntoComa   fincuerpo 
-| cuerpo  ETIQUETAS  fincuerpo 
-| cuerpo   fincuerpo ;
+ENCABEZADO::= encabezado:i INFORMACION:n finencabezado{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ENCABEZADO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo); E.insertar(new NodoCHTML("finencabezado"));
+    RESULT.nodo = E;
+:}
+|encabezado:i finencabezado{://2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ENCABEZADO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("finencabezado"));
+    RESULT.nodo = E;
+:};
 
-ETIQUETAS::=ETIQUETAS ETIQUETA
-|ETIQUETA; 
 
-ETIQUETA::=PANEL
-|TEXTO
-|IMAGEN
-|BOTON
-|ENLACE
-|TABLA
-|TEXTOA
-|CAJATEXTO
-|CAJA
-|OPCION
-|SPINNER
-|saltofin;
+INFORMACION::=INFORMACION:e INFO:c{:
+    NodoCHTML E = new NodoCHTML("INFORMACION");
+    RESULT = new Caracter();
+    E.insertar(e.nodo); E.insertar(c.nodo);
+    RESULT.nodo = E;
+:}
+|INFO:c{:
+    NodoCHTML E = new NodoCHTML("INFORMACION");
+    RESULT = new Caracter();
+    E.insertar(c.nodo);
+    RESULT.nodo = E;
+:};
 
-PANEL::=panel ETIQUETAS finpanel
-|panel finpanel;
 
-TEXTO::=texto cadenacon fintexto
-|texto fintexto;
+INFO::= cjs:i ruta igual cadena:n puntoComa mayor fincjs {://4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("INFO");
+    E.insertar(new NodoCHTML(i)); E.insertar(new NodoCHTML("ruta=")); E.insertar(new NodoCHTML(n)); E.insertar(new NodoCHTML(";>fincjs"));
+    RESULT.nodo = E;
+:}
+| ccss:i ruta igual cadena:n puntoComa  mayor finccss {://4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("INFO");
+    E.insertar(new NodoCHTML(i)); E.insertar(new NodoCHTML("ruta=")); E.insertar(new NodoCHTML(n)); E.insertar(new NodoCHTML(";>finccss"));
+    RESULT.nodo = E;
+:}
+| titulo:i cadenacon:n fintitulo {://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("INFO");
+    E.insertar(new NodoCHTML(i));  E.insertar(new NodoCHTML(n)); E.insertar(new NodoCHTML("fintitulo"));
+    RESULT.nodo = E;
+:};
 
-IMAGEN::= imagen ELEMENTOS  cadenasin finimagen
-|imagen  cadenasin finimagen
-|imagen  finimagen;
 
-ELEMENTOS::= ELEMENTOS ELEMENTO
-|ELEMENTO;
+CUERPO::= cuerpo:i ELEMENTOS:n mayor ETIQUETAS:e fincuerpo {: //5
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CUERPO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(">")); E.insertar(e.nodo);E.insertar(new NodoCHTML("<fincuerpo>"));
+    RESULT.nodo = E;
+:}
+| cuerpo:i ELEMENTOS:n mayor fincuerpo {: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CUERPO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo); 
+    E.insertar(new NodoCHTML(">")); E.insertar(new NodoCHTML("<fincuerpo>"));
+    RESULT.nodo = E;
+:}
+| cuerpo:i mayor ETIQUETAS:e  fincuerpo{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CUERPO");
+    E.insertar(new NodoCHTML(i,iright,ileft));  E.insertar(new NodoCHTML(">")); E.insertar(e.nodo);E.insertar(new NodoCHTML("<fincuerpo>"));
+    RESULT.nodo = E;
+:} 
+| cuerpo:i mayor fincuerpo{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CUERPO");
+    E.insertar(new NodoCHTML(i,iright,ileft));E.insertar(new NodoCHTML("><fincuerpo>"));
+    RESULT.nodo = E;
+:};
 
-ELEMENTO::= ruta igual cadena puntoComa
-|click igual id parentesisA parentesisC puntoComa
-|idd igual id puntoComa
-|grupo igual id
-|alto igual entero
-|ancho igual entero
-|alineado igual id
-|css igual id
-|valor igual cadena;
 
-BOTON::= boton ELEMENTOS  cadenasin finboton
-|boton  cadenasin finboton
-|boton  finboton;
+ETIQUETAS::=ETIQUETAS:t ETIQUETA:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETAS");
+    RESULT = new Caracter();
+    E.insertar(t.nodo); E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|ETIQUETA:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETAS");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}; 
 
-ENLACE::= enlace ELEMENTOS  cadenasin finenlace
-|enlace  cadenasin finenlace
-|enlace  finenlace;
 
-TABLA::= tabla FILA fintabla
-tabla fintabla;
+ETIQUETA::=PANEL:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETA");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|TEXTO:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETA");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|IMAGEN:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETA");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|BOTON:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETA");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|ENLACE:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETA");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|TABLA:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETA");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|TEXTOA:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETA");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|CAJATEXTO:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETA");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|CAJA:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETA");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|OPCION:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETA");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|SPINNER:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETA");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|saltofin:e{:
+    NodoCHTML E = new NodoCHTML("ETIQUETA");
+    RESULT = new Caracter();
+    E.insertar(new NodoCHTML("saltofin"));
+    RESULT.nodo = E;
+:};
 
-FILA::= filt CELDAS finfilt
-|filt finfilt;
 
-CELDAS::= CELDAS CELDA
-|CELDA;
+PANEL::= panel:i ELEMENTOS:n mayor ETIQUETAS:e finpanel{: //5
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("PANEL");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(">")); E.insertar(e.nodo);E.insertar(new NodoCHTML("<finpanel>"));
+    RESULT.nodo = E;
+:}
+| panel:i ELEMENTOS:n mayor finpanel{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("PANEL");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(">"));E.insertar(new NodoCHTML("<finpanel>"));
+    RESULT.nodo = E;
+:}
+| panel:i mayor ETIQUETAS:e finpanel{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("PANEL");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML(">")); E.insertar(e.nodo);E.insertar(new NodoCHTML("<finpanel>"));
+    RESULT.nodo = E;
+:} 
+| panel:i mayor finpanel{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("PANEL");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finpanel>"));
+    RESULT.nodo = E;
+:};
 
-CELDA::= cb texto fincb
-|ct texto finct
-|cb fincb
-|ct finct;
 
-TEXTOA::= textoa cadenacon fintextoa;
+TEXTO::=texto:i cadenasin:n fintexto{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("TEXTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML(n)); E.insertar(new NodoCHTML("finpanel>"));
+    RESULT.nodo = E;
+:}
+|texto:i mayor menor fintexto{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("TEXTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML(">")); E.insertar(new NodoCHTML("<")); E.insertar(new NodoCHTML("finpanel>"));
+    RESULT.nodo = E;
+:};
 
-CAJATEXTO::=cajatexto cadenasin fincajatexto
-|cajatexto fincajatexto;
 
-CAJA::=caja OPCIONES fincaja
-|caja fincaja;
+IMAGEN::= imagen:i ELEMENTOS:n cadenasin:s finimagen{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("IMAGEN");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(s)); E.insertar(new NodoCHTML("finimagen>"));
+    RESULT.nodo = E;
+:}
+|imagen:i ELEMENTOS:n mayor menor finimagen{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("IMAGEN");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo); E.insertar(new NodoCHTML("><finimagen>"));
+    RESULT.nodo = E;
+:}
+|imagen:i cadenasin:s finimagen{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("IMAGEN");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML(s)); E.insertar(new NodoCHTML("finimagen>"));
+    RESULT.nodo = E;
+:}
+|imagen:i mayor menor finimagen{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("IMAGEN");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finimagen>"));
+    RESULT.nodo = E;
+:};
 
-OPCIONES::= OPCIONES OPCION
-|OPCION;
 
-OPCION::= opcion  cadenasin finopcion
-|opcion  finopcion;
+ELEMENTOS::= ELEMENTOS:t ELEMENTO:e{:
+    NodoCHTML E = new NodoCHTML("ELEMENTOS");
+    RESULT = new Caracter();
+    E.insertar(t.nodo); E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|ELEMENTO:e{:
+    NodoCHTML E = new NodoCHTML("ELEMENTOS");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:};
 
-SPINNER::= spinner entero finspinner
-|spinner finspinner;
+
+ELEMENTO::= ruta:i igual cadena:n puntoComa{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ELEMENTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("=")); E.insertar(new NodoCHTML(n,nright,nleft)); E.insertar(new NodoCHTML(";"));
+    RESULT.nodo = E;
+:}
+|click:i igual cadena:n puntoComa{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ELEMENTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("=")); E.insertar(new NodoCHTML(n,nright,nleft)); E.insertar(new NodoCHTML(";"));
+    RESULT.nodo = E;
+:}
+|idd:i igual cadena:n puntoComa{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ELEMENTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("=")); E.insertar(new NodoCHTML(n,nright,nleft)); E.insertar(new NodoCHTML(";"));
+    RESULT.nodo = E;
+:}
+|grupo:i igual cadena:n puntoComa{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ELEMENTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("=")); E.insertar(new NodoCHTML(n,nright,nleft)); E.insertar(new NodoCHTML(";"));
+    RESULT.nodo = E;
+:}
+|alto:i igual cadena:n puntoComa{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ELEMENTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("=")); E.insertar(new NodoCHTML(n,nright,nleft)); E.insertar(new NodoCHTML(";"));
+    RESULT.nodo = E;
+:}
+|ancho:i igual cadena:n puntoComa{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ELEMENTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("=")); E.insertar(new NodoCHTML(n,nright,nleft)); E.insertar(new NodoCHTML(";"));
+    RESULT.nodo = E;
+:}
+|alineado:i igual cadena:n puntoComa{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ELEMENTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("=")); E.insertar(new NodoCHTML(n,nright,nleft)); E.insertar(new NodoCHTML(";"));
+    RESULT.nodo = E;
+:}
+|valor:i igual cadena:n puntoComa{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ELEMENTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("=")); E.insertar(new NodoCHTML(n,nright,nleft)); E.insertar(new NodoCHTML(";"));
+    RESULT.nodo = E;
+:}
+|fondo:i igual cadena:n puntoComa{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ELEMENTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("=")); E.insertar(new NodoCHTML(n,nright,nleft)); E.insertar(new NodoCHTML(";"));
+    RESULT.nodo = E;
+:};
+
+
+BOTON::= boton:i ELEMENTOS:n cadenasin:s finboton{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("BOTON");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(s)); E.insertar(new NodoCHTML("finboton>"));
+    RESULT.nodo = E;
+:}
+|boton:i ELEMENTOS:n mayor menor finboton{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("BOTON");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo); E.insertar(new NodoCHTML("><finboton>"));
+    RESULT.nodo = E;
+:}
+|boton:i cadenasin:s finboton{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("BOTON");
+    E.insertar(new NodoCHTML(i,iright,ileft));  E.insertar(new NodoCHTML(s)); E.insertar(new NodoCHTML("finboton>"));
+    RESULT.nodo = E;
+:}
+|boton:i mayor menor finboton{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("BOTON");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finboton>"));
+    RESULT.nodo = E;
+:};
+
+
+ENLACE::= enlace:i ELEMENTOS:n cadenacon:s finenlace{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ENLACE");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(s)); E.insertar(new NodoCHTML("finenlace>"));
+    RESULT.nodo = E;
+:}
+|enlace:i ELEMENTOS:n mayor menor finenlace{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ENLACE");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML("><finenlace>"));
+    RESULT.nodo = E;
+:}
+|enlace:i cadenacon:s finenlace{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ENLACE");
+    E.insertar(new NodoCHTML(i,iright,ileft));  E.insertar(new NodoCHTML(s)); E.insertar(new NodoCHTML("finenlace>"));
+    RESULT.nodo = E;
+:}
+|enlace:i mayor menor finenlace{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ENLACE");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finenlace>"));
+    RESULT.nodo = E;
+:};
+
+
+TABLA::= tabla:i ELEMENTOS:n mayor LISTAFILA:e fintabla{: //5
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("TABLA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(">")); E.insertar(e.nodo);E.insertar(new NodoCHTML("<fintabla>"));
+    RESULT.nodo = E;
+:}
+|tabla:i ELEMENTOS:n mayor fintabla{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("TABLA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo); E.insertar(new NodoCHTML(">")); E.insertar(new NodoCHTML("<fintabla>"));
+    RESULT.nodo = E;
+:}
+|tabla:i mayor LISTAFILA:e fintabla{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("TABLA");
+    E.insertar(new NodoCHTML(i,iright,ileft));  E.insertar(new NodoCHTML(">")); E.insertar(e.nodo);E.insertar(new NodoCHTML("<fintabla>"));
+    RESULT.nodo = E;
+:}
+|tabla:i mayor fintabla{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("TABLA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><fintabla>"));
+    RESULT.nodo = E;
+:};
+
+
+LISTAFILA::=LISTAFILA:n FILA:e{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("LISTAFILA");
+    E.insertar(n.nodo); E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|FILA:e{: 
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("LISTAFILA");
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:};
+
+
+FILA::= filt:i CELDAS:e finfilt{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("FILA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(e.nodo); E.insertar(new NodoCHTML("<finfilt>"));
+    RESULT.nodo = E;
+:}
+|filt:i finfilt{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("FILA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("<finfilt>"));
+    RESULT.nodo = E;
+:};
+
+
+CELDAS::= CELDAS:n CELDA:e{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CELDAS");
+    E.insertar(n.nodo); E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|CELDA:e{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CELDAS");
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:};
+
+
+CELDA::= cb:i cadenasin:s fincb{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CELDA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML(s,sright,sleft)); E.insertar(new NodoCHTML("fincb>"));
+    RESULT.nodo = E;
+:}
+|cb:i mayor menor fincb{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CELDA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><")); E.insertar(new NodoCHTML("fincb>"));
+    RESULT.nodo = E;
+:}
+|ct:i CONTENIDO:n finct{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CELDA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo); E.insertar(new NodoCHTML("finct>"));
+    RESULT.nodo = E;
+:}
+|ct:i mayor menor finct{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CELDA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><")); E.insertar(new NodoCHTML("fincb>"));
+    RESULT.nodo = E;
+:};
+
+
+CONTENIDO::= cadenasin:s{: //1
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CONTENIDO");
+    E.insertar(new NodoCHTML(s));
+    RESULT.nodo = E;
+:}
+|mayor IMAGEN:n menor{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CONTENIDO");
+    E.insertar(new NodoCHTML(">")); E.insertar(n.nodo); E.insertar(new NodoCHTML("<"));
+    RESULT.nodo = E;
+:}
+|mayor BOTON:n menor{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CONTENIDO");
+    E.insertar(new NodoCHTML(">")); E.insertar(n.nodo); E.insertar(new NodoCHTML("<"));
+    RESULT.nodo = E;
+:};
+
+
+TEXTOA::= textoa:i cadenasin:s fintextoa{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("TEXTOA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML(s,sright,sleft)); E.insertar(new NodoCHTML("fintextoa>"));
+    RESULT.nodo = E;
+:}
+|textoa:i mayor menor fintextoa{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("TEXTOA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><fintextoa>"));
+    RESULT.nodo = E;
+:};
+
+
+CAJATEXTO::=cajatexto:i ELEMENTOS:n cadenasin:e fincajatexto{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CAJATEXTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(e)); E.insertar(new NodoCHTML("fincajatexto>"));
+    RESULT.nodo = E;
+:}
+|cajatexto:i ELEMENTOS:n mayor menor fincajatexto{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CAJATEXTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML("><fincajatexto>"));
+    RESULT.nodo = E;
+:}
+|cajatexto:i cadenasin:e fincajatexto{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CAJATEXTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML(e)); E.insertar(new NodoCHTML("fincajatexto>"));
+    RESULT.nodo = E;
+:}
+|cajatexto:i mayor menor fincajatexto{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CAJATEXTO");
+    E.insertar(new NodoCHTML(i,iright,ileft));E.insertar(new NodoCHTML("><fincajatexto>"));
+    RESULT.nodo = E;
+:};
+
+
+CAJA::=caja:i ELEMENTOS:n mayor OPCIONES:e fincaja{: //5
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CAJA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo); E.insertar(new NodoCHTML(">")); E.insertar(e.nodo);E.insertar(new NodoCHTML("<fincaja>"));
+    RESULT.nodo = E;
+:}
+|caja:i ELEMENTOS:n mayor fincaja{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CAJA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo); E.insertar(new NodoCHTML(">"));E.insertar(new NodoCHTML("<fincaja>"));
+    RESULT.nodo = E;
+:}
+|caja:i mayor OPCIONES:e fincaja{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CAJA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML(">")); E.insertar(e.nodo);E.insertar(new NodoCHTML("<fincaja>"));
+    RESULT.nodo = E;
+:}
+|caja:i mayor fincaja{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CAJA");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><fincaja>"));
+    RESULT.nodo = E;
+:};
+
+
+OPCIONES::= OPCIONES:n OPCION:e{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("OPCIONES");
+    E.insertar(n.nodo); E.insertar(e.nodo);
+    RESULT.nodo = E;
+:}
+|OPCION:e{: //1
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("OPCIONES");
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
+:};
+
+
+OPCION::=opcion:i ELEMENTOS:n cadenasin:e finopcion{: //5
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("OPCION");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo); E.insertar(new NodoCHTML(e)); E.insertar(new NodoCHTML("finopcion>"));
+    RESULT.nodo = E;
+:}
+|opcion:i ELEMENTOS:n mayor menor finopcion{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("OPCION");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo); E.insertar(new NodoCHTML("><finopcion>"));
+    RESULT.nodo = E;
+:}
+|opcion:i cadenasin:e finopcion{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("OPCION");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML(e)); E.insertar(new NodoCHTML("finopcion>"));
+    RESULT.nodo = E;
+:}
+|opcion:i mayor menor finopcion{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("OPCION");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finopcion>"));
+    RESULT.nodo = E;
+:};
+
+
+SPINNER::= spinner:i ELEMENTOS:n cadenasin:e finspinner{: //5
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("SPINNER");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(">")); E.insertar(new NodoCHTML(e));E.insertar(new NodoCHTML("<finspinner>"));
+    RESULT.nodo = E;
+:}
+|spinner:i ELEMENTOS:n mayor finspinner{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("SPINNER");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(">"));E.insertar(new NodoCHTML("<finspinner>"));
+    RESULT.nodo = E;
+:}
+|spinner:i cadenasin:e finspinner{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("SPINNER");
+    E.insertar(new NodoCHTML(i,iright,ileft));  E.insertar(new NodoCHTML(">")); E.insertar(new NodoCHTML(e));E.insertar(new NodoCHTML("<finspinner>"));
+    RESULT.nodo = E;
+:}
+|spinner:i mayor finspinner{: //2
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("SPINNER");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finspinner>"));
+    RESULT.nodo = E;
+:};

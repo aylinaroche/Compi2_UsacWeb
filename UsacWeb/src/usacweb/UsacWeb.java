@@ -15,7 +15,10 @@ public class UsacWeb {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       
+        Interfaz i = new Interfaz();
+        i.setSize(800, 800);
+        i.show(true);
+        
     }
     
 }

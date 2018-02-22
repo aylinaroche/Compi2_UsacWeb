@@ -5,8 +5,7 @@ import ccss.NodoCCSS;
 
 public class Recorrido {
 
-    public static String valorSwitch = "";
-    public static Boolean retornar = false, salir = false;
+    public static String selector = "";
 
     public Object Recorrido(NodoCCSS raiz) {
         Object result = null;
@@ -14,16 +13,64 @@ public class Recorrido {
         if (raiz != null) {
             switch (raiz.texto) {
                 case "INICIO":
-                    result = Recorrido(raiz.hijos[0]).toString();
+                    result = Recorrido(raiz.hijos[0]);
                     break;
-                case "ESTILOS":
+                case "INSTRUCCION":
                     switch (raiz.cantidadHijos) {
                         case 1:
                             result = Recorrido(raiz.hijos[0]);
                             break;
                         case 2:
-                            result = Recorrido(raiz.hijos[0]);
+                            Recorrido(raiz.hijos[0]);
                             result = Recorrido(raiz.hijos[1]);
+                            break;
+                    }
+                    break;
+                case "BLOQUE":
+                    switch (raiz.cantidadHijos) {
+                        case 4:
+                            selector = raiz.hijos[0].texto;
+                            result = Recorrido(raiz.hijos[2]);
+                            break;
+                    }
+                    break;
+                case "OPCION":
+                    switch (raiz.cantidadHijos) {
+                        case 1:
+                            result = Recorrido(raiz.hijos[0]);
+                            break;
+                        case 2:
+                            Recorrido(raiz.hijos[0]);
+                            result = Recorrido(raiz.hijos[1]);
+                            break;
+                    }
+                    break;
+                case "TIPO":
+                    String tipo = raiz.hijos[0].texto;
+                    String nombre = raiz.hijos[2].texto;
+                    switch (raiz.cantidadHijos) {
+                        case 4:
+                            ArrayList atr1 = new ArrayList();
+                            BloqueCCSS.crearBloque(selector, tipo, nombre, atr1, raiz.hijos[2].fila, raiz.hijos[2].col);
+                            break;
+                        case 5:
+                            ArrayList atr2 = (ArrayList) Recorrido(raiz.hijos[0]);
+                            BloqueCCSS.crearBloque(selector, tipo, nombre, atr2, raiz.hijos[2].fila, raiz.hijos[2].col);
+                            break;
+                    }
+                    break;
+                case "ESTILOS":
+                    switch (raiz.cantidadHijos) {
+                        case 1:
+                            ArrayList l1 = new ArrayList();
+                            result = Recorrido(raiz.hijos[0]);
+                            l1.add(result);
+                            result = l1;
+                            break;
+                        case 2:
+                            ArrayList l2 = (ArrayList) Recorrido(raiz.hijos[0]);
+                            l2.add(Recorrido(raiz.hijos[1]));
+                            result = l2;
                             break;
                     }
                     break;
@@ -32,82 +79,85 @@ public class Recorrido {
                         case 4:
                             switch (raiz.hijos[0].texto) {
                                 case "alineado":
-                                    result = Recorrido(raiz.hijos[2]);
-                                    break;
-                                case "texto":
-                                    break;
                                 case "formato":
-                                    result = Recorrido(raiz.hijos[0]);
+                                    result = Recorrido(raiz.hijos[2]);
+                                    Estilo e1 = new Estilo(raiz.hijos[0].texto, result);
+                                    result = e1;
                                     break;
-                                case "letra":
-                                    break;
-                                case "tamtex":
-                                    break;
-                                case "fondo":
-                                    break;
-                                case "visible":
-                                    break;
-                                case "opaque":
-                                    break;
-                                case "colortext":
+                                default:
+                                    Estilo e4 = new Estilo(raiz.hijos[0].texto, raiz.hijos[1]);
+                                    result = e4;
                                     break;
                             }
                             result = Recorrido(raiz.hijos[0]);
                             break;
                         case 8:
+                            switch (raiz.hijos[0].texto) {
+                                case "auto":
+                                    ArrayList auto = new ArrayList();
+                                    auto.add(Recorrido(raiz.hijos[3])); //valor
+                                    auto.add(Recorrido(raiz.hijos[5]));//area
+                                    Estilo e2 = new Estilo(raiz.hijos[0].texto, auto);
+                                    result = e2;
+                                    break;
+                                case "borde":
+                                    ArrayList borde = new ArrayList();
+                                    borde.add(raiz.hijos[3].texto); //tamanio
+                                    borde.add(raiz.hijos[5].texto); //color
+                                    borde.add(Recorrido(raiz.hijos[5])); //curva
+                                    Estilo e3 = new Estilo(raiz.hijos[0].texto, borde);
+                                    result = e3;
+                                    break;
+                            }
                             break;
-
                     }
                     break;
-//                case "VARIABLE":
-//                    ArrayList variables;
-//                    switch (raiz.cantidadHijos) {
-//                        case 2:
-//                            variables = (ArrayList) Recorrido(raiz.hijos[1]);
-//                            for (int i = 0; i < variables.size(); i++) {
-//                                VariableCJS.crearVariable(variables.get(i).toString(), null, raiz.hijos[0].fila, raiz.hijos[0].col);
-//                            }
-//                            break;
-//                        case 3:
-//                            variables = (ArrayList) Recorrido(raiz.hijos[1]);
-//                            Object valor = Recorrido(raiz.hijos[2]);
-//                            for (int i = 0; i < variables.size(); i++) {
-//                                VariableCJS.crearVariable(variables.get(i).toString(), valor, raiz.hijos[0].fila, raiz.hijos[0].col);
-//                            }
-//                            break;
-//                    }
-//                    break;
-//
-                case "ARREGLO":
+                case "ALINEADO":
                     switch (raiz.cantidadHijos) {
-                        case 3:
-                            ArrayList coord = new ArrayList();
-                            coord.add(Recorrido(raiz.hijos[1]));
-                            result = coord;
+                        case 1:
+                            result = raiz.hijos[0].texto;
                             break;
-                        case 4:
-                            ArrayList coord2 = (ArrayList) Recorrido(raiz.hijos[0]);
-                            coord2.add(Recorrido(raiz.hijos[2]));
-                            result = coord2;
+                    }
+                    break;
+                case "FORMATOS":
+                    switch (raiz.cantidadHijos) {
+                        case 1:
+                            ArrayList l1 = new ArrayList();
+                            result = Recorrido(raiz.hijos[0]);
+                            l1.add(result);
+                            result = l1;
+                            break;
+                        case 3:
+                            ArrayList l2 = (ArrayList) Recorrido(raiz.hijos[0]);
+                            l2.add(Recorrido(raiz.hijos[2]));
+                            result = l2;
+                            break;
+                    }
+                    break;
+                case "FORMATO":
+                    switch (raiz.cantidadHijos) {
+                        case 1:
+                            result = raiz.hijos[0].texto;
+                            break;
+                    }
+                    break;
+                case "VALOR":
+                    switch (raiz.cantidadHijos) {
+                        case 1:
+                            result = raiz.hijos[0].texto;
+                            break;
+                    }
+                    break;
+                case "AREA":
+                    switch (raiz.cantidadHijos) {
+                        case 1:
+                            result = raiz.hijos[0].texto;
                             break;
                     }
                     break;
 
-                case "IMPRIMIR":
-                    result = Recorrido(raiz.hijos[2]);
-                    String imp = result.toString();
-                    if (imp != null) {
-                        //        paradigmas.Atributos.imprimirGraphik.add(imp);
-                        System.out.println(imp);
-                    }
-                    break;
-                case "OP":
-                    result = Recorrido(raiz.hijos[0]);
-                    break;
-                case "E":
-                    //result = Operacion.resolverOperacion(raiz);
-                    break;
             }
+
         }
         return result;
     }

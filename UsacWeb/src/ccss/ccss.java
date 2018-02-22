@@ -1,5 +1,7 @@
 package ccss;
 
+import ccss.Ejecutar.BloqueCCSS;
+import ccss.Ejecutar.Recorrido;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
@@ -8,6 +10,8 @@ import java.util.logging.Logger;
 import java_cup.runtime.Symbol;
 
 public class ccss {
+
+    public static NodoCCSS NODO;
 
     public static void main(String[] args) throws Exception {
         String path_Lexico = System.getProperty("user.dir").replace("\\", "/") + "/src/ccss/LexicoCCSS.jflex";
@@ -33,7 +37,7 @@ public class ccss {
         archivo1();
     }
 
-    public static void Analizar(String texto) throws Exception {
+    public static void analizar(String texto) throws Exception {
         StringReader miReader = new StringReader(texto);
         LexicoCCSS miAnalizador = new LexicoCCSS(miReader);
         // VariableG.pilaAmbito.push(paradigmas.Atributos.nombreArchivo);
@@ -53,11 +57,18 @@ public class ccss {
             System.out.println("ERRROOOOR::: " + e);
         }
 
+        iniciar();
+    }
+
+    public static void iniciar() {
+        Recorrido r = new Recorrido();
+        r.Recorrido(NODO);
+        BloqueCCSS.imprimirBloque();
     }
 
     public static void archivo1() {
         try {
-            Analizar(""
+            analizar(""
                     + "Titular_ccss [ \n"
                     + "\n"
                     + "//Inicio Grupo_areas_1 \n"
@@ -75,7 +86,7 @@ public class ccss {
                     + "Tamtex := 13; \n"
                     + "//Fin Grupo_areas_2\n"
                     + "\n"
-                    + "//Inicio identificador_1 "
+                   + "//Inicioidentificador_1 \n"
                     + "ID (identificador_1); \n"
                     + "Formato := mayuscula, NEGRILLA, capital-t; \n"
                     + "Letra := \"Arial\";"

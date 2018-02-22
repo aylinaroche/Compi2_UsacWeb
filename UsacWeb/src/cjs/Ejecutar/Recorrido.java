@@ -219,7 +219,7 @@ public class Recorrido {
                     nivelAmbito -= 1;
 
                     break;
-                    case "CICLO":
+                case "CICLO":
                     pilaAmbito.push("Mientras");
                     nivelAmbito += 1;
                     switch (raiz.cantidadHijos) {
@@ -303,71 +303,6 @@ public class Recorrido {
                 case "DEFECTO":
                     Recorrido(raiz.hijos[2]);
                     break;
-                case "PARAP": {
-                    pilaAmbito.push("For");
-                    nivelAmbito += 1;
-                    Boolean f;
-                    switch (raiz.cantidadHijos) {
-                        case 10:
-                            Recorrido(raiz.hijos[2]);
-                            condicion = Recorrido(raiz.hijos[3]).toString();
-                            f = "true".equals(condicion);
-                            int limite = 0;
-                            while (f) {
-                                salir = false;
-                                Recorrido(raiz.hijos[8]);//accion
-                                Recorrido(raiz.hijos[6]); //i++
-                                condicion = Recorrido(raiz.hijos[4]).toString();
-                                f = "true".equals(condicion);
-                                limite += 1;
-                                if (limite == 10000) {
-                                    System.out.println("Limite!");
-                                    break;
-                                }
-                                if (salir == true) {
-                                    f = false;
-                                }
-                                VariableCJS.eliminarVariables();
-
-                            }
-                            salir = false;
-
-                            VariableCJS.eliminarVariables();
-                            pilaAmbito.pop();
-                            nivelAmbito -= 1;
-
-                            break;
-                        case 12:
-                            //VariableCJS.asignarValor(raiz.hijos[2].texto, Recorrido(raiz.hijos[3]));
-                            condicion = Recorrido(raiz.hijos[5]).toString();
-                            f = "true".equals(condicion);
-                            limite = 0;
-                            while (f) {
-                                salir = false;
-
-                                Recorrido(raiz.hijos[10]);//accion
-                                Recorrido(raiz.hijos[7]); //i++
-                                condicion = Recorrido(raiz.hijos[5]).toString();
-                                f = "true".equals(condicion);
-                                limite += 1;
-                                if (limite == 10000) {
-                                    System.out.println("Limite!");
-                                    break;
-                                }
-                                if (salir == true) {
-                                    f = false;
-                                }
-                                VariableCJS.eliminarVariables();
-                            }
-                            salir = false;
-                            pilaAmbito.pop();
-                            VariableCJS.eliminarVariables();
-                            nivelAmbito -= 1;
-                            break;
-
-                    }
-                    break;
-                }
                 case "PARA":
                     pilaAmbito.push("For");
                     Boolean f;
@@ -481,27 +416,31 @@ public class Recorrido {
                             break;
                     }
                     break;
-                case "ARREGLO":
-                    switch (raiz.cantidadHijos) {
-                        case 3:
-                            ArrayList coord = new ArrayList();
-                            coord.add(Recorrido(raiz.hijos[1]));
-                            result = coord;
-                            break;
-                        case 4:
-                            ArrayList coord2 = (ArrayList) Recorrido(raiz.hijos[0]);
-                            coord2.add(Recorrido(raiz.hijos[2]));
-                            result = coord2;
-                            break;
+                case "MENSAJE":
+                    String msj = Recorrido(raiz.hijos[2]).toString();
+                    if (msj != null) {
+                        System.out.println(msj);
+                        // usacweb.UsacWeb.listaImprimir.add(msj);
                     }
                     break;
 
                 case "IMPRIMIR":
-                    result = Recorrido(raiz.hijos[2]);
-                    String imp = result.toString();
+                    String imp = Recorrido(raiz.hijos[2]).toString();
                     if (imp != null) {
-                        //        paradigmas.Atributos.imprimirGraphik.add(imp);
                         System.out.println(imp);
+                        usacweb.UsacWeb.listaImprimir.add(imp);
+                    }
+                    break;
+                case "DOCUMENTO": 
+                    switch (raiz.cantidadHijos) {
+                        case 2: //Obtener
+                            break;
+                        case 5: //observador
+                            EventoCJS.crearEvento("documento", raiz.hijos[1].texto.replace("\"", ""), raiz.hijos[3]);
+                            break;
+                        case 6://id
+                            EventoCJS.crearEvento(raiz.hijos[0].texto, raiz.hijos[1].texto.replace("\"", ""), raiz.hijos[3]);
+                            break;
                     }
                     break;
                 case "OP":

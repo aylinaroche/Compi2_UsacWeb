@@ -37,35 +37,28 @@ public class Recoleccion {
                     String id = raiz.hijos[1].texto;
                     switch (raiz.cantidadHijos) {
                         case 7:
-                            FuncionCJS.agregarFuncion(id, raiz.hijos[5], FuncionCJS.parametros, raiz.hijos[1].fila, raiz.hijos[1].col);
+                            FuncionCJS.agregarFuncion(id, raiz.hijos[5], new ArrayList(), raiz.hijos[1].fila, raiz.hijos[1].col);
                             break;
                         case 8:
-                            Recorrido(raiz.hijos[3]);
-                            FuncionCJS.agregarFuncion(id, raiz.hijos[6], FuncionCJS.parametros, raiz.hijos[1].fila, raiz.hijos[1].col);
+                            ArrayList param = (ArrayList) Recorrido(raiz.hijos[3]);
+                            FuncionCJS.agregarFuncion(id, raiz.hijos[6], param, raiz.hijos[1].fila, raiz.hijos[1].col);
                             break;
                     }
-                    FuncionCJS.parametros.clear();
                     break;
                 case "PARAMETROS":
-                    Recorrido c = new Recorrido();
                     switch (raiz.cantidadHijos) {
                         case 1:
-                            FuncionCJS.agregarParametro(raiz.hijos[0].texto);
+                            ArrayList l1 = new ArrayList();
+                            l1.add(raiz.hijos[0].texto);
+                            result = l1;
                             break;
                         case 2:
-                            Recorrido(raiz.hijos[0]);
-                            FuncionCJS.agregarParametro(raiz.hijos[1].texto);
+                            ArrayList l2 = (ArrayList) Recorrido(raiz.hijos[0]);
+                            l2.add(raiz.hijos[1].texto);
+                            result = l2;
                             break;
                     }
                     break;
-//                case "VARIABLE":
-//                case "VECTOR":
-//                case "ASIGNACION":
-//                case "IMPRIMIR":
-//                case "MENSAJE":
-//                    Recorrido r = new Recorrido();
-//                    r.Recorrido(raiz);
-//                    break;
             }
         }
         return result;

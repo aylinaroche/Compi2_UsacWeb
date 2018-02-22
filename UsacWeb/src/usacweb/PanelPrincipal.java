@@ -1,10 +1,10 @@
 package usacweb;
 
+import chtml.chtml;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.Box;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -30,7 +30,6 @@ public class PanelPrincipal extends javax.swing.JPanel {
         botonAtras.setMaximumSize(botonAtras.getPreferredSize());
         botonAtras.setBackground(new java.awt.Color(255, 255, 255));
         botonAtras.setBorder(null);
-        boxH1.add(botonAtras);
 
         botonAdelante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/derecha.jpg"))); // NOI18N
         botonAdelante.setText("");
@@ -38,19 +37,22 @@ public class PanelPrincipal extends javax.swing.JPanel {
         botonAdelante.setMaximumSize(botonAdelante.getPreferredSize());
         botonAdelante.setBackground(new java.awt.Color(255, 255, 255));
         botonAdelante.setBorder(null);
-        boxH1.add(botonAdelante);
 
-        botonEjecutar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/izquierda.jpg"))); // NOI18N
+        botonEjecutar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ejecutar.jpg"))); // NOI18N
         botonEjecutar.setText("");
-        botonEjecutar.setPreferredSize(new Dimension(35,35));
+        botonEjecutar.setPreferredSize(new Dimension(35, 35));
         botonEjecutar.setMaximumSize(botonEjecutar.getPreferredSize());
         botonEjecutar.setBackground(new java.awt.Color(255, 255, 255));
         botonEjecutar.setBorder(null);
-        boxH1.add(botonEjecutar);
 
-        ruta.setText("rutaaaaaaaaaaaaaaaaa");
+        ruta.setText("C:\\Users\\Aroche\\Documents\\Archivos\\Paso1.chtml");
         ruta.setPreferredSize(new Dimension(1300, 30));
         ruta.setMaximumSize(ruta.getPreferredSize());
+
+        crearAcciones();
+        boxH1.add(botonAtras);
+        boxH1.add(botonAdelante);
+        boxH1.add(botonEjecutar);
         boxH1.add(ruta);
 
         Box box = Box.createVerticalBox();
@@ -58,9 +60,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
         pestanias.setBackground(Color.WHITE);
         pestanias.setPreferredSize(new Dimension(1300, 700));
         pestanias.setMaximumSize(ruta.getPreferredSize());
-        pestanias.addTab("Opciones", panel);
-        pestanias.addTab("Historial", new JPanel());
-
+        crearPestanias();
         box.add(pestanias);
 
         setLayout(new BorderLayout());
@@ -69,8 +69,22 @@ public class PanelPrincipal extends javax.swing.JPanel {
 
     public void crearPestanias() {
         pestanias.addTab("Opciones", panel);
-        pestanias.addTab("Historial", panel);
-        pestanias.addTab("Hola", panel);
+        pestanias.addTab("Historial", new JPanel());
+    }
+
+    public void crearAcciones() {
+        botonEjecutar.addActionListener(this::EjecutarActionPerformed);
+    }
+
+    private void EjecutarActionPerformed(java.awt.event.ActionEvent evt) {
+        String texto = Metodo.abrir(ruta.getText());
+
+        try {
+            chtml.analizar(texto);
+        } catch (Exception ex) {
+            System.out.println("Error al analizar archivo: " + ruta.getText() + "\n" + ex);
+        }
+        UsacWeb.agregarHistorial(ruta.getText());
     }
 
     @SuppressWarnings("unchecked")

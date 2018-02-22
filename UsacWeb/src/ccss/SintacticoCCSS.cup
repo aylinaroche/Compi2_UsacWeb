@@ -40,7 +40,9 @@ precedence left por, dividido;
 
 start with INICIO;
 
-INICIO::=INSTRUCCION{::};
+INICIO::=INSTRUCCION:i{:
+    ccss.NODO = i.nodo;
+:};
 
 INSTRUCCION ::= INSTRUCCION:i BLOQUE:n {:
     RESULT = new Caracter();
@@ -80,27 +82,27 @@ OPCION ::= OPCION:i TIPO:n {:
 
 TIPO::=grupo parentesisA id:i parentesisC puntoComa ESTILOS:e{:
     RESULT = new Caracter();
-    NodoCCSS E = new NodoCCSS("BLOQUE");
+    NodoCCSS E = new NodoCCSS("TIPO");
     E.insertar(new NodoCCSS("grupo")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
     E.insertar(e.nodo);
     RESULT.nodo = E;
 :}
 |idd parentesisA id:i parentesisC puntoComa ESTILOS:e{:
     RESULT = new Caracter();
-    NodoCCSS E = new NodoCCSS("BLOQUE");
+    NodoCCSS E = new NodoCCSS("TIPO");
     E.insertar(new NodoCCSS("id")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
     E.insertar(e.nodo);
     RESULT.nodo = E;
 :}
 |grupo parentesisA id:i parentesisC puntoComa{:
     RESULT = new Caracter();
-    NodoCCSS E = new NodoCCSS("BLOQUE");
+    NodoCCSS E = new NodoCCSS("TIPO");
     E.insertar(new NodoCCSS("grupo")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
     RESULT.nodo = E;
 :}
 |idd parentesisA id:i parentesisC puntoComa{:
     RESULT = new Caracter();
-    NodoCCSS E = new NodoCCSS("BLOQUE");
+    NodoCCSS E = new NodoCCSS("TIPO");
     E.insertar(new NodoCCSS("id")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
     RESULT.nodo = E;
 :};

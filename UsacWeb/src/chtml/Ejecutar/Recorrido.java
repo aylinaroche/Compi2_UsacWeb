@@ -1,10 +1,10 @@
 package chtml.Ejecutar;
 
-import cjs.Ejecutar.*;
-import static cjs.Ejecutar.VariableCJS.nivelAmbito;
-import static cjs.Ejecutar.VariableCJS.pilaAmbito;
-import java.util.ArrayList;
 import chtml.NodoCHTML;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import usacweb.Errores;
+import usacweb.Metodo;
 
 public class Recorrido {
 
@@ -56,8 +56,28 @@ public class Recorrido {
                 case "INFO":
                     switch (raiz.cantidadHijos) {
                         case 3:
+
                             break;
                         case 4:
+                            String texto = Metodo.abrir(raiz.hijos[3].texto.replace("\"", ""));
+                            if (texto.equals("")) {
+                                Errores.agregarError("Error Semantico", "El archivo no se ha encontrado", raiz.hijos[0].fila, raiz.hijos[0].col);
+                                break;
+                            }
+
+                            if (raiz.hijos[0].texto.equalsIgnoreCase("ccss")) {
+                                try {
+                                    ccss.ccss.analizar(texto);
+                                } catch (Exception ex) {
+                                    Errores.agregarError("Error Semantico", "No se pudo analizar el archivo ccss", raiz.hijos[0].fila, raiz.hijos[0].col);
+                                }
+                            } else {
+                                try {
+                                    cjs.cjs.analizar(texto);
+                                } catch (Exception ex) {
+                                    Errores.agregarError("Error Semantico", "No se pudo analizar el archivo ccss", raiz.hijos[0].fila, raiz.hijos[0].col);
+                                }
+                            }
                             break;
                     }
                     break;

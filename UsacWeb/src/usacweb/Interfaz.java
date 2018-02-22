@@ -4,8 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Box;
-import javax.swing.JPanel;
-import usacweb.PanelPrincipal;
+import javax.swing.JButton;
 
 /**
  *
@@ -18,6 +17,7 @@ public class Interfaz extends javax.swing.JFrame {
     Dimension dim = tk.getScreenSize();
     public static int tam;
     //   JTabbedPane panelPestanias = new JTabbedPane();
+    JButton botonMas = new JButton();
 
     @Override
     public Dimension getSize() {
@@ -26,12 +26,18 @@ public class Interfaz extends javax.swing.JFrame {
 
     public Interfaz() {
         setTitle("USAC WEB");
-        setSize(500, 300);
+        //setSize(500, 300);
         setLocationRelativeTo(null);
         setLayout(null);
+        botonMas.setText("+");
+        System.out.println("tAM="+ getSize().width);
+        System.out.println("tAM="+ getSize().height);
+        botonMas.setBounds(10,  getSize().width-10, 40, 40);
+      //  getContentPane().add(botonMas);
 
         initComponents();
         iniciarComponentes();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -57,7 +63,7 @@ public class Interfaz extends javax.swing.JFrame {
                 MasActionPerformed(evt);
             }
         });
-        getContentPane().add(Mas, new org.netbeans.lib.awtextra.AbsoluteConstraints(689, 0, -1, 30));
+        getContentPane().add(Mas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 30));
 
         panelPestanias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -75,8 +81,8 @@ public class Interfaz extends javax.swing.JFrame {
     public void iniciarComponentes() {
         PanelPrincipal panel = new PanelPrincipal();
         panelPestanias.add("Pestania0", panel);
-        // add(panelPestanias);
     }
+       
 
     private void MasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MasActionPerformed
         Box box = Box.createHorizontalBox();
@@ -85,6 +91,7 @@ public class Interfaz extends javax.swing.JFrame {
         panel.setBackground(Color.BLACK);
         panel.setPreferredSize(new Dimension(30000, 30000));
         panel.setMaximumSize(panel.getPreferredSize());
+      //  panel.setMinimumSize(new Dimension(getSize().width,getSize().height));
         System.out.println("ancho = " + getSize().width);
         System.out.println("largo = " + getSize().height);
 

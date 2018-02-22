@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usacweb;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -11,14 +8,21 @@ package usacweb;
  */
 public class UsacWeb {
 
-    /**
-     * @param args the command line arguments
-     */
+    public static ArrayList<Historial> listaHistorial = new ArrayList(); 
+    public static ArrayList<String> listaImprimir = new ArrayList();
+
     public static void main(String[] args) {
         Interfaz i = new Interfaz();
         i.setSize(800, 800);
         i.show(true);
-        
+
+    }
+
+    public static void agregarHistorial(String ruta) {
+        Historial h = new Historial(ruta, ruta);
+        listaHistorial.add(h);
     }
     
+  
+
 }

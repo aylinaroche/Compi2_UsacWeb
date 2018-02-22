@@ -1,5 +1,6 @@
 package chtml;
 
+import chtml.Ejecutar.Recorrido;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
@@ -35,7 +36,7 @@ public class chtml {
         archivo1();
     }
 
-    public static void Analizar(String texto) throws Exception {
+    public static void analizar(String texto) throws Exception {
         StringReader miReader = new StringReader(texto);
         LexicoCHTML miAnalizador = new LexicoCHTML(miReader);
         // VariableG.pilaAmbito.push(paradigmas.Atributos.nombreArchivo);
@@ -53,13 +54,20 @@ public class chtml {
             }
         } catch (IOException e) {
             System.out.println("ERRROOOOR::: " + e);
+            return;
         }
-
+       
+        iniciar();
+    }
+    
+    public static void iniciar(){
+        Recorrido r =  new Recorrido();
+        r.Recorrido(NODO);
     }
 
     public static void archivo1() {
         try {
-            Analizar(""
+            analizar(""
                     + "<CHTML>"
                     + "	<ENCABEZADO> \n"
                     + "		<CJS ruta = \"C:/fichero/fichero_1.cjs\";><FIN-CJS> \n"

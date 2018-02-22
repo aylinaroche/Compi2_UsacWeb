@@ -36,12 +36,10 @@ public class cjs {
             System.out.println(e);
         }
         archivo1();
-        iniciar();
-        // Errores.imprimirError();
         VariableCJS.imprimir();
     }
 
-    public static void Analizar(String texto) throws Exception {
+    public static void analizar(String texto) throws Exception {
         StringReader miReader = new StringReader(texto);
         LexicoCJS miAnalizador = new LexicoCJS(miReader);
         // VariableG.pilaAmbito.push(paradigmas.Atributos.nombreArchivo);
@@ -61,9 +59,10 @@ public class cjs {
             System.out.println("ERRROOOOR::: " + e);
         }
 
+        iniciar();
     }
 
-    public static String iniciar() {
+    public static void iniciar() {
         VariableCJS.pilaAmbito.push("Global");
         VariableCJS.nivelAmbito++;
         Recoleccion r = new Recoleccion();
@@ -72,12 +71,11 @@ public class cjs {
         c.Recorrido(NODO);
         VariableCJS.nivelAmbito--;
         VariableCJS.pilaAmbito.pop();
-        return "";
     }
 
     public static void archivo1() {
         try {
-            Analizar(""
+            analizar(""
                     //                    + "DimV NOMBRE: \"Henry\"; \n"
                     //                    + "Nombre: \"Julia\";\n"
                     //                    + "\n"
@@ -129,49 +127,49 @@ public class cjs {
                     //                    + "		Imprimir(\"Hola mundo!\");\n"
                     //                    + "}\n"
                     //                    + "\n"
-                    + "funcion prueba(x){ \n"
-                    + "	'retornar x;\n"
-                    + "	Imprimir(\"El valor es = \" + x); \n"
-                    + "} \n"
-                    + "funcion prueba( x , y){ \n"
-                    + "	si(x > y){ \n"
-                    + "		Imprimir(\"Variable1 es mayor que Variable2\"); \n"
-                    + "	}sino{ \n"
-                    + "		Imprimir(\"Variable2 es mayor que Variable1\"); \n"
-                    + "	} \n"
-                    + "}\n"
-                    + " 'Llamada a funciones \n"
-                    + " Dimv v1;\n"
-                    + " Dimv v2; \n"
-                    + " v1: 10; \n"
-                    + " v2: 11; \n"
-                    + " prueba(v1); 'El valor es 10\n"
-                    + " prueba(v2); 'El valor es 11\n"
-                    + " prueba(v1,v2); 'Variable2 es mayor que Variable1\n"
+                    //                    + "funcion prueba(x){ \n"
+                    //                    + "	'retornar x;\n"
+                    //                    + "	Imprimir(\"El valor es = \" + x); \n"
+                    //                    + "} \n"
+                    //                    + "funcion prueba( x , y){ \n"
+                    //                    + "	si(x > y){ \n"
+                    //                    + "		Imprimir(\"Variable1 es mayor que Variable2\"); \n"
+                    //                    + "	}sino{ \n"
+                    //                    + "		Imprimir(\"Variable2 es mayor que Variable1\"); \n"
+                    //                    + "	} \n"
+                    //                    + "}\n"
+                    //                    + " 'Llamada a funciones \n"
+                    //                    + " Dimv v1;\n"
+                    //                    + " Dimv v2; \n"
+                    //                    + " v1: 10; \n"
+                    //                    + " v2: 11; \n"
+                    //                    + " prueba(v1); 'El valor es 10\n"
+                    //                    + " prueba(v2); 'El valor es 11\n"
+                    //                    + " prueba(v1,v2); 'Variable2 es mayor que Variable1\n"
                     + " \n"
-                    //                    + " Mensaje(\"Hola mundo\"); \n"
+                    //     + " Mensaje(\"Hola mundo\"); \n"
                     //                    + " Dimv X : 10;\n"
                     //                    + " Mensaje(X);\n"
-                    //                    + "\n"
-                    //                    + "\n"
-                    //                    + "Documento.Observador(\"listo\", mi_funcion(hola)); \n"
-                    //                    + "Documento.Obtener(\"id_titulo\");\n"
-                    //                    + "Dimv mi_boton : Documento.Obtener(\"mi_boton\"); \n"
-                    //                    + "Mi_boton.setElemento(\"ruta\", \"C:/…\"); \n"
-                    //                    + "Documento.Obtener(\"mi_imagen\").setElemento (\"ruta\",\"~/rutanueva\");\n"
-                    //                    + "\n"
-                    //                     + "Documento.Observador(\"listo\", funcion(){ \n"
-                    //                    + "	Imprimir(\"Documento listo\"); \n"
-                    //                    + "}); \n"
-                    //                    + "\n"
-                    //                    + "Dimv mi_boton : Documento.Obtener(\"mi_boton\");\n"
-                    //                    + "\n"
-                    //                    + "funcion mi_funcion(){ \n"
-                    //                    + "	imprimir(\"Estas dentro de mi_funcion\"); \n"
-                    //                    + "} \n"
-                    //                    + "Mi_boton.Observador(\"clic\", mi_funcion());\n"
-                    //                    + "\n"
-                    //                    + "\n"
+                    //                    +                "\n"
+                    + "\n"
+                    + "Documento.Observador(\"listo\", mi_funcion(hola)); \n"
+                    + "Documento.Obtener(\"id_titulo\");\n"
+                    + "Dimv mi_boton : Documento.Obtener(\"mi_boton\"); \n"
+                    + "Mi_boton.setElemento(\"ruta\", \"C:/…\"); \n"
+                    + "Documento.Obtener(\"mi_imagen\").setElemento (\"ruta\",\"~/rutanueva\");\n"
+                    + "\n"
+                    + "Documento.Observador(\"listo\", funcion(){ \n"
+                    + "	Imprimir(\"Documento listo\"); \n"
+                    + "}); \n"
+                    + "\n"
+                    + "Dimv mi_boton : Documento.Obtener(\"mi_boton\");\n"
+                    + "\n"
+                    + "funcion mi_funcion(){ \n"
+                    + "	imprimir(\"Estas dentro de mi_funcion\"); \n"
+                    + "} \n"
+                    + "Mi_boton.Observador(\"clic\", mi_funcion());\n"
+                    + "\n"
+                    + "\n"
                     //                    + ""
                     + "");
         } catch (Exception ex) {

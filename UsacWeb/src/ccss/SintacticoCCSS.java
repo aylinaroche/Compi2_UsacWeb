@@ -284,7 +284,12 @@ class CUP$SintacticoCCSS$actions {
           case 1: // INICIO ::= INSTRUCCION 
             {
               Caracter RESULT =null;
+		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		Caracter i = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
 		
+    ccss.NODO = i.nodo;
+
               CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("INICIO",0, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCCSS$result;
@@ -395,7 +400,7 @@ class CUP$SintacticoCCSS$actions {
 		Caracter e = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
 		
     RESULT = new Caracter();
-    NodoCCSS E = new NodoCCSS("BLOQUE");
+    NodoCCSS E = new NodoCCSS("TIPO");
     E.insertar(new NodoCCSS("grupo")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
     E.insertar(e.nodo);
     RESULT.nodo = E;
@@ -416,7 +421,7 @@ class CUP$SintacticoCCSS$actions {
 		Caracter e = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
 		
     RESULT = new Caracter();
-    NodoCCSS E = new NodoCCSS("BLOQUE");
+    NodoCCSS E = new NodoCCSS("TIPO");
     E.insertar(new NodoCCSS("id")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
     E.insertar(e.nodo);
     RESULT.nodo = E;
@@ -434,7 +439,7 @@ class CUP$SintacticoCCSS$actions {
 		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).value;
 		
     RESULT = new Caracter();
-    NodoCCSS E = new NodoCCSS("BLOQUE");
+    NodoCCSS E = new NodoCCSS("TIPO");
     E.insertar(new NodoCCSS("grupo")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
     RESULT.nodo = E;
 
@@ -451,7 +456,7 @@ class CUP$SintacticoCCSS$actions {
 		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).value;
 		
     RESULT = new Caracter();
-    NodoCCSS E = new NodoCCSS("BLOQUE");
+    NodoCCSS E = new NodoCCSS("TIPO");
     E.insertar(new NodoCCSS("id")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
     RESULT.nodo = E;
 

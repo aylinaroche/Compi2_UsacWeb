@@ -17,7 +17,7 @@ public class BloqueCCSS {
 
     public static ArrayList<Bloque> listaBloques = new ArrayList();
 
-    public static void crearBloque(String selector, String tipo, String nombre, NodoCCSS nodo, int f, int c) {
+    public static void crearBloque(String selector, String tipo, String nombre, ArrayList atributos, int f, int c) {
         for (int i = 0; i < listaBloques.size(); i++) {
             Bloque s = listaBloques.get(i);
             if (s.nombre.equalsIgnoreCase(nombre) && s.tipo.equalsIgnoreCase(tipo) && s.selector.equalsIgnoreCase(selector)) {
@@ -25,7 +25,14 @@ public class BloqueCCSS {
                 return;
             }
         }
-        Bloque v = new Bloque(selector, nombre, tipo, nodo);
+        Bloque v = new Bloque(selector, nombre, tipo, atributos);
         listaBloques.add(v);
+    }
+
+    public static void imprimirBloque() {
+        for (int i = 0; i < listaBloques.size(); i++) {
+            Bloque s = listaBloques.get(i);
+            System.out.println(" " + s.selector + " - " + s.tipo + " - " + s.nombre);
+        }
     }
 }

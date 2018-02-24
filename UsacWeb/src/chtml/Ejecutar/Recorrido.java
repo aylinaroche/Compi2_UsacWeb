@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import usacweb.Errores;
 import usacweb.Metodo;
+import usacweb.UsacWeb;
 
 public class Recorrido {
 
@@ -28,6 +29,9 @@ public class Recorrido {
                     break;
                 case "HTML":
                     switch (raiz.cantidadHijos) {
+                        case 1:
+                            Recorrido(raiz.hijos[0]);
+                            break;
                         case 2:
                             Recorrido(raiz.hijos[0]);
                             Recorrido(raiz.hijos[1]);
@@ -59,12 +63,13 @@ public class Recorrido {
 
                             break;
                         case 4:
-                            String texto = Metodo.abrir(raiz.hijos[3].texto.replace("\"", ""));
+                            String ruta = raiz.hijos[3].texto.replace("\"", "");
+                            String texto = Metodo.abrir(ruta);
                             if (texto.equals("")) {
                                 Errores.agregarError("Error Semantico", "El archivo no se ha encontrado", raiz.hijos[0].fila, raiz.hijos[0].col);
                                 break;
                             }
-
+                            UsacWeb.pilaArchivo.push(Metodo.obtenerNombre(ruta));
                             if (raiz.hijos[0].texto.equalsIgnoreCase("ccss")) {
                                 try {
                                     ccss.ccss.analizar(texto);
@@ -78,6 +83,7 @@ public class Recorrido {
                                     Errores.agregarError("Error Semantico", "No se pudo analizar el archivo ccss", raiz.hijos[0].fila, raiz.hijos[0].col);
                                 }
                             }
+                            UsacWeb.pilaArchivo.pop();
                             break;
                     }
                     break;

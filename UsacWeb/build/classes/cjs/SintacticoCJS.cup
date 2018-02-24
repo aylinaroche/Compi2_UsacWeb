@@ -30,7 +30,7 @@ action code
 terminal String dimv,atexto,funcion,mensaje,documento,obtener,observador,set,parentesisA,parentesisC,coma,
 retornar,si,sino,selecciona,caso,defecto,mientras,detener,mas,menos,mayor,menor,mayorIgual,menorIgual,igual,
 diferente,or,and,not,id,corcheteA,corcheteC,disminuir,para,por,dosPuntos,imprimir,verdadero,falso,igualDoble,
-potencia,llaveA,llaveC,puntoComa,ERROR,numero,aumentar,modulo,dividido,cadena,decimal,entero,punto,caracter,
+potencia,llaveA,llaveC,puntoComa,ERROR,numero,aumentar,modulo,dividido,cadena,decimal,entero,punto,
 conteo,fecha,hora;
 
 non terminal Caracter INICIO,INSTRUCCIONES,FUNCION,LLAMADA,IF,ELSE,CICLO,SWITCH,PARAMETROS,OP,CASO,VALORES,
@@ -438,17 +438,18 @@ DOCUMENTO::=documento punto obtener parentesisA OP:n parentesisC{: //2
 :};
 
 
-SET::=documento punto obtener parentesisA OP:n parentesisC punto set parentesisA cadena:s coma OP:m parentesisC puntoComa{: //5
+SET::=documento punto obtener parentesisA OP:n parentesisC punto set parentesisA cadena:s coma OP:m parentesisC puntoComa{: //8
     NodoCJS A = new NodoCJS("SET");
     RESULT = new Caracter();
     A.insertar(new NodoCJS("documento.obtener(")); A.insertar(n.nodo);A.insertar(new NodoCJS(").setElemento("));  A.insertar(new NodoCJS(s)); A.insertar(new NodoCJS(","));A.insertar(m.nodo);
     A.insertar(new NodoCJS(")")); ; A.insertar(new NodoCJS(";"));
     RESULT.nodo = A;
 :}
-|id:i punto set parentesisA cadena:s coma OP:n parentesisC puntoComa{: //5
+|id:i punto set parentesisA cadena:s coma OP:n parentesisC puntoComa{: //7
     NodoCJS A = new NodoCJS("SET");
     RESULT = new Caracter();
-    A.insertar(new NodoCJS(i,iright,ileft)); A.insertar(new NodoCJS(").setElemento("));  A.insertar(new NodoCJS(s)); A.insertar(new NodoCJS(","));A.insertar(n.nodo); A.insertar(new NodoCJS(")")); ; A.insertar(new NodoCJS(";")); 
+    A.insertar(new NodoCJS(i,iright,ileft)); A.insertar(new NodoCJS(").setElemento("));  A.insertar(new NodoCJS(s)); A.insertar(new NodoCJS(","));A.insertar(n.nodo); 
+    A.insertar(new NodoCJS(")")); ; A.insertar(new NodoCJS(";")); 
     RESULT.nodo = A;
 :};
 

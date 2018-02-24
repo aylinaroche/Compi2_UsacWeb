@@ -155,16 +155,6 @@ public class Operacion {
                                         Double v1 = Double.parseDouble(String.valueOf(v)) + (Double) E1;
                                         return v1;
                                     }
-                                } else if ((E1 instanceof Character) || (E2 instanceof Character)) {//Char
-                                    if (E1 instanceof Character) {
-                                        int v1 = ((String) E1).codePointAt(0);
-                                        Double v2 = Double.parseDouble(String.valueOf(v1)) + (Double) E2;
-                                        return v2;
-                                    } else {
-                                        int v1 = ((String) E2).codePointAt(0);
-                                        Double v2 = Double.parseDouble(String.valueOf(v1)) + (Double) E1;
-                                        return v2;
-                                    }
                                 } else if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
                                     if (E1 instanceof Boolean) {
                                         if ((Boolean) E1 == true) {
@@ -184,17 +174,7 @@ public class Operacion {
                                 }
                                 //ENTERO
                             } else if ((E1 instanceof Integer) || (E2 instanceof Integer)) {
-                                if ((E1 instanceof Character) || (E2 instanceof Character)) {//Char
-                                    if (E1 instanceof Character) {
-                                        int v1 = ((String) E1).codePointAt(0);
-                                        int v2 = v1 + (Integer) E2;
-                                        return v2;
-                                    } else {
-                                        int v1 = ((String) E2).codePointAt(0);
-                                        int v2 = v1 + (Integer) E1;
-                                        return v2;
-                                    }
-                                } else if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
+                                if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
                                     if (E1 instanceof Boolean) {
                                         if ((Boolean) E1 == true) {
                                             int v1 = (Integer) E2 + 1;
@@ -215,9 +195,6 @@ public class Operacion {
                             } else if ((E1 instanceof Boolean) && (E2 instanceof Boolean)) {
                                 return (Boolean) E1 == true || (Boolean) E2 == true;
                                 //CARACTER
-                            } else if (E1 instanceof Character || E2 instanceof Character) {
-                                String r = String.valueOf(E1) + String.valueOf(E2);
-                                return r;
                             }
                             Errores.agregarError("Error Semantico", "Error al castear suma ", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
@@ -242,16 +219,6 @@ public class Operacion {
                                         int v = (int) E2;
                                         Double v1 = (Double) E1 - Double.parseDouble(String.valueOf(v));
                                         return v1;
-                                    }
-                                } else if ((E1 instanceof Character) || (E2 instanceof Character)) {//Char
-                                    if (E1 instanceof Character) {
-                                        int v1 = ((String) E1).codePointAt(0);
-                                        Double v2 = Double.parseDouble(String.valueOf(v1)) - (Double) E2;
-                                        return v2;
-                                    } else {
-                                        int v1 = ((String) E2).codePointAt(0);
-                                        Double v2 = (Double) E1 - Double.parseDouble(String.valueOf(v1));
-                                        return v2;
                                     }
                                 } else if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
                                     if (E1 instanceof Boolean) {
@@ -323,16 +290,6 @@ public class Operacion {
                                         int v = (int) E2;
                                         Double v1 = (Double) E1 * Double.parseDouble(String.valueOf(v));
                                         return v1;
-                                    }
-                                } else if ((E1 instanceof Character) || (E2 instanceof Character)) {//Char
-                                    if (E1 instanceof Character) {
-                                        int v1 = ((String) E1).codePointAt(0);
-                                        Double v2 = Double.parseDouble(String.valueOf(v1)) * (Double) E2;
-                                        return v2;
-                                    } else {
-                                        int v1 = ((String) E2).codePointAt(0);
-                                        Double v2 = (Double) E1 * Double.parseDouble(String.valueOf(v1));
-                                        return v2;
                                     }
                                 } else if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
                                     if (E1 instanceof Boolean) {
@@ -497,16 +454,6 @@ public class Operacion {
                                         Double v1 = Math.pow((Double) E1, Double.parseDouble(String.valueOf(v)));
                                         return v1;
                                     }
-                                } else if ((E1 instanceof Character) || (E2 instanceof Character)) {//Char
-                                    if (E1 instanceof Character) {
-                                        int v1 = ((String) E1).codePointAt(0);
-                                        Double v2 = Math.pow(Double.parseDouble(String.valueOf(v1)), (Double) E2);
-                                        return v2;
-                                    } else {
-                                        int v1 = ((String) E2).codePointAt(0);
-                                        Double v2 = Math.pow((Double) E1, Double.parseDouble(String.valueOf(v1)));
-                                        return v2;
-                                    }
                                 } else if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
                                     if (E1 instanceof Boolean) {
                                         if ((Boolean) E1 == true) {
@@ -526,19 +473,7 @@ public class Operacion {
                                 }
                                 //ENTERO
                             } else if ((E1 instanceof Integer) || (E2 instanceof Integer)) {
-                                if ((E1 instanceof Character) || (E2 instanceof Character)) {//Char
-                                    if (E1 instanceof Character) {
-                                        int v1 = ((String) E1).codePointAt(0);
-                                        Double v2 = Math.pow(v1, (Integer) E2);
-                                        int v3 = v2.intValue();
-                                        return v3;
-                                    } else {
-                                        int v1 = ((String) E2).codePointAt(0);
-                                        Double v2 = Math.pow((Integer) E1, v1);
-                                        int v3 = v2.intValue();
-                                        return v3;
-                                    }
-                                } else if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
+                                if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
                                     if (E1 instanceof Boolean) {
                                         if ((Boolean) E1 == true) {
                                             Double v2 = Math.pow(1, (Integer) E2);
@@ -557,6 +492,69 @@ public class Operacion {
                                 } else if ((E1 instanceof Integer) && (E2 instanceof Integer)) {//Boolean{
                                     Double v1 = Math.pow((Integer) E1, (Integer) E2);
                                     return v1.intValue();
+                                }
+                            }
+                            Errores.agregarError("Error Semantico", "Error al castear potencia ", nodo.hijos[1].fila, nodo.hijos[1].col);
+                            return (Double) 0.0;
+
+                        } catch (NumberFormatException e) {
+                            System.out.println("E");
+                            return "";
+                        }
+                    case "%": //E*E
+                        E1 = expresion(nodo.hijos[0]);
+                        E2 = expresion(nodo.hijos[2]);
+
+                        try {
+                            if ((E1 instanceof Double) || (E2 instanceof Double)) {
+                                if ((E1 instanceof Integer) || (E2 instanceof Integer)) { //Entero
+                                    if (E1 instanceof Integer) {
+                                        int v = (int) E1;
+                                        Double v1 = Double.parseDouble(String.valueOf(v)) % (Double) E2;
+                                        return v1;
+                                    } else {
+                                        int v = (int) E2;
+                                        Double v1 = ((Double) E1 % Double.parseDouble(String.valueOf(v)));
+                                        return v1;
+                                    }
+                                } else if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
+                                    if (E1 instanceof Boolean) {
+                                        if ((Boolean) E1 == true) {
+                                            Double v1 = 1% (Double) E2;
+                                            return v1;
+                                        } else {
+                                            return (Double) 0.0;
+                                        }
+                                    } else if ((Boolean) E2 == true) {
+                                        Double v1 = ((Double) E1) % 1;
+                                        return v1;
+                                    } else {
+                                        return (Double) 1.0;
+                                    }
+                                } else if ((E1 instanceof Double) && (E2 instanceof Double)) {//Double
+                                    return ((Double) E1% (Double) E2);
+                                }
+                                //ENTERO
+                            } else if ((E1 instanceof Integer) || (E2 instanceof Integer)) {
+                                if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
+                                    if (E1 instanceof Boolean) {
+                                        if ((Boolean) E1 == true) {
+                                            Integer v2 = 1 % ((Integer) E2);
+                                            int v3 = v2;
+                                            return v3;
+                                        } else {
+                                            return (Integer) 0;
+                                        }
+                                    } else if ((Boolean) E2 == true) {
+                                        Integer v2 =(Integer) E1% 1;
+                                        int v3 = v2;
+                                        return v3;
+                                    } else {
+                                        return (Integer) 1;
+                                    }
+                                } else if ((E1 instanceof Integer) && (E2 instanceof Integer)) {//Boolean{
+                                    Integer v1 =(Integer) E1 % (Integer) E2;
+                                    return v1;
                                 }
                             }
                             Errores.agregarError("Error Semantico", "Error al castear potencia ", nodo.hijos[1].fila, nodo.hijos[1].col);

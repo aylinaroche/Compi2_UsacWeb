@@ -13,12 +13,14 @@ public class Funcion implements Cloneable {
     public String ambito;
     public NodoCJS nodo;
     public ArrayList parametro;
+    public String archivo;
 
     public Funcion(String n, NodoCJS v, String a, ArrayList p) {
         this.nombre = n;
         this.nodo = v;
         this.ambito = a;
         this.parametro = p;
+        this.archivo = usacweb.UsacWeb.pilaArchivo.peek();
     }
 
     @Override

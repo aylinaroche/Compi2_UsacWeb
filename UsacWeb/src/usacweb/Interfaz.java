@@ -1,42 +1,71 @@
 package usacweb;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.net.URL;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
-/**
- *
- * @author Aroche
- */
 public class Interfaz extends javax.swing.JFrame {
 
-    int contPestania = 1;
-    Toolkit tk = Toolkit.getDefaultToolkit();
-    Dimension dim = tk.getScreenSize();
-    public static int tam;
-    //   JTabbedPane panelPestanias = new JTabbedPane();
     JButton botonMas = new JButton();
-
-    @Override
-    public Dimension getSize() {
-        return super.getSize(); //To change body of generated methods, choose Tools | Templates.
-    }
+    JButton botonMenos = new JButton();
+    public static JTabbedPane panelPestanias = new JTabbedPane();
+    public Image imagenFondo;
+    public URL fondo;
+    int contPestania = 2;
 
     public Interfaz() {
         setTitle("USAC WEB");
-        //setSize(500, 300);
         setLocationRelativeTo(null);
-        setLayout(null);
-        botonMas.setText("+");
-        System.out.println("tAM="+ getSize().width);
-        System.out.println("tAM="+ getSize().height);
-        botonMas.setBounds(10,  getSize().width-10, 40, 40);
-      //  getContentPane().add(botonMas);
+        fondo = this.getClass().getResource("/Imagenes/fondo1.jpg");
+        imagenFondo = new ImageIcon(fondo).getImage();
+        Container contenedor = getContentPane();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
 
+        Box boxH1 = Box.createHorizontalBox();
+        botonMas.setText("+");
+        botonMas.setBounds(10, 10, 40, 40);
+        botonMas.setBackground(new Color(102, 0, 51));
+        botonMas.setForeground(new Color(255, 255, 255));
+        botonMas.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 14));
+       
+        botonMenos.setText("x");
+        botonMenos.setBounds(10, 10, 40, 40);
+        botonMenos.setBackground(new Color(102, 0, 51));
+        botonMenos.setForeground(new Color(255, 255, 255));
+        botonMenos.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 14));
+        //botonMenos.setBorder(null);
+
+        agregarAccion();
+        boxH1.add(Box.createHorizontalGlue());
+        boxH1.add(botonMas);
+        boxH1.add(botonMenos);
+
+        Box boxH2 = Box.createHorizontalBox();
+        PanelPrincipal principal = new PanelPrincipal();
+        panelPestanias.add("Pestania1", principal);
+        panelPestanias.setBackground(new Color(102, 0, 51));
+        panelPestanias.setForeground(new Color(255, 255, 255));
+        panelPestanias.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 14));
+        boxH2.add(panelPestanias);
+
+        Box boxV1 = Box.createVerticalBox();
+        boxV1.add(boxH1);
+        boxV1.add(boxH2);
+
+        panel.add(boxV1);
+        contenedor.add(panel);
         initComponents();
-        iniciarComponentes();
+        setSize(500, 300);
 
     }
 
@@ -44,118 +73,63 @@ public class Interfaz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Mas = new javax.swing.JButton();
-        panelPestanias = new javax.swing.JTabbedPane();
-        jLabel1 = new javax.swing.JLabel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 153, 153));
-        addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                formComponentResized(evt);
-            }
-        });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Mas.setText("+");
-        Mas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MasActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Mas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 30));
-
-        panelPestanias.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelPestaniasMouseClicked(evt);
-            }
-        });
-        getContentPane().add(panelPestanias, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 716, 402));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondo1.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -180, 2480, 1080));
+        setBackground(new java.awt.Color(204, 204, 204));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void iniciarComponentes() {
-        PanelPrincipal panel = new PanelPrincipal();
-        panelPestanias.add("Pestania0", panel);
-    }
-       
-
-    private void MasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MasActionPerformed
-        Box box = Box.createHorizontalBox();
-        PanelPrincipal panel = new PanelPrincipal();
-        //  panel.setLayout(null);
-        panel.setBackground(Color.BLACK);
-        panel.setPreferredSize(new Dimension(30000, 30000));
-        panel.setMaximumSize(panel.getPreferredSize());
-      //  panel.setMinimumSize(new Dimension(getSize().width,getSize().height));
-        System.out.println("ancho = " + getSize().width);
-        System.out.println("largo = " + getSize().height);
-
-        box.add(panel);
-        panelPestanias.addTab("Pestania" + contPestania, box);
-        panelPestanias.setSelectedIndex(panelPestanias.getTabCount() - 1);
-        contPestania++;
-    }//GEN-LAST:event_MasActionPerformed
-
-    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-
-        if (tam >= 2) {
-            System.out.println("JFrame was resized");
-            Dimension ventana = getSize();
-            panelPestanias.setSize(ventana.width - 80, ventana.height - 130);
-
-            System.out.println("ANCHO = " + getSize().width);
-            System.out.println("LARGO = " + getSize().height);
-
-//            for (int i = 0; i < panelPestanias.getTabCount(); i++) {
-//                JPanel p = (JPanel) panelPestanias.getComponentAt(i);
-//                p.setSize(new Dimension(ventana.width - 100, ventana.height - 150));
-//               
-//            }
+    public JPanel panel = new JPanel() {
+        @Override
+        public void paintComponent(Graphics g) {
+            g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         }
-        tam++;
-    }//GEN-LAST:event_formComponentResized
-
-    private void panelPestaniasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelPestaniasMouseClicked
-        //System.out.println("PESTANIA\n");
-
-        if (tam >= 2) {
-            System.out.println("JFrame was resized");
-            Dimension ventana = getSize();
-            panelPestanias.setSize(ventana.width - 80, ventana.height - 130);
-        }
-        tam++;
-    }//GEN-LAST:event_panelPestaniasMouseClicked
-
-    public void redimensionar() {
-
-    }
+    };
 
     public static void main(String args[]) {
-
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
         java.awt.EventQueue.invokeLater(() -> {
             new Interfaz().setVisible(true);
         });
     }
 
+    private void agregarAccion() {
+        botonMas.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MasActionPerformed(evt);
+            }
+
+            private void MasActionPerformed(ActionEvent evt) {
+                Box box = Box.createHorizontalBox();
+                PanelPrincipal panel = new PanelPrincipal();
+                //  panel.setLayout(null);
+                panel.setBackground(Color.BLACK);
+                panel.setPreferredSize(new Dimension(30000, 30000));
+                panel.setMaximumSize(panel.getPreferredSize());
+                box.add(panel);
+                panelPestanias.addTab("Pestania" + contPestania, box);
+                panelPestanias.setSelectedIndex(panelPestanias.getTabCount() - 1);
+                contPestania++;
+            }
+        });
+        
+        botonMenos.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenosActionPerformed(evt);
+            }
+
+            private void MenosActionPerformed(ActionEvent evt) {
+                panelPestanias.remove(panelPestanias.getSelectedIndex());
+            }
+        });
+    }
+
+    
+     public void actualizar(){
+         this.repaint();
+     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Mas;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTabbedPane panelPestanias;
     // End of variables declaration//GEN-END:variables
 }

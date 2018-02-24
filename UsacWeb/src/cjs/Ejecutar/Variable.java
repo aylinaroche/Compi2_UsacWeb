@@ -7,6 +7,7 @@ public class Variable implements Cloneable {
     public String nombre;
     public Object valor;
     public String tipo;
+    public String archivo;
     public int tamanio;
 
     public Variable(String t, String n, Object v, String a, int ni, int tam) {
@@ -15,6 +16,7 @@ public class Variable implements Cloneable {
         this.valor = v;
         this.ambito = a;
         this.nivel = ni;
+        this.archivo = usacweb.UsacWeb.pilaArchivo.peek();
     }
 
     @Override

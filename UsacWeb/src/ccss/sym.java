@@ -36,6 +36,7 @@ public class sym {
   public static final int verdadero = 35;
   public static final int error = 1;
   public static final int capital = 13;
+  public static final int entero = 48;
   public static final int horizontal = 19;
   public static final int por = 33;
   public static final int punto = 44;
@@ -55,6 +56,7 @@ public class sym {
   public static final int borde = 21;
   public static final int parentesisA = 46;
   public static final int cursiva = 10;
+  public static final int decimal = 49;
   public static final int cadena = 43;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -104,7 +106,9 @@ public class sym {
   "punto",
   "caracter",
   "parentesisA",
-  "parentesisC"
+  "parentesisC",
+  "entero",
+  "decimal"
   };
 }
 

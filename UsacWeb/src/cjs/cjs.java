@@ -63,12 +63,13 @@ public class cjs {
     }
 
     public static void iniciar() {
+        usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba");
         VariableCJS.pilaAmbito.push("Global");
         VariableCJS.nivelAmbito++;
         Recoleccion r = new Recoleccion();
         r.Recorrido(NODO);
-        Recorrido c = new Recorrido();
-        c.Recorrido(NODO);
+        //Recorrido c = new Recorrido();
+       // c.Recorrido(NODO);
         VariableCJS.nivelAmbito--;
         VariableCJS.pilaAmbito.pop();
     }
@@ -151,26 +152,27 @@ public class cjs {
                     //                    + " Dimv X : 10;\n"
                     //                    + " Mensaje(X);\n"
                     //                    +                "\n"
-                    + "\n"
-                    + "Documento.Observador(\"listo\", mi_funcion(hola)); \n"
-                    + "Documento.Obtener(\"id_titulo\");\n"
-                    + "Dimv mi_boton : Documento.Obtener(\"mi_boton\"); \n"
-                    + "Mi_boton.setElemento(\"ruta\", \"C:/…\"); \n"
-                    + "Documento.Obtener(\"mi_imagen\").setElemento (\"ruta\",\"~/rutanueva\");\n"
-                    + "\n"
-                    + "Documento.Observador(\"listo\", funcion(){ \n"
-                    + "	Imprimir(\"Documento listo\"); \n"
-                    + "}); \n"
-                    + "\n"
-                    + "Dimv mi_boton : Documento.Obtener(\"mi_boton\");\n"
-                    + "\n"
-                    + "funcion mi_funcion(){ \n"
-                    + "	imprimir(\"Estas dentro de mi_funcion\"); \n"
-                    + "} \n"
-                    + "Mi_boton.Observador(\"clic\", mi_funcion());\n"
-                    + "\n"
-                    + "\n"
-                    //                    + ""
+                    //                    + "\n"
+                    //                    + "Documento.Observador(\"listo\", mi_funcion(hola)); \n"
+                    //                    + "Documento.Obtener(\"id_titulo\");\n"
+                    //                    + "Dimv mi_boton : Documento.Obtener(\"mi_boton\"); \n"
+                    //                    + "Mi_boton.setElemento(\"ruta\", \"C:/…\"); \n"
+                    //                    + "Documento.Obtener(\"mi_imagen\").setElemento (\"ruta\",\"~/rutanueva\");\n"
+                    //                    + "\n"
+                    //                    + "Documento.Observador(\"listo\", funcion(){ \n"
+                    //                    + "	Imprimir(\"Documento listo\"); \n"
+                    //                    + "}); \n"
+                    //                    + "\n"
+                    //                    + "Dimv mi_boton : Documento.Obtener(\"mi_boton\");\n"
+                    //                    + "\n"
+                    //                    + "funcion mi_funcion(){ \n"
+                    //                    + "	imprimir(\"Estas dentro de mi_funcion\"); \n"
+                    //                    + "} \n"
+                    //                    + "Mi_boton.Observador(\"clic\", mi_funcion());\n"
+                    //                    + "\n"
+                    //                    + "\n"
+                    + ""
+                    + "Dimv a : \"31/12/1999\";"
                     + "");
         } catch (Exception ex) {
             Logger.getLogger(cjs.class.getName()).log(Level.SEVERE, null, ex);

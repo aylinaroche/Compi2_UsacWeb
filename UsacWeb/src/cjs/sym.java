@@ -10,7 +10,7 @@ public class sym {
   /* terminals */
   public static final int dimv = 2;
   public static final int imprimir = 39;
-  public static final int fecha = 58;
+  public static final int fecha = 57;
   public static final int igualDoble = 42;
   public static final int dosPuntos = 38;
   public static final int corcheteC = 34;
@@ -18,8 +18,7 @@ public class sym {
   public static final int detener = 20;
   public static final int coma = 12;
   public static final int igual = 27;
-  public static final int conteo = 57;
-  public static final int caracter = 56;
+  public static final int conteo = 56;
   public static final int menorIgual = 26;
   public static final int dividido = 51;
   public static final int aumentar = 49;
@@ -41,7 +40,7 @@ public class sym {
   public static final int entero = 54;
   public static final int or = 29;
   public static final int por = 37;
-  public static final int hora = 59;
+  public static final int hora = 58;
   public static final int punto = 55;
   public static final int mensaje = 5;
   public static final int funcion = 4;
@@ -125,7 +124,6 @@ public class sym {
   "decimal",
   "entero",
   "punto",
-  "caracter",
   "conteo",
   "fecha",
   "hora"

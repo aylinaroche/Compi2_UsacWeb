@@ -32,7 +32,7 @@ public class SintacticoCCSS extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\047\000\002\002\004\000\002\002\003\000\002\003" +
+    "\000\064\000\002\002\004\000\002\002\003\000\002\003" +
     "\004\000\002\003\003\000\002\004\006\000\002\005\004" +
     "\000\002\005\003\000\002\015\010\000\002\015\010\000" +
     "\002\015\007\000\002\015\007\000\002\006\004\000\002" +
@@ -44,7 +44,11 @@ public class SintacticoCCSS extends java_cup.runtime.lr_parser {
     "\005\000\002\011\003\000\002\012\003\000\002\012\003" +
     "\000\002\012\003\000\002\012\003\000\002\012\003\000" +
     "\002\013\003\000\002\013\003\000\002\014\003\000\002" +
-    "\014\003" });
+    "\014\003\000\002\016\003\000\002\017\005\000\002\017" +
+    "\005\000\002\017\005\000\002\017\005\000\002\017\005" +
+    "\000\002\017\003\000\002\017\003\000\002\017\004\000" +
+    "\002\017\003\000\002\017\003\000\002\017\003\000\002" +
+    "\017\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -52,19 +56,19 @@ public class SintacticoCCSS extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\140\000\004\040\007\001\002\000\006\002\000\040" +
+    "\000\164\000\004\040\007\001\002\000\006\002\000\040" +
     "\007\001\002\000\006\002\ufffe\040\ufffe\001\002\000\004" +
-    "\002\141\001\002\000\004\041\010\001\002\000\006\032" +
-    "\012\033\014\001\002\000\010\032\012\033\014\042\137" +
-    "\001\002\000\004\060\132\001\002\000\010\032\ufffb\033" +
+    "\002\165\001\002\000\004\041\010\001\002\000\006\032" +
+    "\012\033\014\001\002\000\010\032\012\033\014\042\163" +
+    "\001\002\000\004\060\156\001\002\000\010\032\ufffb\033" +
     "\ufffb\042\ufffb\001\002\000\004\060\015\001\002\000\004" +
     "\040\016\001\002\000\004\061\017\001\002\000\004\051" +
     "\020\001\002\000\036\004\026\005\032\012\033\020\030" +
     "\021\027\022\024\023\035\024\022\027\021\030\025\031" +
-    "\023\032\ufff7\033\ufff7\042\ufff7\001\002\000\004\037\121" +
-    "\001\002\000\004\037\116\001\002\000\004\037\113\001" +
-    "\002\000\004\037\110\001\002\000\004\037\105\001\002" +
-    "\000\004\037\102\001\002\000\004\037\077\001\002\000" +
+    "\023\032\ufff7\033\ufff7\042\ufff7\001\002\000\004\037\145" +
+    "\001\002\000\004\037\142\001\002\000\004\037\137\001" +
+    "\002\000\004\037\134\001\002\000\004\037\131\001\002" +
+    "\000\004\037\126\001\002\000\004\037\123\001\002\000" +
     "\004\037\074\001\002\000\036\004\ufff5\005\ufff5\012\ufff5" +
     "\020\ufff5\021\ufff5\022\ufff5\023\ufff5\024\ufff5\027\ufff5\030" +
     "\ufff5\031\ufff5\032\ufff5\033\ufff5\042\ufff5\001\002\000\004" +
@@ -97,46 +101,78 @@ public class SintacticoCCSS extends java_cup.runtime.lr_parser {
     "\000\004\051\uffe6\001\002\000\004\051\uffe7\001\002\000" +
     "\036\004\ufff4\005\ufff4\012\ufff4\020\ufff4\021\ufff4\022\ufff4" +
     "\023\ufff4\024\ufff4\027\ufff4\030\ufff4\031\ufff4\032\ufff4\033" +
-    "\ufff4\042\ufff4\001\002\000\004\055\075\001\002\000\004" +
-    "\051\076\001\002\000\036\004\ufff1\005\ufff1\012\ufff1\020" +
-    "\ufff1\021\ufff1\022\ufff1\023\ufff1\024\ufff1\027\ufff1\030\ufff1" +
-    "\031\ufff1\032\ufff1\033\ufff1\042\ufff1\001\002\000\004\053" +
-    "\100\001\002\000\004\051\101\001\002\000\036\004\ufff0" +
-    "\005\ufff0\012\ufff0\020\ufff0\021\ufff0\022\ufff0\023\ufff0\024" +
-    "\ufff0\027\ufff0\030\ufff0\031\ufff0\032\ufff0\033\ufff0\042\ufff0" +
-    "\001\002\000\004\055\103\001\002\000\004\051\104\001" +
-    "\002\000\036\004\ufff3\005\ufff3\012\ufff3\020\ufff3\021\ufff3" +
-    "\022\ufff3\023\ufff3\024\ufff3\027\ufff3\030\ufff3\031\ufff3\032" +
-    "\ufff3\033\ufff3\042\ufff3\001\002\000\006\045\040\046\042" +
-    "\001\002\000\004\051\107\001\002\000\036\004\uffeb\005" +
-    "\uffeb\012\uffeb\020\uffeb\021\uffeb\022\uffeb\023\uffeb\024\uffeb" +
-    "\027\uffeb\030\uffeb\031\uffeb\032\uffeb\033\uffeb\042\uffeb\001" +
-    "\002\000\004\055\111\001\002\000\004\051\112\001\002" +
-    "\000\036\004\uffef\005\uffef\012\uffef\020\uffef\021\uffef\022" +
-    "\uffef\023\uffef\024\uffef\027\uffef\030\uffef\031\uffef\032\uffef" +
-    "\033\uffef\042\uffef\001\002\000\004\055\114\001\002\000" +
-    "\004\051\115\001\002\000\036\004\uffea\005\uffea\012\uffea" +
-    "\020\uffea\021\uffea\022\uffea\023\uffea\024\uffea\027\uffea\030" +
-    "\uffea\031\uffea\032\uffea\033\uffea\042\uffea\001\002\000\006" +
-    "\045\040\046\042\001\002\000\004\051\120\001\002\000" +
-    "\036\004\uffed\005\uffed\012\uffed\020\uffed\021\uffed\022\uffed" +
-    "\023\uffed\024\uffed\027\uffed\030\uffed\031\uffed\032\uffed\033" +
-    "\uffed\042\uffed\001\002\000\004\041\122\001\002\000\004" +
-    "\053\123\001\002\000\004\034\124\001\002\000\004\055" +
-    "\125\001\002\000\004\034\126\001\002\000\006\045\040" +
-    "\046\042\001\002\000\004\042\130\001\002\000\004\051" +
-    "\131\001\002\000\036\004\uffec\005\uffec\012\uffec\020\uffec" +
-    "\021\uffec\022\uffec\023\uffec\024\uffec\027\uffec\030\uffec\031" +
-    "\uffec\032\uffec\033\uffec\042\uffec\001\002\000\004\040\133" +
-    "\001\002\000\004\061\134\001\002\000\004\051\135\001" +
+    "\ufff4\042\ufff4\001\002\000\022\036\103\040\076\045\104" +
+    "\046\102\055\100\060\077\062\105\063\101\001\002\000" +
+    "\004\051\122\001\002\000\016\035\uffce\036\uffce\043\uffce" +
+    "\051\uffce\054\uffce\061\uffce\001\002\000\022\036\103\040" +
+    "\076\045\104\046\102\055\100\060\077\062\105\063\101" +
+    "\001\002\000\016\035\uffd1\036\uffd1\043\uffd1\051\uffd1\054" +
+    "\uffd1\061\uffd1\001\002\000\016\035\uffcf\036\uffcf\043\uffcf" +
+    "\051\uffcf\054\uffcf\061\uffcf\001\002\000\016\035\uffd3\036" +
+    "\uffd3\043\uffd3\051\uffd3\054\uffd3\061\uffd3\001\002\000\022" +
+    "\036\103\040\076\045\104\046\102\055\100\060\077\062" +
+    "\105\063\101\001\002\000\016\035\uffd4\036\uffd4\043\uffd4" +
+    "\051\uffd4\054\uffd4\061\uffd4\001\002\000\016\035\uffd0\036" +
+    "\uffd0\043\uffd0\051\uffd0\054\uffd0\061\uffd0\001\002\000\014" +
+    "\035\110\036\111\043\107\051\uffda\054\112\001\002\000" +
+    "\022\036\103\040\076\045\104\046\102\055\100\060\077" +
+    "\062\105\063\101\001\002\000\022\036\103\040\076\045" +
+    "\104\046\102\055\100\060\077\062\105\063\101\001\002" +
+    "\000\022\036\103\040\076\045\104\046\102\055\100\060" +
+    "\077\062\105\063\101\001\002\000\022\036\103\040\076" +
+    "\045\104\046\102\055\100\060\077\062\105\063\101\001" +
+    "\002\000\016\035\uffd5\036\uffd5\043\uffd5\051\uffd5\054\uffd5" +
+    "\061\uffd5\001\002\000\016\035\uffd7\036\uffd7\043\107\051" +
+    "\uffd7\054\112\061\uffd7\001\002\000\016\035\uffd8\036\uffd8" +
+    "\043\107\051\uffd8\054\112\061\uffd8\001\002\000\016\035" +
+    "\uffd6\036\uffd6\043\uffd6\051\uffd6\054\uffd6\061\uffd6\001\002" +
+    "\000\016\035\uffd2\036\uffd2\043\107\051\uffd2\054\112\061" +
+    "\uffd2\001\002\000\014\035\110\036\111\043\107\054\112" +
+    "\061\121\001\002\000\016\035\uffd9\036\uffd9\043\uffd9\051" +
+    "\uffd9\054\uffd9\061\uffd9\001\002\000\036\004\ufff1\005\ufff1" +
+    "\012\ufff1\020\ufff1\021\ufff1\022\ufff1\023\ufff1\024\ufff1\027" +
+    "\ufff1\030\ufff1\031\ufff1\032\ufff1\033\ufff1\042\ufff1\001\002" +
+    "\000\022\036\103\040\076\045\104\046\102\055\100\060" +
+    "\077\062\105\063\101\001\002\000\004\051\125\001\002" +
+    "\000\036\004\ufff0\005\ufff0\012\ufff0\020\ufff0\021\ufff0\022" +
+    "\ufff0\023\ufff0\024\ufff0\027\ufff0\030\ufff0\031\ufff0\032\ufff0" +
+    "\033\ufff0\042\ufff0\001\002\000\022\036\103\040\076\045" +
+    "\104\046\102\055\100\060\077\062\105\063\101\001\002" +
+    "\000\004\051\130\001\002\000\036\004\ufff3\005\ufff3\012" +
+    "\ufff3\020\ufff3\021\ufff3\022\ufff3\023\ufff3\024\ufff3\027\ufff3" +
+    "\030\ufff3\031\ufff3\032\ufff3\033\ufff3\042\ufff3\001\002\000" +
+    "\006\045\040\046\042\001\002\000\004\051\133\001\002" +
+    "\000\036\004\uffeb\005\uffeb\012\uffeb\020\uffeb\021\uffeb\022" +
+    "\uffeb\023\uffeb\024\uffeb\027\uffeb\030\uffeb\031\uffeb\032\uffeb" +
+    "\033\uffeb\042\uffeb\001\002\000\022\036\103\040\076\045" +
+    "\104\046\102\055\100\060\077\062\105\063\101\001\002" +
+    "\000\004\051\136\001\002\000\036\004\uffef\005\uffef\012" +
+    "\uffef\020\uffef\021\uffef\022\uffef\023\uffef\024\uffef\027\uffef" +
+    "\030\uffef\031\uffef\032\uffef\033\uffef\042\uffef\001\002\000" +
+    "\022\036\103\040\076\045\104\046\102\055\100\060\077" +
+    "\062\105\063\101\001\002\000\004\051\141\001\002\000" +
+    "\036\004\uffea\005\uffea\012\uffea\020\uffea\021\uffea\022\uffea" +
+    "\023\uffea\024\uffea\027\uffea\030\uffea\031\uffea\032\uffea\033" +
+    "\uffea\042\uffea\001\002\000\006\045\040\046\042\001\002" +
+    "\000\004\051\144\001\002\000\036\004\uffed\005\uffed\012" +
+    "\uffed\020\uffed\021\uffed\022\uffed\023\uffed\024\uffed\027\uffed" +
+    "\030\uffed\031\uffed\032\uffed\033\uffed\042\uffed\001\002\000" +
+    "\004\041\146\001\002\000\004\053\147\001\002\000\004" +
+    "\034\150\001\002\000\004\055\151\001\002\000\004\034" +
+    "\152\001\002\000\006\045\040\046\042\001\002\000\004" +
+    "\042\154\001\002\000\004\051\155\001\002\000\036\004" +
+    "\uffec\005\uffec\012\uffec\020\uffec\021\uffec\022\uffec\023\uffec" +
+    "\024\uffec\027\uffec\030\uffec\031\uffec\032\uffec\033\uffec\042" +
+    "\uffec\001\002\000\004\040\157\001\002\000\004\061\160" +
+    "\001\002\000\004\051\161\001\002\000\036\004\026\005" +
+    "\032\012\033\020\030\021\027\022\024\023\035\024\022" +
+    "\027\021\030\025\031\023\032\ufff8\033\ufff8\042\ufff8\001" +
     "\002\000\036\004\026\005\032\012\033\020\030\021\027" +
     "\022\024\023\035\024\022\027\021\030\025\031\023\032" +
-    "\ufff8\033\ufff8\042\ufff8\001\002\000\036\004\026\005\032" +
-    "\012\033\020\030\021\027\022\024\023\035\024\022\027" +
-    "\021\030\025\031\023\032\ufffa\033\ufffa\042\ufffa\001\002" +
-    "\000\006\002\ufffd\040\ufffd\001\002\000\010\032\ufffc\033" +
-    "\ufffc\042\ufffc\001\002\000\004\002\001\001\002\000\006" +
-    "\002\uffff\040\uffff\001\002" });
+    "\ufffa\033\ufffa\042\ufffa\001\002\000\006\002\ufffd\040\ufffd" +
+    "\001\002\000\010\032\ufffc\033\ufffc\042\ufffc\001\002\000" +
+    "\004\002\001\001\002\000\006\002\uffff\040\uffff\001\002" +
+    "" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -144,10 +180,10 @@ public class SintacticoCCSS extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\140\000\010\002\005\003\003\004\004\001\001\000" +
-    "\004\004\141\001\001\000\002\001\001\000\002\001\001" +
+    "\000\164\000\010\002\005\003\003\004\004\001\001\000" +
+    "\004\004\165\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\006\005\010\015\012\001\001\000" +
-    "\004\015\137\001\001\000\002\001\001\000\002\001\001" +
+    "\004\015\163\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\006\006\033\007\030\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
@@ -164,20 +200,28 @@ public class SintacticoCCSS extends java_cup.runtime.lr_parser {
     "\063\001\001\000\002\001\001\000\002\001\001\000\004" +
     "\010\065\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\001\001\000\006\016\074\017\105\001\001\000\002\001" +
+    "\001\000\002\001\001\000\004\017\117\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\004\017" +
+    "\116\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\017\115\001\001\000\004\017\114\001" +
+    "\001\000\004\017\113\001\001\000\004\017\112\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\013\105\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\013\116\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\013\126\001\001\000" +
+    "\001\001\000\002\001\001\000\006\016\123\017\105\001" +
+    "\001\000\002\001\001\000\002\001\001\000\006\016\126" +
+    "\017\105\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\013\131\001\001\000\002\001\001\000\002\001\001" +
+    "\000\006\016\134\017\105\001\001\000\002\001\001\000" +
+    "\002\001\001\000\006\016\137\017\105\001\001\000\002" +
+    "\001\001\000\002\001\001\000\004\013\142\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\006\006" +
-    "\135\007\030\001\001\000\004\007\050\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001" });
+    "\001\000\004\013\152\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\006\006\161\007\030\001\001" +
+    "\000\004\007\050\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -522,7 +566,7 @@ class CUP$SintacticoCCSS$actions {
           return CUP$SintacticoCCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // ESTILO ::= texto igual cadena puntoComa 
+          case 14: // ESTILO ::= texto igual OP puntoComa 
             {
               Caracter RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)).left;
@@ -530,11 +574,11 @@ class CUP$SintacticoCCSS$actions {
 		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)).value;
 		int nleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).right;
-		String n = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
+		Caracter n = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
 		 //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("texto",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS(n,nright,nleft)); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("texto",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(n.nodo); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 
               CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("ESTILO",5, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
@@ -562,7 +606,7 @@ class CUP$SintacticoCCSS$actions {
           return CUP$SintacticoCCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // ESTILO ::= letra igual cadena puntoComa 
+          case 16: // ESTILO ::= letra igual OP puntoComa 
             {
               Caracter RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)).left;
@@ -570,11 +614,11 @@ class CUP$SintacticoCCSS$actions {
 		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)).value;
 		int nleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).right;
-		String n = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
+		Caracter n = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
 		 //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("letra",iright,ileft));E.insertar(new NodoCCSS("="));E.insertar(new NodoCCSS(n,nright,nleft));E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("letra",iright,ileft));E.insertar(new NodoCCSS("="));E.insertar(n.nodo);E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 
               CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("ESTILO",5, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
@@ -582,7 +626,7 @@ class CUP$SintacticoCCSS$actions {
           return CUP$SintacticoCCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // ESTILO ::= tamtex igual numero puntoComa 
+          case 17: // ESTILO ::= tamtex igual OP puntoComa 
             {
               Caracter RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)).left;
@@ -590,11 +634,11 @@ class CUP$SintacticoCCSS$actions {
 		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)).value;
 		int nleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).right;
-		String n = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
+		Caracter n = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
 		 //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("tamtex",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS(n,nright,nleft)); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("tamtex",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(n.nodo); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 
               CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("ESTILO",5, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
@@ -602,7 +646,7 @@ class CUP$SintacticoCCSS$actions {
           return CUP$SintacticoCCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // ESTILO ::= fondo igual cadena puntoComa 
+          case 18: // ESTILO ::= fondo igual OP puntoComa 
             {
               Caracter RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)).left;
@@ -610,11 +654,11 @@ class CUP$SintacticoCCSS$actions {
 		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)).value;
 		int nleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).right;
-		String n = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
+		Caracter n = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
 		 //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("fondo",iright,ileft));E.insertar(new NodoCCSS("="));E.insertar(new NodoCCSS(n,nright,nleft)); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("fondo",iright,ileft));E.insertar(new NodoCCSS("="));E.insertar(n.nodo); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 
               CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("ESTILO",5, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
@@ -713,7 +757,7 @@ class CUP$SintacticoCCSS$actions {
           return CUP$SintacticoCCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // ESTILO ::= colortext igual cadena puntoComa 
+          case 23: // ESTILO ::= colortext igual OP puntoComa 
             {
               Caracter RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)).left;
@@ -721,11 +765,11 @@ class CUP$SintacticoCCSS$actions {
 		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)).value;
 		int nleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).right;
-		String n = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
+		Caracter n = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
 		 //4
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("colortext",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS(n,nright,nleft)); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("colortext",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(n.nodo); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 
               CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("ESTILO",5, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
@@ -948,6 +992,255 @@ class CUP$SintacticoCCSS$actions {
     RESULT.nodo = E;
 
               CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("AREA",10, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 39: // OP ::= E 
+            {
+              Caracter RESULT =null;
+		int eleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		Caracter e = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
+		
+    NodoCCSS OP = new NodoCCSS("OP");
+    RESULT = new Caracter();
+    OP.insertar(e.nodo);
+    RESULT.nodo = OP;
+
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("OP",12, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 40: // E ::= parentesisA E parentesisC 
+            {
+              Caracter RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).right;
+		Caracter a = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
+		
+    NodoCCSS E = new NodoCCSS("E");
+    RESULT = new Caracter();
+    E.insertar(new NodoCCSS("(")); E.insertar(a.nodo); E.insertar(new NodoCCSS(")"));
+    RESULT.nodo = E;
+
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("E",13, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 41: // E ::= E mas E 
+            {
+              Caracter RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).right;
+		Caracter a = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).value;
+		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
+		int bleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		Caracter b = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
+		 
+    NodoCCSS E = new NodoCCSS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCCSS("+",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("E",13, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 42: // E ::= E menos E 
+            {
+              Caracter RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).right;
+		Caracter a = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).value;
+		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
+		int bleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		Caracter b = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
+		
+    NodoCCSS E = new NodoCCSS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCCSS("-",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+ 
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("E",13, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 43: // E ::= E por E 
+            {
+              Caracter RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).right;
+		Caracter a = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).value;
+		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
+		int bleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		Caracter b = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
+		 
+    NodoCCSS E = new NodoCCSS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCCSS("*",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("E",13, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 44: // E ::= E dividido E 
+            {
+              Caracter RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).right;
+		Caracter a = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).value;
+		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
+		int bleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		Caracter b = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
+		 
+    NodoCCSS E = new NodoCCSS("E");
+    RESULT = new Caracter();
+    E.insertar(a.nodo); E.insertar(new NodoCCSS("/",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("E",13, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 45: // E ::= verdadero 
+            {
+              Caracter RESULT =null;
+		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
+		
+    NodoCCSS E = new NodoCCSS("E");
+    RESULT = new Caracter();
+    E.insertar(new NodoCCSS("verdadero","bool",iright,ileft));
+    RESULT.nodo = E;
+ 
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("E",13, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 46: // E ::= falso 
+            {
+              Caracter RESULT =null;
+		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
+		
+    NodoCCSS E = new NodoCCSS("E");
+    RESULT = new Caracter();
+    E.insertar(new NodoCCSS("falso","bool",iright,ileft));
+    RESULT.nodo = E;
+ 
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("E",13, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 47: // E ::= menos E 
+            {
+              Caracter RESULT =null;
+		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)).value;
+		int bleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		Caracter b = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
+		
+    NodoCCSS E = new NodoCCSS("E");
+    RESULT = new Caracter();
+    E.insertar(new NodoCCSS("-",iright,ileft)); E.insertar(b.nodo);
+    RESULT.nodo = E;
+
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("E",13, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-1)), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 48: // E ::= cadena 
+            {
+              Caracter RESULT =null;
+		int nleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int nright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		String n = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
+		
+    RESULT = new Caracter();
+    n = n.replace("\"","");
+    NodoCCSS E = new NodoCCSS("E");
+    E.insertar(new NodoCCSS(n,"cadena",nright,nleft));
+    RESULT.nodo = E;
+
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("E",13, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 49: // E ::= entero 
+            {
+              Caracter RESULT =null;
+		int nleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int nright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		String n = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
+		
+    RESULT = new Caracter();
+    NodoCCSS E = new NodoCCSS("E");
+    E.insertar(new NodoCCSS(n,"entero",nright,nleft));
+    RESULT.nodo = E;
+
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("E",13, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 50: // E ::= decimal 
+            {
+              Caracter RESULT =null;
+		int nleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int nright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		String n = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
+		
+    RESULT = new Caracter();
+    NodoCCSS E = new NodoCCSS("E");
+    E.insertar(new NodoCCSS(n,"decimal",nright,nleft));
+    RESULT.nodo = E;
+
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("E",13, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 51: // E ::= id 
+            {
+              Caracter RESULT =null;
+		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
+		
+    RESULT = new Caracter();
+    NodoCCSS E = new NodoCCSS("E");
+    E.insertar(new NodoCCSS(i,"id",iright,ileft));
+    RESULT.nodo = E;
+
+              CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("E",13, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCCSS$result;
 

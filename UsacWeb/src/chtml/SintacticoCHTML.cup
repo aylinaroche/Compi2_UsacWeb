@@ -58,6 +58,12 @@ HTML ::= ENCABEZADO:e CUERPO:c{:
     RESULT = new Caracter();
     E.insertar(e.nodo); E.insertar(c.nodo);
     RESULT.nodo = E;
+:}
+|ENCABEZADO:e {:
+    NodoCHTML E = new NodoCHTML("HTML");
+    RESULT = new Caracter();
+    E.insertar(e.nodo);
+    RESULT.nodo = E;
 :};
 
 
@@ -101,7 +107,7 @@ INFO::= cjs:i ruta igual cadena:n puntoComa mayor fincjs {://4
     E.insertar(new NodoCHTML(i)); E.insertar(new NodoCHTML("ruta=")); E.insertar(new NodoCHTML(n)); E.insertar(new NodoCHTML(";>finccss"));
     RESULT.nodo = E;
 :}
-| titulo:i cadenacon:n fintitulo {://3
+| titulo:i cadenasin:n fintitulo {://3
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("INFO");
     E.insertar(new NodoCHTML(i));  E.insertar(new NodoCHTML(n)); E.insertar(new NodoCHTML("fintitulo"));

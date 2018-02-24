@@ -14,13 +14,13 @@ public class Errores {
 
     public static void agregarError(String t, String d, int f, int c) {
         Errror e = new Errror();
-        e.archivo = "";
+        e.archivo = UsacWeb.pilaArchivo.peek();
         e.tipo = t;
         e.descripcion = d;
         e.fila = f;
         e.columna = c;
         errores.add(e);
-        System.out.println("-> " + t + ": " + d + ": " + f + ": " + c);
+        System.out.println("-> " + t + ": " + d + ": " + f + ": " + c + ": " + e.archivo);
     }
 
     public static void reporteErrores(ArrayList errores, String nombre) {

@@ -77,19 +77,9 @@ public class Recorrido {
                 case "ESTILO":
                     switch (raiz.cantidadHijos) {
                         case 4:
-                            switch (raiz.hijos[0].texto) {
-                                case "alineado":
-                                case "formato":
-                                    result = Recorrido(raiz.hijos[2]);
-                                    Estilo e1 = new Estilo(raiz.hijos[0].texto, result);
-                                    result = e1;
-                                    break;
-                                default:
-                                    Estilo e4 = new Estilo(raiz.hijos[0].texto, raiz.hijos[1]);
-                                    result = e4;
-                                    break;
-                            }
-                            result = Recorrido(raiz.hijos[0]);
+                            result = Recorrido(raiz.hijos[2]);
+                            Estilo e1 = new Estilo(raiz.hijos[0].texto, result);
+                            result = e1;
                             break;
                         case 8:
                             switch (raiz.hijos[0].texto) {
@@ -155,7 +145,12 @@ public class Recorrido {
                             break;
                     }
                     break;
-
+                case "OP":
+                    result = Recorrido(raiz.hijos[0]);
+                    break;
+                case "E":
+                    result = Operacion.resolverOperacion(raiz);
+                    break;
             }
 
         }

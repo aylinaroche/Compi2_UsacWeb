@@ -81,7 +81,8 @@ public String lexeme;
 ";" {return new Symbol(sym.puntoComa, yycolumn, yyline, new String(yytext()));}
 }
 {Letra}({Letra}|{Digito}|"_")* {lexeme=yytext(); return new Symbol(sym.id, yycolumn, yyline,new String(yytext()));}
-{Digito}+("."{Digito}+)* {lexeme=yytext(); return new Symbol(sym.numero, yycolumn, yyline,new String(yytext()));}
+{Digito}+ {lexeme=yytext(); return new Symbol(sym.entero, yycolumn, yyline,new String(yytext()));}
+{Digito}+("."{Digito}+) {lexeme=yytext(); return new Symbol(sym.decimal, yycolumn, yyline,new String(yytext()));}
 
 {CadenaDoble} {lexeme=yytext(); return new Symbol(sym.cadena ,yycolumn, yyline,new String(yytext()));}
 {CadenaSimple} {lexeme=yytext(); return new Symbol(sym.caracter ,yycolumn, yyline,new String(yytext()));}

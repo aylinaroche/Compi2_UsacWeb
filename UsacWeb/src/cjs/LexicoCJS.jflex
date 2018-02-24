@@ -18,12 +18,13 @@ SinSalto = [^'|\r|\n]
 Saltos = \r|\n|\r\n\
 Sin = [^\r|\n]
  
+
+Fecha       = "'"{Digito}+"/"{Digito}+"/"{Digito}+"'"
 TiposComentarios = {MultilineaComentario} | {LineaComentario} 
 MultilineaComentario   = "'/" [^/] ~"/'" | "'/" "/"+ "/'"
 LineaComentario     = "'" {Sin}* {Saltos}? 
 
 TiposCadenas = {CadenaSimple} | {CadenaDoble}
-CadenaSimple  = "'"{SinSalto}* | '{SinSalto}* |‘{SinSalto}* ~’
 CadenaDoble = "\"" {SinSaltos}* ~"\"" |  “ {SinSaltos}* ~” |” {SinSaltos}* ~”
 
 
@@ -92,12 +93,12 @@ public String lexeme;
 {Digito}+ {lexeme=yytext(); return new Symbol(sym.entero, yycolumn, yyline,new String(yytext()));}
 {Digito}+("."{Digito}+) {lexeme=yytext(); return new Symbol(sym.decimal, yycolumn, yyline,new String(yytext()));}
 
+{Fecha} {lexeme=yytext(); return new Symbol(sym.fecha, yycolumn, yyline,new String(yytext()));}
+
 {CadenaDoble} {lexeme=yytext(); return new Symbol(sym.cadena ,yycolumn, yyline,new String(yytext()));}
-{CadenaSimple} {lexeme=yytext(); return new Symbol(sym.caracter ,yycolumn, yyline,new String(yytext()));}
 {TiposComentarios} { }
 
-"'"{Digito}+"/"{Digito}+"/"{Digito}+"'" {lexeme=yytext(); return new Symbol(sym.fecha, yycolumn, yyline,new String(yytext()));}
-"'"{Digito}+"/"{Digito}+"/"{Digito}+" "{Digito}+":"{Digito}+":"{Digito}+"'" {lexeme=yytext(); return new Symbol(sym.hora, yycolumn, yyline,new String(yytext()));}
+
 
 . {//return new Symbol(sym.ERROR, yycolumn, yyline,new String(yytext()));
 //ejecutar.Errores.agregarError(yytext(), "Error Lexico", "No pertenece al lenguaje",0,0);

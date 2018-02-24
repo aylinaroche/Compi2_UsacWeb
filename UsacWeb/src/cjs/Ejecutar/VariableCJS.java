@@ -3,6 +3,7 @@ package cjs.Ejecutar;
 import java.util.ArrayList;
 import java.util.Stack;
 import usacweb.Errores;
+import static usacweb.UsacWeb.pilaArchivo;
 
 public class VariableCJS {
 
@@ -18,7 +19,7 @@ public class VariableCJS {
         }
         for (int i = 0; i < listaVariables.size(); i++) {
             Variable s = (Variable) listaVariables.get(i);
-            if (s.nombre.equalsIgnoreCase(nombre) && s.ambito.equals(pilaAmbito.peek()) && s.nivel == nivelAmbito) {
+            if (s.nombre.equalsIgnoreCase(nombre) && s.ambito.equalsIgnoreCase(pilaAmbito.peek()) && s.nivel == nivelAmbito && s.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
                 Errores.agregarError("Error Semantico", "La variable " + nombre + " ya existe", f, c);
                 return;
             }
@@ -42,7 +43,7 @@ public class VariableCJS {
         }
         for (int i = 0; i < listaVariables.size(); i++) {
             Variable s = (Variable) listaVariables.get(i);
-            if (s.nombre.equalsIgnoreCase(nombre) && s.ambito.equals(pilaAmbito.peek()) && s.nivel == nivelAmbito) {
+            if (s.nombre.equalsIgnoreCase(nombre) && s.ambito.equals(pilaAmbito.peek()) && s.nivel == nivelAmbito && s.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
                 Errores.agregarError("Error Semantico", "El vector " + nombre + " ya existe", f, c);
                 return;
             }
@@ -54,7 +55,7 @@ public class VariableCJS {
     public static void asignarVariable(String nombre, Object valor, int f, int c) {
         for (int i = 0; i < listaVariables.size(); i++) {
             Variable s = (Variable) listaVariables.get(i);
-            if (s.nombre.equalsIgnoreCase(nombre)) {
+            if (s.nombre.equalsIgnoreCase(nombre) && s.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
                 if (valor instanceof ArrayList) {
                     ArrayList a = (ArrayList) valor;
                     if (a.size() != s.tamanio) {
@@ -79,7 +80,7 @@ public class VariableCJS {
         }
         for (int i = 0; i < listaVariables.size(); i++) {
             Variable s = (Variable) listaVariables.get(i);
-            if (s.nombre.equalsIgnoreCase(nombre) && s.ambito.equals(pilaAmbito.peek()) && s.nivel == nivelAmbito) {
+            if (s.nombre.equalsIgnoreCase(nombre) && s.ambito.equals(pilaAmbito.peek()) && s.nivel == nivelAmbito && s.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
                 if (pos > s.tamanio) {
                     Errores.agregarError("Error Semantico", "El tamanio del vector " + nombre + " es incorrecto", f, c);
                     return;
@@ -106,7 +107,7 @@ public class VariableCJS {
     public static Object obtenerVariable(String nombre, int f, int c) {
         for (int i = listaVariables.size() - 1; i >= 0; i--) {
             Variable sim = (Variable) listaVariables.get(i);
-            if (sim.nombre.equalsIgnoreCase(nombre)) {
+            if (sim.nombre.equalsIgnoreCase(nombre) && sim.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
                 Object valor = sim.valor;
                 return valor;
             }
@@ -125,7 +126,7 @@ public class VariableCJS {
         }
         for (int i = listaVariables.size() - 1; i >= 0; i--) {
             Variable sim = (Variable) listaVariables.get(i);
-            if (sim.nombre.equalsIgnoreCase(nombre)) {
+            if (sim.nombre.equalsIgnoreCase(nombre) && sim.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
                 if (sim.valor instanceof ArrayList) {
                     ArrayList v = (ArrayList) sim.valor;
                     if (v.size() > pos) {
@@ -142,7 +143,7 @@ public class VariableCJS {
     public static int obtenerTamanio(String nombre, int f, int c) {
         for (int i = listaVariables.size() - 1; i >= 0; i--) {
             Variable s = (Variable) listaVariables.get(i);
-            if (s.nombre.equalsIgnoreCase(nombre)) {
+            if (s.nombre.equalsIgnoreCase(nombre) && s.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
                 int tam = s.tamanio;
                 return tam;
             }
@@ -154,7 +155,7 @@ public class VariableCJS {
     public static String obtenerCadena(String nombre, int f, int c) {
         for (int i = listaVariables.size() - 1; i >= 0; i--) {
             Variable s = (Variable) listaVariables.get(i);
-            if (s.nombre.equalsIgnoreCase(nombre)) {
+            if (s.nombre.equalsIgnoreCase(nombre) && s.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
                 if (s.valor instanceof ArrayList) {
                     ArrayList lista = (ArrayList) s.valor;
                     String cadena = "";
@@ -172,7 +173,7 @@ public class VariableCJS {
     public static void incrementar(String nombre, int n) {
         for (int i = 0; i < listaVariables.size(); i++) {
             Variable s = (Variable) listaVariables.get(i);
-            if (s.nombre.equals(nombre) && pilaAmbito.contains(s.ambito)) {
+            if (s.nombre.equals(nombre) && pilaAmbito.contains(s.ambito) && s.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
                 try {
                     s.valor = (int) s.valor + n;
                 } catch (Exception e) {
@@ -187,7 +188,7 @@ public class VariableCJS {
         System.out.println("********** IMPRIMIR ***********");
         for (int i = 0; i < listaVariables.size(); i++) {
             Variable v = (Variable) listaVariables.get(i);
-            System.out.println(v.nombre + "  -  " + v.valor + " - " + v.tamanio + "  -  " + v.ambito);
+            System.out.println(v.nombre + "  -  " + v.valor + " - " + v.tamanio + "  -  " + v.ambito + " - " + v.archivo);
         }
         System.out.println("*******************************");
     }

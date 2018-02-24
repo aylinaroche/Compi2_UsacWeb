@@ -39,4 +39,9 @@ public class Metodo {
         return lectura;
     }
 
+    public static String obtenerNombre(String ruta) {
+        String[] valores = ruta.split("/");
+        return valores[valores.length - 1];
+    }
+
 }

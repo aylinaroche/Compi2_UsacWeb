@@ -176,49 +176,6 @@ public class Recorrido {
                             break;
                     }
                     break;
-                case "CICLOC":
-                    pilaAmbito.push("Ciclo");
-                    nivelAmbito += 1;
-                    switch (raiz.cantidadHijos) {
-                        case 7:
-                            boolean w = false;
-                            result = Recorrido(raiz.hijos[2]);
-                            w = result.toString().equals("true");
-                            while (w) {
-
-                                result = Recorrido(raiz.hijos[2]).toString();
-                                if (result.toString().equals("true")) {
-                                    Recorrido(raiz.hijos[5]);
-                                    w = true;
-                                } else {
-                                    w = false;
-                                    break;
-                                }
-                            }
-                            break;
-                        case 9:
-                            Recorrido(raiz.hijos[2]);
-                            result = Recorrido(raiz.hijos[6]).toString();
-                            w = result.toString().equals("true");
-                            while (w) {
-
-                                Recorrido(raiz.hijos[2]);
-                                result = Recorrido(raiz.hijos[6]).toString();
-                                if (result.toString().equals("true")) {
-                                    w = true;
-                                } else {
-                                    w = false;
-                                    break;
-                                }
-                            }
-                            break;
-                    }
-                    salir = false;
-                    pilaAmbito.pop();
-                    VariableCJS.eliminarVariables();
-                    nivelAmbito -= 1;
-
-                    break;
                 case "CICLO":
                     pilaAmbito.push("Mientras");
                     nivelAmbito += 1;
@@ -431,7 +388,7 @@ public class Recorrido {
                         usacweb.UsacWeb.listaImprimir.add(imp);
                     }
                     break;
-                case "DOCUMENTO": 
+                case "DOCUMENTO":
                     switch (raiz.cantidadHijos) {
                         case 2: //Obtener
                             break;
@@ -439,7 +396,15 @@ public class Recorrido {
                             EventoCJS.crearEvento("documento", raiz.hijos[1].texto.replace("\"", ""), raiz.hijos[3]);
                             break;
                         case 6://id
-                            EventoCJS.crearEvento(raiz.hijos[0].texto, raiz.hijos[1].texto.replace("\"", ""), raiz.hijos[3]);
+                            EventoCJS.crearEvento(raiz.hijos[0].texto, raiz.hijos[2].texto.replace("\"", ""), raiz.hijos[4]);
+                            break;
+                    }
+                    break;
+                case "SET":
+                    switch (raiz.cantidadHijos) {
+                        case 7: //Obtener
+                            break;
+                        case 8: //observador
                             break;
                     }
                     break;

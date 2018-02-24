@@ -59,6 +59,12 @@ public class Recoleccion {
                             break;
                     }
                     break;
+//                case "VARIABLE":
+//                case "ASIGNACION":
+//                case "VECTOR":
+//                    Recorrido r = new Recorrido();
+//                    r.Recorrido(raiz);
+//                    break;
             }
         }
         return result;

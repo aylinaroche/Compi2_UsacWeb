@@ -61,6 +61,7 @@ public class ccss {
     }
 
     public static void iniciar() {
+        usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba");
         Recorrido r = new Recorrido();
         r.Recorrido(NODO);
         BloqueCCSS.imprimirBloque();
@@ -74,8 +75,8 @@ public class ccss {
                     + "//Inicio Grupo_areas_1 \n"
                     + "GRUPO (grupo_areas_1); \n"
                     + "Formato := mayuscula, NEGRILLA, capital-t; \n"
-                    + "Letra := \"Courier New\";\n"
-                    + "Tamtex := 15.5; \n"
+                    + "Letra := \"Courier New\" + \"5\";\n"
+                    + "Tamtex := 15.5 * 2; \n"
                     + "Fondoelemento := \"green\";\n"
                     + "//Fin Grupo_areas_1 \n"
                     + "\n"
@@ -89,8 +90,8 @@ public class ccss {
                    + "//Inicioidentificador_1 \n"
                     + "ID (identificador_1); \n"
                     + "Formato := mayuscula, NEGRILLA, capital-t; \n"
-                    + "Letra := \"Arial\";"
-                    + "Tamtex := 12; \n"
+                    + "Letra := \"Arial\"+15;"
+                    + "Tamtex := 12/3; \n"
                     + "\n"
                     + "] //Fin identificador_1 \n"
                     + "\n"
@@ -98,7 +99,7 @@ public class ccss {
                     + "ID (identificador_2); \n"
                     + "Formato := NEGRILLA; \n"
                     + "Letra := \"Arial\"; \n"
-                    + "Tamtex := 18; \n"
+                    + "Tamtex := 18+1; \n"
                     + "]"
                     + "");
         } catch (Exception ex) {

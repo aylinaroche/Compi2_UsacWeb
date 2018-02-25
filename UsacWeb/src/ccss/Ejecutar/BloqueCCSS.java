@@ -29,6 +29,17 @@ public class BloqueCCSS {
         listaBloques.add(v);
     }
 
+    public static ArrayList obtenerBloque(String tipo, String nombre) {
+        for (int i = 0; i < listaBloques.size(); i++) {
+            Bloque s = listaBloques.get(i);
+            if (s.nombre.equalsIgnoreCase(nombre) && s.tipo.equalsIgnoreCase(tipo)) {
+                return s.elementos;
+            }
+        }
+        Errores.agregarError("Error Semantico", "El bloque " + nombre + " no existe", 0, 0);
+        return new ArrayList();
+    }
+
     public static void imprimirBloque() {
         for (int i = 0; i < listaBloques.size(); i++) {
             Bloque s = listaBloques.get(i);

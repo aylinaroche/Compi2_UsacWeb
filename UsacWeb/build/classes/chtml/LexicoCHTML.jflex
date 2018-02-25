@@ -1,5 +1,6 @@
 package chtml;
 import java_cup.runtime.Symbol;
+import usacweb.Errores;
 %%
 %class LexicoCHTML
 %type Symbol
@@ -13,66 +14,45 @@ import java_cup.runtime.Symbol;
 
 chtml    = "<"[\ \t\n\r\f]*"CHTML"[\ \t\n\r\f]*">"
 finchtml    = "<"[\ \t\n\r\f]*"FIN-CHTML"[\ \t\n\r\f]*">"
-
 encabezado   = "<"[\ \t\n\r\f]*"ENCABEZADO"[\ \t\n\r\f]*">"
 finencabezado   = "<"[\ \t\n\r\f]*"FIN-ENCABEZADO"[\ \t\n\r\f]*">"
-
 cuerpo = "<"[\ \t\n\r\f]*"CUERPO"
 fincuerpo = "<"[\ \t\n\r\f]*"FIN-CUERPO"[\ \t\n\r\f]*">"
-
 cjs  = "<"[\ \t\n\r\f]*"CJS"
 fincjs  = "<"[\ \t\n\r\f]*"FIN-CJS"[\ \t\n\r\f]*">" 
-
 ccss = "<"[\ \t\n\r\f]*"CCSS"
 finccss = "<"[\ \t\n\r\f]*"FIN-CCSS"[\ \t\n\r\f]*">"
-
 titulo   = "<"[\ \t\n\r\f]*"TITULO"
 fintitulo   = "FIN-TITULO"[\ \t\n\r\f]*">"
-
 panel    = "<"[\ \t\n\r\f]*"PANEL"
 finpanel    = "<"[\ \t\n\r\f]*"FIN-PANEL"[\ \t\n\r\f]*">"
-
 texto    = "<"[\ \t\n\r\f]*"TEXTO"
 fintexto    = "FIN-TEXTO"[\ \t\n\r\f]*">"
-
 imagen      = "<"[\ \t\n\r\f]*"IMAGEN"
 finimagen   = "FIN-IMAGEN"[\ \t\n\r\f]*">"
-
 boton       = "<"[\ \t\n\r\f]*"BOTON"
 finboton    = "FIN-BOTON"[\ \t\n\r\f]*">"
-
 enlace      = "<"[\ \t\n\r\f]*"ENLACE"
 finenlace   = "FIN-ENLACE"[\ \t\n\r\f]*">"
-
 tabla       = "<"[\ \t\n\r\f]*"TABLA"
 fintabla    = "<"[\ \t\n\r\f]*"FIN-TABLA"[\ \t\n\r\f]*">"
-
 filt        = "<"[\ \t\n\r\f]*"FIL_T"[\ \t\n\r\f]*">"
 finfilt     = "<"[\ \t\n\r\f]*"FIN-FIL_T"[\ \t\n\r\f]*">"
-
 cb          = "<"[\ \t\n\r\f]*"CB"
 fincb       = "FIN-CB"[\ \t\n\r\f]*">"
-
 ct          = "<"[\ \t\n\r\f]*"CT"
 finct       = "FIN-CT"[\ \t\n\r\f]*">"
-
 textoa      = "<"[\ \t\n\r\f]*"TEXTO_A"
 fintextoa   = "FIN-TEXTO_A"[\ \t\n\r\f]*">"
-
 cajatexto   = "<"[\ \t\n\r\f]*"CAJA_TEXTO"
 fincajatexto   = "FIN-CAJA_TEXTO"[\ \t\n\r\f]*">"
- 
 caja        = "<"[\ \t\n\r\f]*"CAJA"
 fincaja     = "<"[\ \t\n\r\f]*"FIN-CAJA"[\ \t\n\r\f]*">"
-
 opcion      = "<"[\ \t\n\r\f]*"OPCION"
 finopcion   = "FIN-OPCION"[\ \t\n\r\f]*">"
-
 spinner     = "<"[\ \t\n\r\f]*"SPINNER"
 finspinner  = "FIN-SPINNER"[\ \t\n\r\f]*">"
-
 saltofin    = "<"[\ \t\n\r\f]*"SALTO-FIN"[\ \t\n\r\f]*">"
-
 
 Letra = [a-zA-Z_]|á|é|í|ó|ú
 Digito = 0 | [1-9][0-9]* 
@@ -84,10 +64,8 @@ Sin= [^\r|\n]
 Comentario = "<//" [^/] ~"//>" | "<//" "/"+ "//>"
 
 CadenaComillas = "\"" {SinSaltos}* ~"\"" |  “ {SinSaltos}* ~” |” {SinSaltos}* ~”
-CadenaConSaltos = ">" {Saltos} (("<"{Saltos}"/")|[^<])+ {Saltos} "<"
-
 CadenaSinSaltos   = ">"[\ \t\n\r\f]*([A-Za-z]|[0-9]|[@]|[-]|[+]|[/]|[\\]|[*]|[=]|[.]|[,]|[{]|[}]|[']|[;]|[:])[^"\n"]*"<"
-contenido_txt   = ">"[\ \t\n\r\f]*([A-Za-z0-9]|[@]|[-]|[+]|[/]|[\\]|[*]|[=]|[.]|[,]|[{]|[}]|[']|[;]|[:])([^[<]]+([\n]))([^[<]]+)"<"
+CadenaConSaltos  = ">"[\ \t\n\r\f]*([A-Za-z0-9]|[@]|[-]|[+]|[/]|[\\]|[*]|[=]|[.]|[,]|[{]|[}]|[']|[;]|[:])([^[<]]+([\n]))([^[<]]+)"<"
 
 
 WHITE=[ \t\r\n]
@@ -142,7 +120,6 @@ public String lexeme;
 {spinner} { return new Symbol(sym.spinner, yychar, yyline, yytext());}
 {finspinner} { return new Symbol(sym.finspinner, yychar, yyline, yytext());}
 {saltofin} { return new Symbol(sym.saltofin, yychar, yyline, yytext());}
-
 "ruta" {return new Symbol(sym.ruta, yycolumn, yyline, new String(yytext()));}
 "fondo" {return new Symbol(sym.fondo, yycolumn, yyline, new String(yytext()));}
 "click" {return new Symbol(sym.click, yycolumn, yyline, new String(yytext()));}
@@ -163,9 +140,7 @@ public String lexeme;
 
 {CadenaComillas} {lexeme=yytext(); return new Symbol(sym.cadena ,yycolumn, yyline,new String(yytext()));}
 {CadenaSinSaltos} {lexeme=yytext(); return new Symbol(sym.cadenasin ,yycolumn, yyline,new String(yytext()));}
-{CadenaConSaltos} {lexeme=yytext(); return new Symbol(sym.cadenaSaltos ,yycolumn, yyline,new String(yytext()));}
-
-{contenido_txt} {lexeme=yytext(); return new Symbol(sym.cadenacon, yychar, yyline, yytext());}
+{CadenaConSaltos} {lexeme=yytext(); return new Symbol(sym.cadenacon, yychar, yyline, yytext());}
 
 {Letra}({Letra}|{Digito}|"_")* {lexeme=yytext(); return new Symbol(sym.id, yycolumn, yyline,new String(yytext()));}
 {Digito}+ {lexeme=yytext(); return new Symbol(sym.entero, yycolumn, yyline,new String(yytext()));}
@@ -174,7 +149,7 @@ public String lexeme;
 
 
 
-. {//return new Symbol(sym.ERROR, yycolumn, yyline,new String(yytext()));
-//ejecutar.Errores.agregarError(yytext(), "Error Lexico", "No pertenece al lenguaje",0,0);
+. {
+    Errores.agregarError("Error Lexico",yytext(), yyline,yycolumn);
 }
 

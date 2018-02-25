@@ -35,6 +35,7 @@ public class cjs {
         } catch (Exception e) {
             System.out.println(e);
         }
+        usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba.cjs");
         archivo1();
         VariableCJS.imprimir();
     }
@@ -60,6 +61,7 @@ public class cjs {
         }
 
         iniciar();
+        VariableCJS.imprimir();
     }
 
     public static void iniciar() {
@@ -68,8 +70,8 @@ public class cjs {
         VariableCJS.nivelAmbito++;
         Recoleccion r = new Recoleccion();
         r.Recorrido(NODO);
-        //Recorrido c = new Recorrido();
-       // c.Recorrido(NODO);
+        Recorrido c = new Recorrido();
+        c.Recorrido(NODO);
         VariableCJS.nivelAmbito--;
         VariableCJS.pilaAmbito.pop();
     }
@@ -172,7 +174,23 @@ public class cjs {
                     //                    + "\n"
                     //                    + "\n"
                     + ""
-                    + "Dimv a : \"31/12/1999\";"
+                    + "Dimv a : \"31/10/1999\";"
+                    + "Dimv b : \"31/12/1999 23:59:50\";"
+                    + "Dimv c : \"Hola\";"
+                    + "$"
+                    + "Dimv d : 8;"
+                    + "Si( a << b){ \n"
+                    + "	imprimir(\"true1\"); \n"
+                    + "}"
+                    + "Si( c != 8 ){ \n"
+                    + "	imprimir(\"true2\"); \n"
+                    + "}"
+                    + "Si( c == c ){ \n"
+                    + "	imprimir(\"true3\"); \n"
+                    + "}"
+                    + " "//falso
+                    + ""//falso
+                    + "" //falso
                     + "");
         } catch (Exception ex) {
             Logger.getLogger(cjs.class.getName()).log(Level.SEVERE, null, ex);

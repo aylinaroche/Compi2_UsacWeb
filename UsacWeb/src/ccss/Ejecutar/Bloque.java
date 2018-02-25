@@ -11,13 +11,13 @@ public class Bloque implements Cloneable {
     public String selector;
     public String nombre;
     public String tipo;
-    public ArrayList nodo;
+    public ArrayList elementos;
 
-    public Bloque(String s, String n, String t, ArrayList no) {
+    public Bloque(String s, String n, String t, ArrayList e) {
         this.tipo = t;
         this.nombre = n;
         this.selector = s;
-        this.nodo = no;
+        this.elementos = e;
     }
 
 }

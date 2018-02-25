@@ -15,7 +15,7 @@ public class UsacWeb {
     public static ArrayList<Historial> listaHistorial = new ArrayList();
     public static ArrayList<String> listaImprimir = new ArrayList();
     public static Stack<String> pilaArchivo = new Stack();
-    public static ArrayList listaFavoritos = new ArrayList();
+    public static ArrayList<String> listaFavoritos = new ArrayList();
     public static Interfaz i = new Interfaz();
 
     public static void main(String[] args) {

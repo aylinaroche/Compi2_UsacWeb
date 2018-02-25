@@ -24,10 +24,35 @@ public class PanelPrincipal extends javax.swing.JPanel {
     JButton botonOpciones = new JButton();
     JButton botonHistorial = new JButton();
     JButton botonFavorito = new JButton();
+    
+    PanelSecundario secundario = new PanelSecundario();
 
-    public PanelPrincipal() {
+    public PanelPrincipal(String r) {
         Box boxH1 = Box.createHorizontalBox();
+        crearBotones();
+        ruta.setText("C:\\Users\\Aroche\\Documents\\Archivos\\Paso1.chtml");
+        ruta.setFont(new java.awt.Font("Verdana", 0, 12));
+        ruta.setPreferredSize(new Dimension(1300, 30));
+        ruta.setMaximumSize(ruta.getPreferredSize());
 
+        accionesBoton();
+        boxH1.add(botonAtras);
+        boxH1.add(botonAdelante);
+        boxH1.add(botonEjecutar);
+        boxH1.add(ruta);
+
+        Box boxV1 = Box.createVerticalBox();
+        boxV1.add(boxH1);
+        Box boxH2 = crearBarra();
+
+        boxV1.add(boxH2);
+        boxV1.add(secundario);
+
+        setLayout(new BorderLayout());
+        add(boxV1, BorderLayout.CENTER);
+    }
+
+    public void crearBotones() {
         botonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/izquierda.jpg"))); // NOI18N
         botonAtras.setText("");
         botonAtras.setPreferredSize(new Dimension(35, 35));
@@ -48,29 +73,9 @@ public class PanelPrincipal extends javax.swing.JPanel {
         botonEjecutar.setMaximumSize(botonEjecutar.getPreferredSize());
         botonEjecutar.setBackground(new java.awt.Color(255, 255, 255));
         botonEjecutar.setBorder(null);
-
-        ruta.setText("C:\\Users\\Aroche\\Documents\\Archivos\\Paso1.chtml");
-        ruta.setFont(new java.awt.Font("Verdana", 0, 12));
-        ruta.setPreferredSize(new Dimension(1300, 30));
-        ruta.setMaximumSize(ruta.getPreferredSize());
-
-        crearAcciones();
-        boxH1.add(botonAtras);
-        boxH1.add(botonAdelante);
-        boxH1.add(botonEjecutar);
-        boxH1.add(ruta);
-
-        Box box = Box.createVerticalBox();
-        box.add(boxH1);
-        Box boxH2 = crearBotones();
-
-        box.add(boxH2);
-
-        setLayout(new BorderLayout());
-        add(box, BorderLayout.CENTER);
     }
 
-    public Box crearBotones() {
+    public Box crearBarra() {
         Box box = Box.createHorizontalBox();
         botonOpciones.setText("Opciones");
         botonOpciones.setFont(new java.awt.Font("Verdana", 0, 12));
@@ -94,11 +99,32 @@ public class PanelPrincipal extends javax.swing.JPanel {
         botonFavorito.setMaximumSize(botonFavorito.getPreferredSize());
         botonFavorito.setBackground(new java.awt.Color(255, 255, 255));
         botonFavorito.setBorder(null);
-        agregarAcciones();
+        accionesBarra();
         box.add(botonOpciones);
         box.add(botonHistorial);
         for (int i = 0; i < listaFavoritos.size(); i++) {
+            String fav = listaFavoritos.get(i);
+            JButton botonFav = new JButton();
+            String nombre = Metodo.obtenerNombre(fav);
+            botonFav.setText(nombre);
+            botonFav.setPreferredSize(new Dimension(150, 35));
+            botonFav.setFont(new java.awt.Font("Verdana", 0, 12));
+            botonFav.setMaximumSize(botonFav.getPreferredSize());
+            botonFav.setBackground(new java.awt.Color(204, 204, 204));
+            botonFav.setForeground(new java.awt.Color(255, 255, 255));
 
+            botonFav.addActionListener(new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    ActionPerformed(evt);
+                }
+
+                private void ActionPerformed(ActionEvent evt) {
+                    Metodo.crearPestania(fav);
+                }
+            });
+
+            box.add(botonFav);
         }
 
         box.add(Box.createHorizontalGlue());
@@ -107,7 +133,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
         return box;
     }
 
-    public void crearAcciones() {
+    public void accionesBoton() {
         botonEjecutar.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +154,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
         });
     }
 
-    private void agregarAcciones() {
+    private void accionesBarra() {
         botonOpciones.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,7 +200,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
             }
 
             private void ActionPerformed(ActionEvent evt) {
-
+                UsacWeb.listaFavoritos.add(ruta.getText());
             }
         });
     }

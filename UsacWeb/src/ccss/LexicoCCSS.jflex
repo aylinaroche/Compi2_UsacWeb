@@ -1,5 +1,6 @@
 package ccss;
 import java_cup.runtime.Symbol;
+import usacweb.Errores;
 %%
 %class LexicoCCSS
 %type Symbol
@@ -88,8 +89,7 @@ public String lexeme;
 {CadenaSimple} {lexeme=yytext(); return new Symbol(sym.caracter ,yycolumn, yyline,new String(yytext()));}
 {TiposComentarios} { }
 
-. {//return new Symbol(sym.ERROR, yycolumn, yyline,new String(yytext()));
-//ejecutar.Errores.agregarError(yytext(), "Error Lexico", "No pertenece al lenguaje",0,0);
-
+. {
+    Errores.agregarError("Error Lexico",yytext(), yyline,yycolumn);
 }
 

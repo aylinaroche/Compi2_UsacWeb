@@ -21,12 +21,12 @@ public class sym {
   public static final int igual = 29;
   public static final int letra = 14;
   public static final int auto = 17;
-  public static final int caracter = 45;
+  public static final int caracter = 44;
   public static final int grupo = 24;
-  public static final int dividido = 42;
+  public static final int dividido = 41;
   public static final int alineado = 3;
   public static final int tamtex = 15;
-  public static final int numero = 41;
+  public static final int numero = 40;
   public static final int justificado = 7;
   public static final int vertical = 20;
   public static final int menos = 28;
@@ -36,11 +36,10 @@ public class sym {
   public static final int verdadero = 35;
   public static final int error = 1;
   public static final int capital = 13;
-  public static final int entero = 48;
+  public static final int entero = 47;
   public static final int horizontal = 19;
   public static final int por = 33;
-  public static final int punto = 44;
-  public static final int ERROR = 40;
+  public static final int punto = 43;
   public static final int llaveC = 38;
   public static final int minuscula = 12;
   public static final int id = 30;
@@ -52,12 +51,12 @@ public class sym {
   public static final int texto = 2;
   public static final int izquierda = 4;
   public static final int formato = 8;
-  public static final int parentesisC = 47;
+  public static final int parentesisC = 46;
   public static final int borde = 21;
-  public static final int parentesisA = 46;
+  public static final int parentesisA = 45;
   public static final int cursiva = 10;
-  public static final int decimal = 49;
-  public static final int cadena = 43;
+  public static final int decimal = 48;
+  public static final int cadena = 42;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -99,7 +98,6 @@ public class sym {
   "llaveA",
   "llaveC",
   "puntoComa",
-  "ERROR",
   "numero",
   "dividido",
   "cadena",

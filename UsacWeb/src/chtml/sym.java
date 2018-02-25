@@ -8,11 +8,9 @@ package chtml;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int cadenasalto = 63;
   public static final int cadenacon = 58;
   public static final int ancho = 49;
   public static final int finimagen = 24;
-  public static final int cadenaSaltos = 66;
   public static final int fondo = 11;
   public static final int fincb = 34;
   public static final int cadenasin = 60;
@@ -31,20 +29,19 @@ public class sym {
   public static final int ccss = 9;
   public static final int tabla = 29;
   public static final int chtml = 2;
-  public static final int menor = 65;
+  public static final int menor = 63;
   public static final int ct = 35;
   public static final int fintabla = 30;
   public static final int finchtml = 3;
   public static final int EOF = 0;
   public static final int error = 1;
   public static final int fincajatexto = 19;
-  public static final int mayor = 64;
+  public static final int mayor = 62;
   public static final int saltofin = 46;
   public static final int entero = 53;
   public static final int fincuerpo = 13;
   public static final int finfilt = 32;
   public static final int valor = 43;
-  public static final int cadenaNormal = 67;
   public static final int cuerpo = 12;
   public static final int spinner = 44;
   public static final int click = 22;
@@ -60,7 +57,6 @@ public class sym {
   public static final int fintextoa = 38;
   public static final int finccss = 10;
   public static final int titulo = 14;
-  public static final int css = 62;
   public static final int caja = 39;
   public static final int encabezado = 4;
   public static final int texto = 20;
@@ -139,12 +135,8 @@ public class sym {
   "cadena",
   "cadenasin",
   "igual",
-  "css",
-  "cadenasalto",
   "mayor",
-  "menor",
-  "cadenaSaltos",
-  "cadenaNormal"
+  "menor"
   };
 }
 

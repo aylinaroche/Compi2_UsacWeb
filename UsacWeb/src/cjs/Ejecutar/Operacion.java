@@ -2,6 +2,7 @@ package cjs.Ejecutar;
 
 import java.util.Objects;
 import cjs.NodoCJS;
+import java.text.ParseException;
 import java.util.Date;
 import usacweb.Errores;
 
@@ -30,6 +31,15 @@ public class Operacion {
                         String tipoDato = nodo.hijos[0].tipo;
                         switch (tipoDato) {
                             case "cadena":
+                                Date fecha = Fecha.StringToHour(dato);
+                                if (fecha != null) {
+                                    return fecha;
+                                } else {
+                                    fecha = Fecha.StringToDate(dato);
+                                    if (fecha != null) {
+                                        return fecha;
+                                    }
+                                }
                                 return dato;
                             case "entero":
                                 int ent = Integer.parseInt(dato);
@@ -50,13 +60,12 @@ public class Operacion {
                                     return true;
                                 }
                                 return false;
-                            case "fecha":
-                                Date fecha = Fecha.StringToDate(dato.replace("'", ""));
-                                return fecha;
-                            case "hora":
-                                Date hora = Fecha.StringToDate(dato.replace("'", ""));
-                                return hora;
-
+//                            case "fecha":
+//                                Date fecha = Fecha.StringToDate(dato.replace("'", ""));
+//                                return fecha;
+//                            case "hora":
+//                                Date hora = Fecha.StringToDate(dato.replace("'", ""));
+//                                return hora;
                             default:
                                 return "";
                         }
@@ -239,17 +248,7 @@ public class Operacion {
                                 }
                                 //ENTERO
                             } else if ((E1 instanceof Integer) || (E2 instanceof Integer)) {
-                                if ((E1 instanceof Character) || (E2 instanceof Character)) {//Char
-                                    if (E1 instanceof Character) {
-                                        int v1 = ((String) E1).codePointAt(0);
-                                        int v2 = v1 - (Integer) E2;
-                                        return v2;
-                                    } else {
-                                        int v1 = ((String) E2).codePointAt(0);
-                                        int v2 = (Integer) E1 - v1;
-                                        return v2;
-                                    }
-                                } else if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
+                                if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
                                     if (E1 instanceof Boolean) {
                                         if ((Boolean) E1 == true) {
                                             int v1 = 1 - (Integer) E2;
@@ -310,17 +309,7 @@ public class Operacion {
                                 }
                                 //ENTERO
                             } else if ((E1 instanceof Integer) || (E2 instanceof Integer)) {
-                                if ((E1 instanceof Character) || (E2 instanceof Character)) {//Char
-                                    if (E1 instanceof Character) {
-                                        int v1 = ((String) E1).codePointAt(0);
-                                        int v2 = v1 * (Integer) E2;
-                                        return v2;
-                                    } else {
-                                        int v1 = ((String) E2).codePointAt(0);
-                                        int v2 = (Integer) E1 * v1;
-                                        return v2;
-                                    }
-                                } else if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
+                                if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
                                     if (E1 instanceof Boolean) {
                                         if ((Boolean) E1 == true) {
                                             int v1 = 1 * (Integer) E2;
@@ -364,16 +353,6 @@ public class Operacion {
                                         Double v1 = (Double) E1 / Double.parseDouble(String.valueOf(v));
                                         return v1;
                                     }
-                                } else if ((E1 instanceof Character) || (E2 instanceof Character)) {//Char
-                                    if (E1 instanceof Character) {
-                                        int v1 = ((String) E1).codePointAt(0);
-                                        Double v2 = Double.parseDouble(String.valueOf(v1)) / (Double) E2;
-                                        return v2;
-                                    } else {
-                                        int v1 = ((String) E2).codePointAt(0);
-                                        Double v2 = (Double) E1 / Double.parseDouble(String.valueOf(v1));
-                                        return v2;
-                                    }
                                 } else if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
                                     if (E1 instanceof Boolean) {
                                         if ((Boolean) E1 == true) {
@@ -394,19 +373,7 @@ public class Operacion {
                                 }
                                 //ENTERO
                             } else if ((E1 instanceof Integer) || (E2 instanceof Integer)) {
-                                if ((E1 instanceof Character) || (E2 instanceof Character)) {//Char
-                                    if (E1 instanceof Character) {
-                                        int v1 = ((String) E1).codePointAt(0);
-                                        int v2 = (Integer) E2;
-                                        Double v3 = Double.parseDouble(String.valueOf(v1)) / Double.parseDouble(String.valueOf(v2));
-                                        return v3;
-                                    } else {
-                                        int v1 = ((String) E2).codePointAt(0);
-                                        int v2 = (Integer) E1;
-                                        Double v3 = Double.parseDouble(String.valueOf(v2)) / Double.parseDouble(String.valueOf(v1));
-                                        return v3;
-                                    }
-                                } else if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
+                                if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
                                     if (E1 instanceof Boolean) {
                                         if ((Boolean) E1 == true) {
                                             int v1 = 1 / (Integer) E2;
@@ -520,7 +487,7 @@ public class Operacion {
                                 } else if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
                                     if (E1 instanceof Boolean) {
                                         if ((Boolean) E1 == true) {
-                                            Double v1 = 1% (Double) E2;
+                                            Double v1 = 1 % (Double) E2;
                                             return v1;
                                         } else {
                                             return (Double) 0.0;
@@ -532,7 +499,7 @@ public class Operacion {
                                         return (Double) 1.0;
                                     }
                                 } else if ((E1 instanceof Double) && (E2 instanceof Double)) {//Double
-                                    return ((Double) E1% (Double) E2);
+                                    return ((Double) E1 % (Double) E2);
                                 }
                                 //ENTERO
                             } else if ((E1 instanceof Integer) || (E2 instanceof Integer)) {
@@ -546,14 +513,14 @@ public class Operacion {
                                             return (Integer) 0;
                                         }
                                     } else if ((Boolean) E2 == true) {
-                                        Integer v2 =(Integer) E1% 1;
+                                        Integer v2 = (Integer) E1 % 1;
                                         int v3 = v2;
                                         return v3;
                                     } else {
                                         return (Integer) 1;
                                     }
                                 } else if ((E1 instanceof Integer) && (E2 instanceof Integer)) {//Boolean{
-                                    Integer v1 =(Integer) E1 % (Integer) E2;
+                                    Integer v1 = (Integer) E1 % (Integer) E2;
                                     return v1;
                                 }
                             }
@@ -580,32 +547,6 @@ public class Operacion {
                                     Double var2 = (Double) (E2);
                                     return var1 > var2;
                                 }
-                            } else if ((E1 instanceof Double || E2 instanceof Double) && (E1 instanceof Character || E2 instanceof Character)) {
-                                if (E1 instanceof Double) {
-                                    Double var1 = (Double) (E1);
-                                    int var2 = ((String) E2).codePointAt(0);
-                                    return var1 > var2;
-                                } else {
-                                    int var1 = ((String) E1).codePointAt(0);
-                                    Double var2 = (Double) (E2);
-                                    return var1 > var2;
-                                }
-                            } else if ((E1 instanceof Integer || E2 instanceof Integer) && (E1 instanceof Character || E2 instanceof Character)) {
-                                if (E1 instanceof Integer) {
-                                    int var1 = (Integer) (E1);
-                                    int var2 = ((String) E2).codePointAt(0);
-                                    return var1 > var2;
-                                } else {
-                                    int var1 = ((String) E1).codePointAt(0);
-                                    int var2 = (Integer) (E2);
-                                    return var1 > var2;
-                                }
-                            } else if ((E1 instanceof String || E2 instanceof String) && (E1 instanceof Character || E2 instanceof Character)) {
-                                if (E1 instanceof String) {
-                                    return compararMayor((String) E1, String.valueOf((char) E2));
-                                } else {
-                                    return compararMayor(String.valueOf((char) E1), (String) E1);
-                                }
                             } else if ((E1 instanceof Boolean || E2 instanceof Boolean) && (E1 instanceof Double || E2 instanceof Double)) {
                                 if (E1 instanceof Boolean) {
                                     int var1 = obtenerBoolean(E1);
@@ -626,22 +567,27 @@ public class Operacion {
                                     int var2 = obtenerBoolean(E2);
                                     return var1 > var2;
                                 }
-                            } else if ((E1 instanceof Boolean || E2 instanceof Boolean) && (E1 instanceof Character || E2 instanceof Character)) {
+                            } else if ((E1 instanceof Integer || E2 instanceof Integer) && (E1 instanceof String || E2 instanceof String)) {
                                 if (E1 instanceof Integer) {
-                                    int var1 = obtenerBoolean(E1);
-                                    int var2 = ((String) E2).codePointAt(0);
-                                    return var1 > var2;
+                                    return (Integer) E1 > ((String) E2).length();
                                 } else {
-                                    int var1 = ((String) E1).codePointAt(0);
-                                    int var2 = obtenerBoolean(E2);
-                                    return var1 > var2;
+                                    return ((String) E1).length() > (Integer) E2;
                                 }
+                            } else if ((E1 instanceof Date || E2 instanceof Date) && (E1 instanceof String || E2 instanceof String)) {
+                                if (E1 instanceof Date) {
+                                    String f = ((Date) E1).toString();
+                                    return compararMayor(f, (String) E2);
+                                } else {
+                                    String f = ((Date) E2).toString();
+                                    return compararMayor((String) E1, f);
+                                }
+                            } else if ((E1 instanceof Date && E2 instanceof Date)) {
+                                int num = Fecha.diferenciasDeFechas((Date) E1, (Date) E2);
+                                return num > 0;
                             } else if ((E1 instanceof Double && E2 instanceof Double)) {
                                 return (Double) E1 > (Double) E2;
                             } else if ((E1 instanceof Integer && E2 instanceof Integer)) {
                                 return (Integer) E1 > (Integer) E2;
-                            } else if ((E1 instanceof Character && E2 instanceof Character)) {
-                                return ((String) E1).codePointAt(0) > ((String) E2).codePointAt(0);
                             } else if ((E1 instanceof Boolean && E2 instanceof Boolean)) {
                                 return obtenerBoolean(E1) > obtenerBoolean(E2);
                             } else if ((E1 instanceof String && E2 instanceof String)) {
@@ -669,32 +615,6 @@ public class Operacion {
                                     Double var2 = (Double) (E2);
                                     return var1 < var2;
                                 }
-                            } else if ((E1 instanceof Double || E2 instanceof Double) && (E1 instanceof Character || E2 instanceof Character)) {
-                                if (E1 instanceof Double) {
-                                    Double var1 = (Double) (E1);
-                                    int var2 = ((String) E2).codePointAt(0);
-                                    return var1 < var2;
-                                } else {
-                                    int var1 = ((String) E1).codePointAt(0);
-                                    Double var2 = (Double) (E2);
-                                    return var1 < var2;
-                                }
-                            } else if ((E1 instanceof Integer || E2 instanceof Integer) && (E1 instanceof Character || E2 instanceof Character)) {
-                                if (E1 instanceof Integer) {
-                                    int var1 = (Integer) (E1);
-                                    int var2 = ((String) E2).codePointAt(0);
-                                    return var1 < var2;
-                                } else {
-                                    int var1 = ((String) E1).codePointAt(0);
-                                    int var2 = (Integer) (E2);
-                                    return var1 < var2;
-                                }
-                            } else if ((E1 instanceof String || E2 instanceof String) && (E1 instanceof Character || E2 instanceof Character)) {
-                                if (E1 instanceof String) {
-                                    return compararMenor((String) E1, String.valueOf((char) E2));
-                                } else {
-                                    return compararMenor(String.valueOf((char) E1), (String) E1);
-                                }
                             } else if ((E1 instanceof Boolean || E2 instanceof Boolean) && (E1 instanceof Double || E2 instanceof Double)) {
                                 if (E1 instanceof Boolean) {
                                     int var1 = obtenerBoolean(E1);
@@ -715,16 +635,23 @@ public class Operacion {
                                     int var2 = obtenerBoolean(E2);
                                     return var1 < var2;
                                 }
-                            } else if ((E1 instanceof Boolean || E2 instanceof Boolean) && (E1 instanceof Character || E2 instanceof Character)) {
+                            } else if ((E1 instanceof Integer || E2 instanceof Integer) && (E1 instanceof String || E2 instanceof String)) {
                                 if (E1 instanceof Integer) {
-                                    int var1 = obtenerBoolean(E1);
-                                    int var2 = ((String) E2).codePointAt(0);
-                                    return var1 < var2;
+                                    return (Integer) E1 < ((String) E2).length();
                                 } else {
-                                    int var1 = ((String) E1).codePointAt(0);
-                                    int var2 = obtenerBoolean(E2);
-                                    return var1 < var2;
+                                    return ((String) E1).length() < (Integer) E2;
                                 }
+                            } else if ((E1 instanceof Date || E2 instanceof Date) && (E1 instanceof String || E2 instanceof String)) {
+                                if (E1 instanceof Date) {
+                                    String f = ((Date) E1).toString();
+                                    return compararMenor(f, (String) E2);
+                                } else {
+                                    String f = ((Date) E2).toString();
+                                    return compararMenor((String) E1, f);
+                                }
+                            } else if ((E1 instanceof Date && E2 instanceof Date)) {
+                                int num = Fecha.diferenciasDeFechas((Date) E1, (Date) E2);
+                                return num < 0;
                             } else if ((E1 instanceof Double && E2 instanceof Double)) {
                                 return (Double) E1 < (Double) E2;
                             } else if ((E1 instanceof Integer && E2 instanceof Integer)) {
@@ -739,7 +666,7 @@ public class Operacion {
                             } else {
                                 Errores.agregarError("Error Semantico", "Error al usar operador relacional <", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
-                        } catch (Exception e) {
+                        } catch (ParseException e) {
                             System.out.println("E<: " + e);
                             return "";
                         }
@@ -758,40 +685,6 @@ public class Operacion {
                                     Double var2 = (Double) (E2);
                                     return var1 >= var2;
                                 }
-                            } else if ((E1 instanceof Double || E2 instanceof Double) && (E1 instanceof Character || E2 instanceof Character)) {
-                                if (E1 instanceof Double) {
-                                    Double var1 = (Double) (E1);
-                                    int var2 = ((String) E2).codePointAt(0);
-                                    return var1 >= var2;
-                                } else {
-                                    int var1 = ((String) E1).codePointAt(0);
-                                    Double var2 = (Double) (E2);
-                                    return var1 >= var2;
-                                }
-                            } else if ((E1 instanceof Integer || E2 instanceof Integer) && (E1 instanceof Character || E2 instanceof Character)) {
-                                if (E1 instanceof Integer) {
-                                    int var1 = (Integer) (E1);
-                                    int var2 = ((String) E2).codePointAt(0);
-                                    return var1 >= var2;
-                                } else {
-                                    int var1 = ((String) E1).codePointAt(0);
-                                    int var2 = (Integer) (E2);
-                                    return var1 >= var2;
-                                }
-                            } else if ((E1 instanceof String || E2 instanceof String) && (E1 instanceof Character || E2 instanceof Character)) {
-                                if (E1 instanceof String) {
-                                    Boolean comp = compararMayor((String) E1, String.valueOf((char) E2));
-                                    if (comp == false) {
-                                        return compararIgual((String) E1, String.valueOf((char) E2));
-                                    }
-                                    return comp;
-                                } else {
-                                    Boolean comp = compararMayor(String.valueOf((char) E1), (String) E1);
-                                    if (comp == false) {
-                                        return compararIgual(String.valueOf((char) E1), (String) E1);
-                                    }
-                                    return comp;
-                                }
                             } else if ((E1 instanceof Boolean || E2 instanceof Boolean) && (E1 instanceof Double || E2 instanceof Double)) {
                                 if (E1 instanceof Boolean) {
                                     int var1 = obtenerBoolean(E1);
@@ -812,16 +705,29 @@ public class Operacion {
                                     int var2 = obtenerBoolean(E2);
                                     return var1 >= var2;
                                 }
-                            } else if ((E1 instanceof Boolean || E2 instanceof Boolean) && (E1 instanceof Character || E2 instanceof Character)) {
+                            } else if ((E1 instanceof Integer || E2 instanceof Integer) && (E1 instanceof String || E2 instanceof String)) {
                                 if (E1 instanceof Integer) {
-                                    int var1 = obtenerBoolean(E1);
-                                    int var2 = ((String) E2).codePointAt(0);
-                                    return var1 >= var2;
+                                    return (Integer) E1 >= ((String) E2).length();
                                 } else {
-                                    int var1 = ((String) E1).codePointAt(0);
-                                    int var2 = obtenerBoolean(E2);
-                                    return var1 >= var2;
+                                    return ((String) E1).length() >= (Integer) E2;
                                 }
+                            } else if ((E1 instanceof Date || E2 instanceof Date) && (E1 instanceof String || E2 instanceof String)) {
+                                if (E1 instanceof Date) {
+                                    String f = ((Date) E1).toString();
+                                    Boolean comp = compararMayor(f, (String) E2);
+                                    if (comp == false) {
+                                        return compararIgual((String) E1, (String) E2);
+                                    }
+                                } else {
+                                    String f = ((Date) E2).toString();
+                                    Boolean comp = compararMayor((String) E1, f);
+                                    if (comp == false) {
+                                        return compararIgual((String) E1, (String) E2);
+                                    }
+                                }
+                            } else if ((E1 instanceof Date && E2 instanceof Date)) {
+                                int num = Fecha.diferenciasDeFechas((Date) E1, (Date) E2);
+                                return num >= 0;
                             } else if ((E1 instanceof Double && E2 instanceof Double)) {
                                 return (Double) E1 >= (Double) E2;
                             } else if ((E1 instanceof Integer && E2 instanceof Integer)) {
@@ -839,7 +745,7 @@ public class Operacion {
                             } else {
                                 Errores.agregarError("Error Semantico", "Error al usar operador relacional >=", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
-                        } catch (Exception e) {
+                        } catch (ParseException e) {
                             System.out.println("E>=: " + e);
                             return "";
                         }
@@ -859,40 +765,6 @@ public class Operacion {
                                     Double var2 = (Double) (E2);
                                     return var1 <= var2;
                                 }
-                            } else if ((E1 instanceof Double || E2 instanceof Double) && (E1 instanceof Character || E2 instanceof Character)) {
-                                if (E1 instanceof Double) {
-                                    Double var1 = (Double) (E1);
-                                    int var2 = ((String) E2).codePointAt(0);
-                                    return var1 <= var2;
-                                } else {
-                                    int var1 = ((String) E1).codePointAt(0);
-                                    Double var2 = (Double) (E2);
-                                    return var1 <= var2;
-                                }
-                            } else if ((E1 instanceof Integer || E2 instanceof Integer) && (E1 instanceof Character || E2 instanceof Character)) {
-                                if (E1 instanceof Integer) {
-                                    int var1 = (Integer) (E1);
-                                    int var2 = ((String) E2).codePointAt(0);
-                                    return var1 <= var2;
-                                } else {
-                                    int var1 = ((String) E1).codePointAt(0);
-                                    int var2 = (Integer) (E2);
-                                    return var1 <= var2;
-                                }
-                            } else if ((E1 instanceof String || E2 instanceof String) && (E1 instanceof Character || E2 instanceof Character)) {
-                                if (E1 instanceof String) {
-                                    Boolean comp = compararMenor((String) E1, String.valueOf((char) E2));
-                                    if (comp == false) {
-                                        return compararIgual((String) E1, String.valueOf((char) E2));
-                                    }
-                                    return comp;
-                                } else {
-                                    Boolean comp = compararMenor(String.valueOf((char) E1), (String) E1);
-                                    if (comp == false) {
-                                        return compararIgual(String.valueOf((char) E1), (String) E1);
-                                    }
-                                    return comp;
-                                }
                             } else if ((E1 instanceof Boolean || E2 instanceof Boolean) && (E1 instanceof Double || E2 instanceof Double)) {
                                 if (E1 instanceof Boolean) {
                                     int var1 = obtenerBoolean(E1);
@@ -923,6 +795,29 @@ public class Operacion {
                                     int var2 = obtenerBoolean(E2);
                                     return var1 <= var2;
                                 }
+                            } else if ((E1 instanceof Integer || E2 instanceof Integer) && (E1 instanceof String || E2 instanceof String)) {
+                                if (E1 instanceof Integer) {
+                                    return (Integer) E1 <= ((String) E2).length();
+                                } else {
+                                    return ((String) E1).length() <= (Integer) E2;
+                                }
+                            } else if ((E1 instanceof Date || E2 instanceof Date) && (E1 instanceof String || E2 instanceof String)) {
+                                if (E1 instanceof Date) {
+                                    String f = ((Date) E1).toString();
+                                    Boolean comp = compararMenor(f, (String) E2);
+                                    if (comp == false) {
+                                        return compararIgual((String) E1, (String) E2);
+                                    }
+                                } else {
+                                    String f = ((Date) E2).toString();
+                                    Boolean comp = compararMenor((String) E1, f);
+                                    if (comp == false) {
+                                        return compararIgual((String) E1, (String) E2);
+                                    }
+                                }
+                            } else if ((E1 instanceof Date && E2 instanceof Date)) {
+                                int num = Fecha.diferenciasDeFechas((Date) E1, (Date) E2);
+                                return num <= 0;
                             } else if ((E1 instanceof Double && E2 instanceof Double)) {
                                 return (Double) E1 <= (Double) E2;
                             } else if ((E1 instanceof Integer && E2 instanceof Integer)) {
@@ -940,7 +835,7 @@ public class Operacion {
                             } else {
                                 Errores.agregarError("Error Semantico", "Error al usar operador relacional <=", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
-                        } catch (Exception e) {
+                        } catch (ParseException e) {
                             System.out.println("E<=: " + e);
                             return "";
                         }
@@ -1015,6 +910,23 @@ public class Operacion {
                                     int var2 = obtenerBoolean(E2);
                                     return var1 == var2;
                                 }
+                            } else if ((E1 instanceof Integer || E2 instanceof Integer) && (E1 instanceof String || E2 instanceof String)) {
+                                if (E1 instanceof Integer) {
+                                    return (Integer) E1 == ((String) E2).length();
+                                } else {
+                                    return ((String) E1).length() == (Integer) E2;
+                                }
+                            } else if ((E1 instanceof Date || E2 instanceof Date) && (E1 instanceof String || E2 instanceof String)) {
+                                if (E1 instanceof Date) {
+                                    String f = ((Date) E1).toString();
+                                    return compararIgual(f, (String) E2);
+                                } else {
+                                    String f = ((Date) E2).toString();
+                                    return compararIgual((String) E1, f);
+                                }
+                            } else if ((E1 instanceof Date && E2 instanceof Date)) {
+                                int num = Fecha.diferenciasDeFechas((Date) E1, (Date) E2);
+                                return num == 0;
                             } else if ((E1 instanceof Double && E2 instanceof Double)) {
                                 return Objects.equals((Double) E1, (Double) E2);
                             } else if ((E1 instanceof Integer && E2 instanceof Integer)) {
@@ -1028,7 +940,7 @@ public class Operacion {
                             } else {
                                 Errores.agregarError("Error Semantico", "Error al usar operador relacional ==", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
-                        } catch (Exception e) {
+                        } catch (ParseException e) {
                             System.out.println("E==: " + e);
                             return "";
                         }
@@ -1104,6 +1016,23 @@ public class Operacion {
                                     int var2 = obtenerBoolean(E2);
                                     return var1 != var2;
                                 }
+                            } else if ((E1 instanceof Integer || E2 instanceof Integer) && (E1 instanceof String || E2 instanceof String)) {
+                                if (E1 instanceof Integer) {
+                                    return (Integer) E1 != ((String) E2).length();
+                                } else {
+                                    return ((String) E1).length() != (Integer) E2;
+                                }
+                            } else if ((E1 instanceof Date || E2 instanceof Date) && (E1 instanceof String || E2 instanceof String)) {
+                                if (E1 instanceof Date) {
+                                    String f = ((Date) E1).toString();
+                                    return !compararIgual(f, (String) E2);
+                                } else {
+                                    String f = ((Date) E2).toString();
+                                    return !compararIgual((String) E1, f);
+                                }
+                            } else if ((E1 instanceof Date && E2 instanceof Date)) {
+                                int num = Fecha.diferenciasDeFechas((Date) E1, (Date) E2);
+                                return num != 0;
                             } else if ((E1 instanceof Double && E2 instanceof Double)) {
                                 return !Objects.equals((Double) E1, (Double) E2);
                             } else if ((E1 instanceof Integer && E2 instanceof Integer)) {
@@ -1117,7 +1046,7 @@ public class Operacion {
                             } else {
                                 Errores.agregarError("Error Semantico", "Error al usar operador relacional !=", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
-                        } catch (Exception e) {
+                        } catch (ParseException e) {
                             System.out.println("E!=: " + e);
                             return "";
                         }

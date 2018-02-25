@@ -1,5 +1,6 @@
 package cjs;
 import java_cup.runtime.Symbol;
+import usacweb.Errores;
 %%
 %class LexicoCJS
 %type Symbol
@@ -100,8 +101,7 @@ public String lexeme;
 
 
 
-. {//return new Symbol(sym.ERROR, yycolumn, yyline,new String(yytext()));
-//ejecutar.Errores.agregarError(yytext(), "Error Lexico", "No pertenece al lenguaje",0,0);
-
+. {
+    Errores.agregarError("Error Lexico",yytext(), yyline,yycolumn);
 }
 

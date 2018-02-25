@@ -8,8 +8,6 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.text.AbstractDocument.Content;
 
 /**
  *
@@ -29,6 +27,10 @@ public class PanelOpciones extends javax.swing.JPanel {
     Box boxH1 = Box.createHorizontalBox();
 
     public PanelOpciones() {
+        crearTODO();
+        //initComponents();
+    }
+    public void crearTODO(){
         prueba.setText("HOLIIIIIIIIIIII");
         prueba.setName("prueba");
         crearPaneles();
@@ -42,7 +44,6 @@ public class PanelOpciones extends javax.swing.JPanel {
         boxH1.add(panelGlobal);
         add(boxH1);
         crearAcciones();
-        //initComponents();
     }
 
     public Box crearBotones() {

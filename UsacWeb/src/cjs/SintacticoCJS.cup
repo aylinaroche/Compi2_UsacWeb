@@ -3,6 +3,7 @@ package cjs;
 //import java.io.*;
 import java_cup.runtime.*;
 import java.util.ArrayList;
+import usacweb.Errores;
 init with {:
 
 :};
@@ -13,8 +14,9 @@ parser code
 public void syntax_error(Symbol s){
 /**Metodo al que se llama automaticamente ante algun error sintactico.*/
         System.out.println("Error Sintactico en la Linea " + (s.right+1) +" Columna "+s.left+ ". Identificador " +s.value + " no reconocido." );
-int linea = s.right+1; int columna = s.left; 
-String texto = "Identificador " +s.value + " no reconocido.";
+        int linea = s.right+1; int columna = s.left; 
+        String texto = "Identificador " +s.value + " no reconocido.";
+    Errores.agregarError("Error Sintactico",texto, linea,columna);
 
 }            
 public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
@@ -166,6 +168,24 @@ OPCION::=SWITCH:n{:
     RESULT = new Caracter();
     OPCION.insertar(new NodoCJS("retornar",iright,ileft)); OPCION.insertar(n.nodo); OPCION.insertar(new NodoCJS(";"));
     RESULT.nodo = OPCION;
+:}
+|error:i llaveC{://3
+    RESULT = new Caracter();
+    NodoCJS E = new NodoCJS("ERROR");
+    E.insertar(new NodoCJS((String)i)); 
+    RESULT.nodo = E;
+:}
+|error:i puntoComa{://3
+    RESULT = new Caracter();
+    NodoCJS E = new NodoCJS("ERROR");
+    E.insertar(new NodoCJS((String)i)); 
+    RESULT.nodo = E;
+:}
+|error:i parentesisC{://3
+    RESULT = new Caracter();
+    NodoCJS E = new NodoCJS("ERROR");
+    E.insertar(new NodoCJS((String)i)); 
+    RESULT.nodo = E;
 :};
 
 

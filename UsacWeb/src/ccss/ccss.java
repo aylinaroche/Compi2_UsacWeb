@@ -34,6 +34,7 @@ public class ccss {
         } catch (Exception e) {
             System.out.println(e);
         }
+        usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba.ccss");
         archivo1();
     }
 
@@ -58,13 +59,14 @@ public class ccss {
         }
 
         iniciar();
+        BloqueCCSS.imprimirBloque();
     }
 
     public static void iniciar() {
         usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba");
         Recorrido r = new Recorrido();
         r.Recorrido(NODO);
-        BloqueCCSS.imprimirBloque();
+      
     }
 
     public static void archivo1() {
@@ -79,7 +81,7 @@ public class ccss {
                     + "Tamtex := 15.5 * 2; \n"
                     + "Fondoelemento := \"green\";\n"
                     + "//Fin Grupo_areas_1 \n"
-                    + "\n"
+                    + "\n$"
                     + "//Inicio Grupo_areas_2\n"
                     + "GRUPO (grupo_areas_2); \n"
                     + "Formato := mayuscula, NEGRILLA, capital-t; \n"

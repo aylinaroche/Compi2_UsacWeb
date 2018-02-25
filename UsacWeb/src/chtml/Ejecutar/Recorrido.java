@@ -1,8 +1,8 @@
 package chtml.Ejecutar;
 
+import ccss.Ejecutar.Estilo;
 import chtml.NodoCHTML;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import usacweb.Errores;
 import usacweb.Metodo;
 import usacweb.UsacWeb;
@@ -34,7 +34,8 @@ public class Recorrido {
                             break;
                         case 2:
                             Recorrido(raiz.hijos[0]);
-                            Recorrido(raiz.hijos[1]);
+                            result = Recorrido(raiz.hijos[1]);
+                            Elementos.dibujar(result);
                             break;
                     }
                     break;
@@ -53,6 +54,7 @@ public class Recorrido {
                             result = Recorrido(raiz.hijos[0]);
                             break;
                         case 2:
+                            result = Recorrido(raiz.hijos[0]);
                             result = Recorrido(raiz.hijos[1]);
                             break;
                     }
@@ -60,16 +62,16 @@ public class Recorrido {
                 case "INFO":
                     switch (raiz.cantidadHijos) {
                         case 3:
-
+                            Elementos.setTitulo(raiz.hijos[1].texto.replace(">", "").replace("<", ""));
                             break;
                         case 4:
-                            String ruta = raiz.hijos[3].texto.replace("\"", "");
+                            String ruta = raiz.hijos[2].texto.replace("\"", "");
                             String texto = Metodo.abrir(ruta);
+                            UsacWeb.pilaArchivo.push(Metodo.obtenerNombre(ruta));
                             if (texto.equals("")) {
                                 Errores.agregarError("Error Semantico", "El archivo no se ha encontrado", raiz.hijos[0].fila, raiz.hijos[0].col);
                                 break;
                             }
-                            UsacWeb.pilaArchivo.push(Metodo.obtenerNombre(ruta));
                             if (raiz.hijos[0].texto.equalsIgnoreCase("ccss")) {
                                 try {
                                     ccss.ccss.analizar(texto);
@@ -90,54 +92,64 @@ public class Recorrido {
                 case "CUERPO":
                     switch (raiz.cantidadHijos) {
                         case 2:
-                            //Crearlo vacio
+                            result = Elementos.crearPanel(new ArrayList(), null,raiz.hijos[0].fila,raiz.hijos[0].col);
                             break;
                         case 4:
                             if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
-
+                                result = Recorrido(raiz.hijos[1]);
+                                result = Elementos.crearPanel((ArrayList) result, null,raiz.hijos[0].fila,raiz.hijos[0].col);
                             } else {
-
+                                result = Recorrido(raiz.hijos[1]);
+                                result = Elementos.crearPanel(new ArrayList(), result,raiz.hijos[0].fila,raiz.hijos[0].col);
                             }
                             break;
                         case 5:
-                            result = Recorrido(raiz.hijos[1]);
+                            ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
                             result = Recorrido(raiz.hijos[3]);
+                            result = Elementos.crearPanel(elem, result,raiz.hijos[0].fila,raiz.hijos[0].col);
                             break;
                     }
                     break;
                 case "ETIQUETAS":
                     switch (raiz.cantidadHijos) {
                         case 1:
-                            Recorrido(raiz.hijos[0]);
+                            ArrayList l1 = new ArrayList();
+                            result = Recorrido(raiz.hijos[0]);
+                            l1.add(result);
+                            result = l1;
                             break;
                         case 2:
-                            Recorrido(raiz.hijos[0]);
-                            result = Recorrido(raiz.hijos[1]);
+                            ArrayList l2 = (ArrayList) Recorrido(raiz.hijos[0]);
+                            l2.add(Recorrido(raiz.hijos[1]));
+                            result = l2;
                             break;
                     }
                     break;
                 case "ETIQUETA":
                     switch (raiz.cantidadHijos) {
                         case 1:
-                            Recorrido(raiz.hijos[0]);
+                            result = Recorrido(raiz.hijos[0]);
                             break;
                     }
                     break;
                 case "PANEL":
                     switch (raiz.cantidadHijos) {
                         case 2:
-                            //Crearlo vacio
+                            result = Elementos.crearPanel(new ArrayList(), null,raiz.hijos[0].fila,raiz.hijos[0].col);
                             break;
                         case 4:
                             if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
-
+                                result = Recorrido(raiz.hijos[1]);
+                                result = Elementos.crearPanel((ArrayList) result, null,raiz.hijos[0].fila,raiz.hijos[0].col);
                             } else {
-
+                                result = Recorrido(raiz.hijos[1]);
+                                result = Elementos.crearPanel(new ArrayList(), result,raiz.hijos[0].fila,raiz.hijos[0].col);
                             }
                             break;
                         case 5:
-                            result = Recorrido(raiz.hijos[1]);
+                            ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
                             result = Recorrido(raiz.hijos[3]);
+                            result = Elementos.crearPanel(elem, result,raiz.hijos[0].fila,raiz.hijos[0].col);
                             break;
                     }
                     break;
@@ -167,9 +179,25 @@ public class Recorrido {
                             break;
                     }
                     break;
+                case "ELEMENTOS":
+                    switch (raiz.cantidadHijos) {
+                        case 1:
+                            ArrayList l1 = new ArrayList();
+                            result = Recorrido(raiz.hijos[0]);
+                            l1.add(result);
+                            result = l1;
+                            break;
+                        case 2:
+                            ArrayList l2 = (ArrayList) Recorrido(raiz.hijos[0]);
+                            l2.add(Recorrido(raiz.hijos[1]));
+                            result = l2;
+                            break;
+                    }
+                    break;
                 case "ELEMENTO":
                     switch (raiz.cantidadHijos) {
                         case 4:
+                            result = new Estilo(raiz.hijos[0].texto, raiz.hijos[2].texto);
                             break;
                     }
                     break;
@@ -363,6 +391,14 @@ public class Recorrido {
                     }
                     break;
                 //////
+                case "ERROR":
+                    switch (raiz.cantidadHijos) {
+                        case 2:
+                            Errores.agregarError("Error Sintactico", raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            break;
+                    }
+                    break;
+
             }
         }
         return result;

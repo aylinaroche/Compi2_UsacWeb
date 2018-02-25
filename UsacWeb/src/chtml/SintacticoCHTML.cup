@@ -1,7 +1,7 @@
 package chtml;
 
 import java_cup.runtime.*;
-
+import usacweb.Errores;
 init with {:
 
 :};
@@ -13,8 +13,9 @@ parser code
 public void syntax_error(Symbol s){
 /**Metodo al que se llama automaticamente ante algun error sintactico.*/
         System.out.println("Error Sintactico en la Linea " + (s.right+1) +" Columna "+s.left+ ". Identificador " +s.value + " no reconocido." );
-int linea = s.right+1; int columna = s.left; 
-String texto = "Identificador " +s.value + " no reconocido.";
+        int linea = s.right+1; int columna = s.left; 
+        String texto = "Identificador " +s.value + " no reconocido.";
+        Errores.agregarError("Error Sintactico",texto, linea,columna);
 
 }            
 public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
@@ -30,8 +31,7 @@ action code
 terminal String chtml,finchtml,encabezado,finencabezado,cjs,fincjs,ruta,ccss,finccss,fondo,cuerpo,fincuerpo,titulo,fintitulo,
 panel,finpanel,cajatexto,fincajatexto,texto,fintexto,click,imagen,finimagen,boton,finboton,enlace,finenlace,tabla,fintabla,
 filt,finfilt,cb,fincb,ct,finct,textoa,fintextoa,caja,fincaja,opcion,finopcion,valor,spinner,finspinner,saltofin,grupo,alto,
-ancho,alineado,idd,id,entero,decimal,puntoComa,parentesisA,parentesisC,cadenacon,cadena,cadenasin,igual,css,cadenasalto,
-mayor,menor,cadenaSaltos,cadenaNormal;
+ancho,alineado,idd,id,entero,decimal,puntoComa,parentesisA,parentesisC,cadenacon,cadena,cadenasin,igual,mayor,menor;
 
 non terminal Caracter INICIO,RAIZ,ENCABEZADO,CUERPO,INFORMACION,INFO,CONTENIDO,HTML,ETIQUETAS,ETIQUETA,LISTAFILA,
 PANEL,TEXTO,IMAGEN,BOTON,ENLACE,TABLA,CAJATEXTO,CAJA,ELEMENTOS,ELEMENTO,TEXTOA,OPCION,SPINNER,FILA,CELDAS,CELDA,OPCIONES,R;
@@ -78,6 +78,12 @@ ENCABEZADO::= encabezado:i INFORMACION:n finencabezado{://3
     NodoCHTML E = new NodoCHTML("ENCABEZADO");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("finencabezado"));
     RESULT.nodo = E;
+:}
+|error:i finencabezado{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
+    RESULT.nodo = E;
 :};
 
 
@@ -112,6 +118,24 @@ INFO::= cjs:i ruta igual cadena:n puntoComa mayor fincjs {://4
     NodoCHTML E = new NodoCHTML("INFO");
     E.insertar(new NodoCHTML(i));  E.insertar(new NodoCHTML(n)); E.insertar(new NodoCHTML("fintitulo"));
     RESULT.nodo = E;
+:}
+|error:i fincjs{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
+    RESULT.nodo = E;
+:}
+|error:i finccss{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
+    RESULT.nodo = E;
+:}
+|error:i fintitulo{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
+    RESULT.nodo = E;
 :};
 
 
@@ -138,6 +162,12 @@ CUERPO::= cuerpo:i ELEMENTOS:n mayor ETIQUETAS:e fincuerpo {: //5
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("CUERPO");
     E.insertar(new NodoCHTML(i,iright,ileft));E.insertar(new NodoCHTML("><fincuerpo>"));
+    RESULT.nodo = E;
+:}
+|error:i fincuerpo{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
     RESULT.nodo = E;
 :};
 
@@ -253,6 +283,12 @@ PANEL::= panel:i ELEMENTOS:n mayor ETIQUETAS:e finpanel{: //5
     NodoCHTML E = new NodoCHTML("PANEL");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finpanel>"));
     RESULT.nodo = E;
+:}
+|error:i finpanel{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
+    RESULT.nodo = E;
 :};
 
 
@@ -266,6 +302,12 @@ TEXTO::=texto:i cadenasin:n fintexto{: //3
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("TEXTO");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML(">")); E.insertar(new NodoCHTML("<")); E.insertar(new NodoCHTML("finpanel>"));
+    RESULT.nodo = E;
+:}
+|error:i fintexto{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
     RESULT.nodo = E;
 :};
 
@@ -292,6 +334,12 @@ IMAGEN::= imagen:i ELEMENTOS:n cadenasin:s finimagen{: //4
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("IMAGEN");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finimagen>"));
+    RESULT.nodo = E;
+:}
+|error:i finimagen{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
     RESULT.nodo = E;
 :};
 
@@ -363,6 +411,12 @@ ELEMENTO::= ruta:i igual cadena:n puntoComa{: //4
     NodoCHTML E = new NodoCHTML("ELEMENTO");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("=")); E.insertar(new NodoCHTML(n,nright,nleft)); E.insertar(new NodoCHTML(";"));
     RESULT.nodo = E;
+:}
+|error:i puntoComa{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
+    RESULT.nodo = E;
 :};
 
 
@@ -388,6 +442,12 @@ BOTON::= boton:i ELEMENTOS:n cadenasin:s finboton{: //4
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("BOTON");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finboton>"));
+    RESULT.nodo = E;
+:}
+|error:i finboton{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
     RESULT.nodo = E;
 :};
 
@@ -415,6 +475,12 @@ ENLACE::= enlace:i ELEMENTOS:n cadenacon:s finenlace{: //4
     NodoCHTML E = new NodoCHTML("ENLACE");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finenlace>"));
     RESULT.nodo = E;
+:}
+|error:i finenlace{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
+    RESULT.nodo = E;
 :};
 
 
@@ -440,6 +506,12 @@ TABLA::= tabla:i ELEMENTOS:n mayor LISTAFILA:e fintabla{: //5
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("TABLA");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><fintabla>"));
+    RESULT.nodo = E;
+:}
+|error:i fintabla{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
     RESULT.nodo = E;
 :};
 
@@ -468,6 +540,12 @@ FILA::= filt:i CELDAS:e finfilt{: //3
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("FILA");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("<finfilt>"));
+    RESULT.nodo = E;
+:}
+|error:i finfilt{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
     RESULT.nodo = E;
 :};
 
@@ -509,6 +587,18 @@ CELDA::= cb:i cadenasin:s fincb{: //3
     NodoCHTML E = new NodoCHTML("CELDA");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><")); E.insertar(new NodoCHTML("fincb>"));
     RESULT.nodo = E;
+:}
+|error:i fincb{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
+    RESULT.nodo = E;
+:}
+|error:i finct{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
+    RESULT.nodo = E;
 :};
 
 
@@ -543,6 +633,12 @@ TEXTOA::= textoa:i cadenasin:s fintextoa{: //3
     NodoCHTML E = new NodoCHTML("TEXTOA");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><fintextoa>"));
     RESULT.nodo = E;
+:}
+|error:i fintextoa{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
+    RESULT.nodo = E;
 :};
 
 
@@ -569,6 +665,12 @@ CAJATEXTO::=cajatexto:i ELEMENTOS:n cadenasin:e fincajatexto{: //4
     NodoCHTML E = new NodoCHTML("CAJATEXTO");
     E.insertar(new NodoCHTML(i,iright,ileft));E.insertar(new NodoCHTML("><fincajatexto>"));
     RESULT.nodo = E;
+:}
+|error:i fincajatexto{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
+    RESULT.nodo = E;
 :};
 
 
@@ -594,6 +696,12 @@ CAJA::=caja:i ELEMENTOS:n mayor OPCIONES:e fincaja{: //5
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("CAJA");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><fincaja>"));
+    RESULT.nodo = E;
+:}
+|error:i fincaja{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
     RESULT.nodo = E;
 :};
 
@@ -635,6 +743,12 @@ OPCION::=opcion:i ELEMENTOS:n cadenasin:e finopcion{: //5
     NodoCHTML E = new NodoCHTML("OPCION");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finopcion>"));
     RESULT.nodo = E;
+:}
+|error:i finopcion{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
+    RESULT.nodo = E;
 :};
 
 
@@ -660,5 +774,11 @@ SPINNER::= spinner:i ELEMENTOS:n cadenasin:e finspinner{: //5
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("SPINNER");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finspinner>"));
+    RESULT.nodo = E;
+:}
+|error:i finspinner{://3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("ERROR");
+    E.insertar(new NodoCHTML((String)i)); 
     RESULT.nodo = E;
 :};

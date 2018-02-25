@@ -22,6 +22,7 @@ public class Interfaz extends javax.swing.JFrame {
     public Image imagenFondo;
     public URL fondo;
     int contPestania = 2;
+    
 
     public Interfaz() {
         setTitle("USAC WEB");
@@ -37,7 +38,7 @@ public class Interfaz extends javax.swing.JFrame {
         botonMas.setBackground(new Color(102, 0, 51));
         botonMas.setForeground(new Color(255, 255, 255));
         botonMas.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 14));
-       
+
         botonMenos.setText("x");
         botonMenos.setBounds(10, 10, 40, 40);
         botonMenos.setBackground(new Color(102, 0, 51));
@@ -51,7 +52,7 @@ public class Interfaz extends javax.swing.JFrame {
         boxH1.add(botonMenos);
 
         Box boxH2 = Box.createHorizontalBox();
-        PanelPrincipal principal = new PanelPrincipal();
+        PanelPrincipal principal = new PanelPrincipal("");
         panelPestanias.add("Pestania1", principal);
         panelPestanias.setBackground(new Color(102, 0, 51));
         panelPestanias.setForeground(new Color(255, 255, 255));
@@ -102,7 +103,7 @@ public class Interfaz extends javax.swing.JFrame {
 
             private void MasActionPerformed(ActionEvent evt) {
                 Box box = Box.createHorizontalBox();
-                PanelPrincipal panel = new PanelPrincipal();
+                PanelPrincipal panel = new PanelPrincipal("");
                 //  panel.setLayout(null);
                 panel.setBackground(Color.BLACK);
                 panel.setPreferredSize(new Dimension(30000, 30000));
@@ -113,7 +114,7 @@ public class Interfaz extends javax.swing.JFrame {
                 contPestania++;
             }
         });
-        
+
         botonMenos.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,10 +127,9 @@ public class Interfaz extends javax.swing.JFrame {
         });
     }
 
-    
-     public void actualizar(){
-         this.repaint();
-     }
+    public void actualizar() {
+        this.repaint();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

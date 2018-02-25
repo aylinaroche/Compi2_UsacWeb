@@ -30,7 +30,7 @@ action code
 terminal String texto,alineado,izquierda,derecha,centrado,justificado,formato,negrilla,cursiva,mayuscula,
 minuscula,capital,letra,tamtex,fondo,auto,visible,horizontal,vertical,borde,opaque,colortext,grupo,idd,coma,
 mas,menos,igual,id,corcheteA,corcheteC,por,dosPuntos,verdadero,falso,llaveA,llaveC,
-puntoComa,ERROR,numero,dividido,cadena,punto,caracter,parentesisA,parentesisC,entero,decimal;
+puntoComa,numero,dividido,cadena,punto,caracter,parentesisA,parentesisC,entero,decimal;
 
 non terminal Caracter INICIO,INSTRUCCION,BLOQUE,OPCION,ESTILOS,ESTILO,ALINEADO,FORMATOS,FORMATO,VALOR,AREA,
 TIPO,OP,E;
@@ -104,6 +104,12 @@ TIPO::=grupo parentesisA id:i parentesisC puntoComa ESTILOS:e{:
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("TIPO");
     E.insertar(new NodoCCSS("id")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
+    RESULT.nodo = E;
+:}
+|error:i puntoComa{://3
+    RESULT = new Caracter();
+    NodoCCSS E = new NodoCCSS("ERROR");
+    E.insertar(new NodoCCSS((String)i)); 
     RESULT.nodo = E;
 :};
 
@@ -189,7 +195,8 @@ ESTILO::=alineado:i igual ALINEADO:v puntoComa{: //4
     NodoCCSS E = new NodoCCSS("ESTILO");
     E.insertar(new NodoCCSS("colortext",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(n.nodo); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
-:};
+:}
+;
 
 
 ALINEADO::=izquierda{:
@@ -228,6 +235,12 @@ FORMATOS ::= FORMATOS:i coma FORMATO:n {:
     NodoCCSS E = new NodoCCSS("FORMATOS");
     RESULT = new Caracter();
     E.insertar(n.nodo); 
+    RESULT.nodo = E;
+:}
+|error:i coma{://3
+    RESULT = new Caracter();
+    NodoCCSS E = new NodoCCSS("ERROR");
+    E.insertar(new NodoCCSS((String)i)); 
     RESULT.nodo = E;
 :};
 

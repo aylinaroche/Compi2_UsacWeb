@@ -1,5 +1,6 @@
 package usacweb;
 
+import chtml.Ejecutar.Elementos;
 import chtml.chtml;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -24,10 +26,20 @@ public class PanelPrincipal extends javax.swing.JPanel {
     JButton botonOpciones = new JButton();
     JButton botonHistorial = new JButton();
     JButton botonFavorito = new JButton();
-    
-    PanelSecundario secundario = new PanelSecundario();
+    String rutaAux = "";
+
+    Box boxV1 = Box.createVerticalBox();
 
     public PanelPrincipal(String r) {
+        accionesBoton();
+        accionesBarra();
+        crearTODO();
+        setLayout(new BorderLayout());
+        add(boxV1, BorderLayout.CENTER);
+    }
+
+    public void crearTODO() {
+        boxV1.removeAll();
         Box boxH1 = Box.createHorizontalBox();
         crearBotones();
         ruta.setText("C:\\Users\\Aroche\\Documents\\Archivos\\Paso1.chtml");
@@ -35,21 +47,15 @@ public class PanelPrincipal extends javax.swing.JPanel {
         ruta.setPreferredSize(new Dimension(1300, 30));
         ruta.setMaximumSize(ruta.getPreferredSize());
 
-        accionesBoton();
         boxH1.add(botonAtras);
         boxH1.add(botonAdelante);
         boxH1.add(botonEjecutar);
         boxH1.add(ruta);
 
-        Box boxV1 = Box.createVerticalBox();
         boxV1.add(boxH1);
         Box boxH2 = crearBarra();
-
         boxV1.add(boxH2);
-        boxV1.add(secundario);
 
-        setLayout(new BorderLayout());
-        add(boxV1, BorderLayout.CENTER);
     }
 
     public void crearBotones() {
@@ -99,13 +105,13 @@ public class PanelPrincipal extends javax.swing.JPanel {
         botonFavorito.setMaximumSize(botonFavorito.getPreferredSize());
         botonFavorito.setBackground(new java.awt.Color(255, 255, 255));
         botonFavorito.setBorder(null);
-        accionesBarra();
+        //accionesBarra();
         box.add(botonOpciones);
         box.add(botonHistorial);
         for (int i = 0; i < listaFavoritos.size(); i++) {
             String fav = listaFavoritos.get(i);
             JButton botonFav = new JButton();
-            String nombre = Metodo.obtenerNombre(fav);
+            String nombre = Metodos.obtenerNombre(fav);
             botonFav.setText(nombre);
             botonFav.setPreferredSize(new Dimension(150, 35));
             botonFav.setFont(new java.awt.Font("Verdana", 0, 12));
@@ -120,7 +126,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
                 }
 
                 private void ActionPerformed(ActionEvent evt) {
-                    Metodo.crearPestania(fav);
+                    Metodos.crearPestania(fav);
                 }
             });
 
@@ -141,8 +147,8 @@ public class PanelPrincipal extends javax.swing.JPanel {
             }
 
             private void ActionPerformed(ActionEvent evt) {
-                String texto = Metodo.abrir(ruta.getText());
-                UsacWeb.pilaArchivo.push(Metodo.obtenerNombre(ruta.getText()));
+                String texto = Metodos.abrir(ruta.getText());
+                UsacWeb.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
                 try {
                     chtml.analizar(texto);
                 } catch (Exception ex) {
@@ -150,6 +156,27 @@ public class PanelPrincipal extends javax.swing.JPanel {
                 }
                 UsacWeb.agregarHistorial(ruta.getText());
                 UsacWeb.pilaArchivo.pop();
+            }
+        });
+
+        botonAtras.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActionPerformed(evt);
+            }
+
+            private void ActionPerformed(ActionEvent evt) {
+                try {
+                    rutaAux = ruta.getText();
+                    removeAll();
+                    crearTODO();
+                    JPanel panel = (JPanel) Elementos.dibujar(Elementos.compPrueba());
+                    boxV1.add(panel);
+                    setLayout(new BorderLayout());
+                    add(boxV1, BorderLayout.CENTER);
+                    updateUI();
+                } catch (Exception e) {
+                }
             }
         });
     }
@@ -166,12 +193,16 @@ public class PanelPrincipal extends javax.swing.JPanel {
                 JScrollPane scroll = new JScrollPane();
                 PanelOpciones panel = new PanelOpciones();
                 panel.setBackground(new Color(255, 255, 255));
+
                 scroll.setViewportView(panel);
+                scroll.setPreferredSize(new Dimension(1500, 200));
+                scroll.setMaximumSize(scroll.getPreferredSize());
                 box.add(scroll);
-                // box.add(panel);
+                box.add(Box.createVerticalGlue());
                 panelPestanias.addTab("Opciones", box);
                 panelPestanias.setSelectedIndex(panelPestanias.getTabCount() - 1);
             }
+
         });
 
         botonHistorial.addActionListener(new java.awt.event.ActionListener() {

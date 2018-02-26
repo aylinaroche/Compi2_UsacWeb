@@ -1,6 +1,6 @@
 package ccss;
 import java_cup.runtime.Symbol;
-import usacweb.Errores;
+import usacweb.Datos;
 %%
 %class LexicoCCSS
 %type Symbol
@@ -90,6 +90,6 @@ public String lexeme;
 {TiposComentarios} { }
 
 . {
-    Errores.agregarError("Error Lexico",yytext(), yyline,yycolumn);
+    Datos.agregarError("Error Lexico",yytext(), yyline,yycolumn);
 }
 

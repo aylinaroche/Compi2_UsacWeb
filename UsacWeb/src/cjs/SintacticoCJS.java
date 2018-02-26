@@ -7,7 +7,7 @@ package cjs;
 
 import java_cup.runtime.*;
 import java.util.ArrayList;
-import usacweb.Errores;
+import usacweb.Datos;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -747,7 +747,7 @@ public void syntax_error(Symbol s){
         System.out.println("Error Sintactico en la Linea " + (s.right+1) +" Columna "+s.left+ ". Identificador " +s.value + " no reconocido." );
         int linea = s.right+1; int columna = s.left; 
         String texto = "Identificador " +s.value + " no reconocido.";
-    Errores.agregarError("Error Sintactico",texto, linea,columna);
+    Datos.agregarError("Error Sintactico",texto, linea,columna);
 
 }            
 public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
@@ -1497,13 +1497,16 @@ class CUP$SintacticoCJS$actions {
           case 39: // IMPRIMIR ::= imprimir parentesisA OP parentesisC puntoComa 
             {
               Caracter RESULT =null;
+		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCJS$stack.elementAt(CUP$SintacticoCJS$top-4)).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$SintacticoCJS$stack.elementAt(CUP$SintacticoCJS$top-4)).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCJS$stack.elementAt(CUP$SintacticoCJS$top-4)).value;
 		int nleft = ((java_cup.runtime.Symbol)CUP$SintacticoCJS$stack.elementAt(CUP$SintacticoCJS$top-2)).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$SintacticoCJS$stack.elementAt(CUP$SintacticoCJS$top-2)).right;
 		Caracter n = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCJS$stack.elementAt(CUP$SintacticoCJS$top-2)).value;
 		
     NodoCJS IMPRIMIR = new NodoCJS("IMPRIMIR");
     RESULT = new Caracter();
-    IMPRIMIR.insertar(new NodoCJS("imprimir")); IMPRIMIR.insertar(new NodoCJS("(")); IMPRIMIR.insertar(n.nodo);
+    IMPRIMIR.insertar(new NodoCJS("imprimir",iright,ileft)); IMPRIMIR.insertar(new NodoCJS("(")); IMPRIMIR.insertar(n.nodo);
     IMPRIMIR.insertar(new NodoCJS(")")); IMPRIMIR.insertar(new NodoCJS(";")); 
     RESULT.nodo = IMPRIMIR;
 

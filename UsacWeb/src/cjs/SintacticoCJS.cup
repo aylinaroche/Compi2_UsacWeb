@@ -3,7 +3,7 @@ package cjs;
 //import java.io.*;
 import java_cup.runtime.*;
 import java.util.ArrayList;
-import usacweb.Errores;
+import usacweb.Datos;
 init with {:
 
 :};
@@ -16,7 +16,7 @@ public void syntax_error(Symbol s){
         System.out.println("Error Sintactico en la Linea " + (s.right+1) +" Columna "+s.left+ ". Identificador " +s.value + " no reconocido." );
         int linea = s.right+1; int columna = s.left; 
         String texto = "Identificador " +s.value + " no reconocido.";
-    Errores.agregarError("Error Sintactico",texto, linea,columna);
+    Datos.agregarError("Error Sintactico",texto, linea,columna);
 
 }            
 public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
@@ -303,10 +303,10 @@ PARAMETROS::=PARAMETROS:n coma id:i{:  //3
 :};
 
 
-IMPRIMIR::=imprimir parentesisA OP:n parentesisC puntoComa{:
+IMPRIMIR::=imprimir:i parentesisA OP:n parentesisC puntoComa{:
     NodoCJS IMPRIMIR = new NodoCJS("IMPRIMIR");
     RESULT = new Caracter();
-    IMPRIMIR.insertar(new NodoCJS("imprimir")); IMPRIMIR.insertar(new NodoCJS("(")); IMPRIMIR.insertar(n.nodo);
+    IMPRIMIR.insertar(new NodoCJS("imprimir",iright,ileft)); IMPRIMIR.insertar(new NodoCJS("(")); IMPRIMIR.insertar(n.nodo);
     IMPRIMIR.insertar(new NodoCJS(")")); IMPRIMIR.insertar(new NodoCJS(";")); 
     RESULT.nodo = IMPRIMIR;
 :};

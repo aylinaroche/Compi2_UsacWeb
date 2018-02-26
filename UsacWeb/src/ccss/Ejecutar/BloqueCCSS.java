@@ -7,7 +7,7 @@ package ccss.Ejecutar;
 
 import ccss.NodoCCSS;
 import java.util.ArrayList;
-import usacweb.Errores;
+import usacweb.Datos;
 
 /**
  *
@@ -21,7 +21,7 @@ public class BloqueCCSS {
         for (int i = 0; i < listaBloques.size(); i++) {
             Bloque s = listaBloques.get(i);
             if (s.nombre.equalsIgnoreCase(nombre) && s.tipo.equalsIgnoreCase(tipo) && s.selector.equalsIgnoreCase(selector)) {
-                Errores.agregarError("Error Semantico", "El bloque " + nombre + " ya existe", f, c);
+                Datos.agregarError("Error Semantico", "El bloque " + nombre + " ya existe", f, c);
                 return;
             }
         }
@@ -36,7 +36,7 @@ public class BloqueCCSS {
                 return s.elementos;
             }
         }
-        Errores.agregarError("Error Semantico", "El bloque " + nombre + " no existe", 0, 0);
+        Datos.agregarError("Error Semantico", "El bloque " + nombre + " no existe", 0, 0);
         return new ArrayList();
     }
 

@@ -4,6 +4,7 @@ import static cjs.Ejecutar.VariableCJS.nivelAmbito;
 import static cjs.Ejecutar.VariableCJS.pilaAmbito;
 import java.util.ArrayList;
 import cjs.NodoCJS;
+import usacweb.Datos;
 
 public class Recorrido {
 
@@ -385,7 +386,7 @@ public class Recorrido {
                     String imp = Recorrido(raiz.hijos[2]).toString();
                     if (imp != null) {
                         System.out.println(imp);
-                        usacweb.UsacWeb.listaImprimir.add(imp);
+                        Datos.agregarSalida(imp, raiz.hijos[0].fila, raiz.hijos[0].col);
                     }
                     break;
                 case "DOCUMENTO":

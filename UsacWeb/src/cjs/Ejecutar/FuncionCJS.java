@@ -2,7 +2,7 @@ package cjs.Ejecutar;
 
 import cjs.NodoCJS;
 import java.util.ArrayList;
-import usacweb.Errores;
+import usacweb.Datos;
 import static usacweb.UsacWeb.pilaArchivo;
 
 public class FuncionCJS {
@@ -13,7 +13,7 @@ public class FuncionCJS {
         for (int i = 0; i < listaFunciones.size(); i++) {
             Funcion s = listaFunciones.get(i);
             if (s.nombre.equalsIgnoreCase(nombre) && s.parametro.size() == parametro.size() && s.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
-                Errores.agregarError("Error Semantico", "La funcion " + nombre + " ya existe", f, c);
+                Datos.agregarError("Error Semantico", "La funcion " + nombre + " ya existe", f, c);
                 return;
             }
         }
@@ -53,7 +53,7 @@ public class FuncionCJS {
                 }
             }
         }
-        Errores.agregarError("Error Semantico", "No se ha encontrado el metodo", f, c);
+        Datos.agregarError("Error Semantico", "No se ha encontrado el metodo", f, c);
 
         return "";
     }

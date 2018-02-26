@@ -1,5 +1,6 @@
 package usacweb;
 
+import chtml.Ejecutar.Elementos;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -22,7 +23,6 @@ public class Interfaz extends javax.swing.JFrame {
     public Image imagenFondo;
     public URL fondo;
     int contPestania = 2;
-    
 
     public Interfaz() {
         setTitle("USAC WEB");

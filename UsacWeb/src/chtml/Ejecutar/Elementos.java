@@ -6,8 +6,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JPanel;
-import usacweb.Errores;
+import usacweb.Datos;
 import static usacweb.Interfaz.panelPestanias;
 
 /**
@@ -40,7 +41,7 @@ public class Elementos {
                         case "texto":
                             break;
                         default:
-                            Errores.agregarError("Error Semantico", "Atributo " + e2.nombre + " incorrecto en panel", f, c);
+                            Datos.agregarError("Error Semantico", "Atributo " + e2.nombre + " incorrecto en panel", f, c);
                             break;
                     }
 
@@ -49,7 +50,7 @@ public class Elementos {
                 Color color = convertirColor(valor);
                 panel.setBackground(color);
             } else {
-                Errores.agregarError("Error Semantico", "Atributo " + e.nombre + " incorrecto en panel", f, c);
+                Datos.agregarError("Error Semantico", "Atributo " + e.nombre + " incorrecto en panel", f, c);
             }
 
         }
@@ -91,13 +92,41 @@ public class Elementos {
         try {
             nuevo = Color.decode(color);
         } catch (NumberFormatException e) {
-            Errores.agregarError("Error Semantico", "Al convertir " + color + " en color", 0, 0);
+            Datos.agregarError("Error Semantico", "Al convertir " + color + " en color", 0, 0);
         }
         return nuevo;
     }
 
-    public static void dibujar(Object cuerpo) {
+    public static Object dibujar(Componente comp) {
+        if (comp.tipo.equalsIgnoreCase("panel")) {
+            JPanel panel = (JPanel) comp.valor;
 
-        
+            for (int i = 0; i < comp.listaComponentes.size(); i++) {
+                Componente c = comp.listaComponentes.get(i);
+                Object d = dibujar(c);
+                if (d instanceof JButton) {
+                    JButton b = (JButton) d;
+                    panel.add(b);
+                }
+            }
+            return panel;
+        } else if (comp.tipo.equalsIgnoreCase("boton")) {
+            JButton boton = (JButton) comp.valor;
+            return boton;
+        }
+        return null;
+    }
+
+    public static Componente compPrueba() {
+        ArrayList<Componente> l1 = new ArrayList();
+        JButton jb = new JButton();
+        jb.setText("Prueba");
+        Componente boton = new Componente("boton", "boton1", jb, l1);
+        ArrayList<Componente> l2 = new ArrayList();
+        l2.add(boton);
+        JPanel jp = new JPanel();
+        jp.setBackground(Color.blue);
+        Componente panel = new Componente("panel", "panel1", jp, l2);
+        return panel;
     }
 }

@@ -1,6 +1,6 @@
 package chtml;
 import java_cup.runtime.Symbol;
-import usacweb.Errores;
+import usacweb.Datos;
 %%
 %class LexicoCHTML
 %type Symbol
@@ -150,6 +150,6 @@ public String lexeme;
 
 
 . {
-    Errores.agregarError("Error Lexico",yytext(), yyline,yycolumn);
+    Datos.agregarError("Error Lexico",yytext(), yyline,yycolumn);
 }
 

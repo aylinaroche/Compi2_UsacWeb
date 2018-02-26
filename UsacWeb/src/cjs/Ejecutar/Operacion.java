@@ -4,7 +4,7 @@ import java.util.Objects;
 import cjs.NodoCJS;
 import java.text.ParseException;
 import java.util.Date;
-import usacweb.Errores;
+import usacweb.Datos;
 
 public class Operacion {
 
@@ -52,7 +52,7 @@ public class Operacion {
                                 if (s != null) {
                                     return s;
                                 } else { //Buscar en lista
-                                    Errores.agregarError("Error Semantico", "No se encontro el id : " + dato, nodo.hijos[0].fila, nodo.hijos[0].col);
+                                    Datos.agregarError("Error Semantico", "No se encontro el id : " + dato, nodo.hijos[0].fila, nodo.hijos[0].col);
                                     return "";
                                 }
                             case "bool":
@@ -86,7 +86,7 @@ public class Operacion {
                             int n = v1 * (-1);
                             return n;
                         } else {
-                            Errores.agregarError("Error Semantico", "No se puede negar el valor", nodo.hijos[0].fila, nodo.hijos[0].col);
+                            Datos.agregarError("Error Semantico", "No se puede negar el valor", nodo.hijos[0].fila, nodo.hijos[0].col);
                         }
                     } catch (Exception e) {
                         System.out.println("E-(): " + e);
@@ -96,7 +96,7 @@ public class Operacion {
                     if (F1 instanceof Boolean) {
                         return !((Boolean) F1);
                     }
-                    Errores.agregarError("Error Semantico", "Error al operar !", nodo.hijos[0].fila, nodo.hijos[0].col);
+                    Datos.agregarError("Error Semantico", "Error al operar !", nodo.hijos[0].fila, nodo.hijos[0].col);
                     return false;
                 } else if (nodo.hijos[1].texto.equals("++")) {
                     F1 = expresion(nodo.hijos[0]);
@@ -110,7 +110,7 @@ public class Operacion {
                             //VariableCJS.asignarValor(nodo.hijos[0].hijos[0].texto, n);
                             return n;
                         } else {
-                            Errores.agregarError("Error Semantico", "Operadores ++ incorrectos", nodo.hijos[1].fila, nodo.hijos[1].col);
+                            Datos.agregarError("Error Semantico", "Operadores ++ incorrectos", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
                         }
                     } catch (Exception e) {
@@ -129,7 +129,7 @@ public class Operacion {
                             //VariableCJS.asignarValor(nodo.hijos[0].hijos[0].texto, n);
                             return n;
                         } else {
-                            Errores.agregarError("Error Semantico", "Operadores ++ incorrectos", nodo.hijos[1].fila, nodo.hijos[1].col);
+                            Datos.agregarError("Error Semantico", "Operadores ++ incorrectos", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
                         }
                     } catch (Exception e) {
@@ -205,13 +205,13 @@ public class Operacion {
                                 return (Boolean) E1 == true || (Boolean) E2 == true;
                                 //CARACTER
                             }
-                            Errores.agregarError("Error Semantico", "Error al castear suma ", nodo.hijos[1].fila, nodo.hijos[1].col);
+                            Datos.agregarError("Error Semantico", "Error al castear suma ", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
                         } catch (NumberFormatException e) {
                             System.out.println("E+ :" + e);
                             return "";
                         }
-                    //  break;
+                    //  break;                    //  break;
 
                     case "-": //E-E
                         E1 = expresion(nodo.hijos[0]);
@@ -266,7 +266,7 @@ public class Operacion {
                                     return (Integer) E1 - (Integer) E2;
                                 }
                             }
-                            Errores.agregarError("Error Semantico", "Error al castear resta ", nodo.hijos[1].fila, nodo.hijos[1].col);
+                            Datos.agregarError("Error Semantico", "Error al castear resta ", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
                         } catch (NumberFormatException e) {
                             System.out.println("E- :" + e);
@@ -330,7 +330,7 @@ public class Operacion {
                             } else if ((E1 instanceof Boolean) && (E2 instanceof Boolean)) {
                                 return (Boolean) E1 == true && (Boolean) E2 == true;
                             }
-                            Errores.agregarError("Error Semantico", "Error al castear multiplicación ", nodo.hijos[1].fila, nodo.hijos[1].col);
+                            Datos.agregarError("Error Semantico", "Error al castear multiplicación ", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
 
                         } catch (NumberFormatException e) {
@@ -365,7 +365,7 @@ public class Operacion {
                                         Double v1 = (Double) E1 / 1;
                                         return v1;
                                     } else {
-                                        Errores.agregarError("Error Semantico", "No se puede dividir dentro de 0", nodo.hijos[1].fila, nodo.hijos[1].col);
+                                        Datos.agregarError("Error Semantico", "No se puede dividir dentro de 0", nodo.hijos[1].fila, nodo.hijos[1].col);
                                         return (Double) 0.0;
                                     }
                                 } else if ((E1 instanceof Double) && (E2 instanceof Double)) {//Double
@@ -385,7 +385,7 @@ public class Operacion {
                                         int v1 = (Integer) E1 / 1;
                                         return v1;
                                     } else {
-                                        Errores.agregarError("Error Semantico", "No se puede dividir dentro de 0", nodo.hijos[1].fila, nodo.hijos[1].col);
+                                        Datos.agregarError("Error Semantico", "No se puede dividir dentro de 0", nodo.hijos[1].fila, nodo.hijos[1].col);
                                         return (Double) 0.0;
                                     }
                                 } else if ((E1 instanceof Integer) && (E2 instanceof Integer)) {//Enteross
@@ -396,14 +396,14 @@ public class Operacion {
                                 }
                                 //BOOL
                             }
-                            Errores.agregarError("Error Semantico", "Error al castear dividar ", nodo.hijos[1].fila, nodo.hijos[1].col);
+                            Datos.agregarError("Error Semantico", "Error al castear dividar ", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
 
                         } catch (NumberFormatException e) {
                             System.out.println("E");
                             return "";
                         }
-                    //break;
+                    //break;                    //break;
 
                     case "^": //E*E
                         E1 = expresion(nodo.hijos[0]);
@@ -461,7 +461,7 @@ public class Operacion {
                                     return v1.intValue();
                                 }
                             }
-                            Errores.agregarError("Error Semantico", "Error al castear potencia ", nodo.hijos[1].fila, nodo.hijos[1].col);
+                            Datos.agregarError("Error Semantico", "Error al castear potencia ", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
 
                         } catch (NumberFormatException e) {
@@ -524,7 +524,7 @@ public class Operacion {
                                     return v1;
                                 }
                             }
-                            Errores.agregarError("Error Semantico", "Error al castear potencia ", nodo.hijos[1].fila, nodo.hijos[1].col);
+                            Datos.agregarError("Error Semantico", "Error al castear potencia ", nodo.hijos[1].fila, nodo.hijos[1].col);
                             return (Double) 0.0;
 
                         } catch (NumberFormatException e) {
@@ -593,7 +593,7 @@ public class Operacion {
                             } else if ((E1 instanceof String && E2 instanceof String)) {
                                 return compararMayor((String) E1, (String) E2);
                             } else {
-                                Errores.agregarError("Error Semantico", "Error al usar operador relacional >", nodo.hijos[1].fila, nodo.hijos[1].col);
+                                Datos.agregarError("Error Semantico", "Error al usar operador relacional >", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
                         } catch (Exception e) {
                             System.out.println("E>: " + e);
@@ -664,7 +664,7 @@ public class Operacion {
                                 return compararMenor((String) E1, (String) E2);
 
                             } else {
-                                Errores.agregarError("Error Semantico", "Error al usar operador relacional <", nodo.hijos[1].fila, nodo.hijos[1].col);
+                                Datos.agregarError("Error Semantico", "Error al usar operador relacional <", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
                         } catch (ParseException e) {
                             System.out.println("E<: " + e);
@@ -743,7 +743,7 @@ public class Operacion {
                                 }
                                 return comp;
                             } else {
-                                Errores.agregarError("Error Semantico", "Error al usar operador relacional >=", nodo.hijos[1].fila, nodo.hijos[1].col);
+                                Datos.agregarError("Error Semantico", "Error al usar operador relacional >=", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
                         } catch (ParseException e) {
                             System.out.println("E>=: " + e);
@@ -833,7 +833,7 @@ public class Operacion {
                                 }
                                 return comp;
                             } else {
-                                Errores.agregarError("Error Semantico", "Error al usar operador relacional <=", nodo.hijos[1].fila, nodo.hijos[1].col);
+                                Datos.agregarError("Error Semantico", "Error al usar operador relacional <=", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
                         } catch (ParseException e) {
                             System.out.println("E<=: " + e);
@@ -938,7 +938,7 @@ public class Operacion {
                             } else if ((E1 instanceof String && E2 instanceof String)) {
                                 return compararIgual((String) E1, (String) E2);
                             } else {
-                                Errores.agregarError("Error Semantico", "Error al usar operador relacional ==", nodo.hijos[1].fila, nodo.hijos[1].col);
+                                Datos.agregarError("Error Semantico", "Error al usar operador relacional ==", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
                         } catch (ParseException e) {
                             System.out.println("E==: " + e);
@@ -1044,7 +1044,7 @@ public class Operacion {
                             } else if ((E1 instanceof String && E2 instanceof String)) {
                                 return !compararIgual((String) E1, (String) E2);
                             } else {
-                                Errores.agregarError("Error Semantico", "Error al usar operador relacional !=", nodo.hijos[1].fila, nodo.hijos[1].col);
+                                Datos.agregarError("Error Semantico", "Error al usar operador relacional !=", nodo.hijos[1].fila, nodo.hijos[1].col);
                             }
                         } catch (ParseException e) {
                             System.out.println("E!=: " + e);
@@ -1057,7 +1057,7 @@ public class Operacion {
                         if (E1 instanceof Boolean && E2 instanceof Boolean) {
                             return (Boolean) E1 == true && (Boolean) E2 == true;
                         }
-                        Errores.agregarError("Error Semantico", "Error al operar &&", nodo.hijos[1].fila, nodo.hijos[1].col);
+                        Datos.agregarError("Error Semantico", "Error al operar &&", nodo.hijos[1].fila, nodo.hijos[1].col);
                         return false;
 
                     case "||":
@@ -1067,7 +1067,7 @@ public class Operacion {
                         if (E1 instanceof Boolean && E2 instanceof Boolean) {
                             return (Boolean) E1 == true || (Boolean) E2 == true;
                         }
-                        Errores.agregarError("Error Semantico", "Error al operar ||", nodo.hijos[1].fila, nodo.hijos[1].col);
+                        Datos.agregarError("Error Semantico", "Error al operar ||", nodo.hijos[1].fila, nodo.hijos[1].col);
                         return false;
                     default: //(E)
                         return expresion(nodo.hijos[1]);

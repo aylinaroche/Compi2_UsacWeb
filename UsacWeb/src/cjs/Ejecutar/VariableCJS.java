@@ -2,7 +2,7 @@ package cjs.Ejecutar;
 
 import java.util.ArrayList;
 import java.util.Stack;
-import usacweb.Errores;
+import usacweb.Datos;
 import static usacweb.UsacWeb.pilaArchivo;
 
 public class VariableCJS {
@@ -20,7 +20,7 @@ public class VariableCJS {
         for (int i = 0; i < listaVariables.size(); i++) {
             Variable s = (Variable) listaVariables.get(i);
             if (s.nombre.equalsIgnoreCase(nombre) && s.ambito.equalsIgnoreCase(pilaAmbito.peek()) && s.nivel == nivelAmbito && s.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
-                Errores.agregarError("Error Semantico", "La variable " + nombre + " ya existe", f, c);
+                Datos.agregarError("Error Semantico", "La variable " + nombre + " ya existe", f, c);
                 return;
             }
         }
@@ -33,18 +33,18 @@ public class VariableCJS {
         if (tamanio instanceof Integer) {
             tam = (Integer) tamanio;
         } else {
-            Errores.agregarError("Error Semantico", "El tamanio es invalido " + tamanio, f, c);
+            Datos.agregarError("Error Semantico", "El tamanio es invalido " + tamanio, f, c);
             return;
         }
         ArrayList a = (ArrayList) valor;
         if (a.size() > tam) {
-            Errores.agregarError("Error Semantico", "El tamanio del vector " + nombre + " es incorrecto", f, c);
+            Datos.agregarError("Error Semantico", "El tamanio del vector " + nombre + " es incorrecto", f, c);
             return;
         }
         for (int i = 0; i < listaVariables.size(); i++) {
             Variable s = (Variable) listaVariables.get(i);
             if (s.nombre.equalsIgnoreCase(nombre) && s.ambito.equals(pilaAmbito.peek()) && s.nivel == nivelAmbito && s.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
-                Errores.agregarError("Error Semantico", "El vector " + nombre + " ya existe", f, c);
+                Datos.agregarError("Error Semantico", "El vector " + nombre + " ya existe", f, c);
                 return;
             }
         }
@@ -59,7 +59,7 @@ public class VariableCJS {
                 if (valor instanceof ArrayList) {
                     ArrayList a = (ArrayList) valor;
                     if (a.size() != s.tamanio) {
-                        Errores.agregarError("Error Semantico", "El tamanio del vector " + nombre + " es incorrecto", f, c);
+                        Datos.agregarError("Error Semantico", "El tamanio del vector " + nombre + " es incorrecto", f, c);
                         return;
                     }
                 }
@@ -67,7 +67,7 @@ public class VariableCJS {
                 return;
             }
         }
-        Errores.agregarError("Error Semantico", "No existe la variable a asignar " + nombre, f, c);
+        Datos.agregarError("Error Semantico", "No existe la variable a asignar " + nombre, f, c);
     }
 
     public static void asignarEnPosicion(String nombre, Object posicion, Object valor, int f, int c) {
@@ -75,14 +75,14 @@ public class VariableCJS {
         if (posicion instanceof Integer) {
             pos = (Integer) posicion;
         } else {
-            Errores.agregarError("Error Semantico", "El tamanio es invalido " + posicion, f, c);
+            Datos.agregarError("Error Semantico", "El tamanio es invalido " + posicion, f, c);
             return;
         }
         for (int i = 0; i < listaVariables.size(); i++) {
             Variable s = (Variable) listaVariables.get(i);
             if (s.nombre.equalsIgnoreCase(nombre) && s.ambito.equals(pilaAmbito.peek()) && s.nivel == nivelAmbito && s.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
                 if (pos > s.tamanio) {
-                    Errores.agregarError("Error Semantico", "El tamanio del vector " + nombre + " es incorrecto", f, c);
+                    Datos.agregarError("Error Semantico", "El tamanio del vector " + nombre + " es incorrecto", f, c);
                     return;
                 }
                 if (s.valor instanceof ArrayList) {
@@ -92,7 +92,7 @@ public class VariableCJS {
                 }
             }
         }
-        Errores.agregarError("Error Semantico", "No existe la variable a asignar " + nombre, f, c);
+        Datos.agregarError("Error Semantico", "No existe la variable a asignar " + nombre, f, c);
     }
 
     public static void eliminarVariables() {
@@ -112,7 +112,7 @@ public class VariableCJS {
                 return valor;
             }
         }
-        Errores.agregarError("Error Semantico", "No existe la variable " + nombre, f, c);
+        Datos.agregarError("Error Semantico", "No existe la variable " + nombre, f, c);
         return null;
     }
 
@@ -121,7 +121,7 @@ public class VariableCJS {
         if (posicion instanceof Integer) {
             pos = (Integer) posicion;
         } else {
-            Errores.agregarError("Error Semantico", "El tamanio es invalido " + posicion, f, c);
+            Datos.agregarError("Error Semantico", "El tamanio es invalido " + posicion, f, c);
             return null;
         }
         for (int i = listaVariables.size() - 1; i >= 0; i--) {
@@ -136,7 +136,7 @@ public class VariableCJS {
                 }
             }
         }
-        Errores.agregarError("Error Semantico", "Error al obtener valor del vector " + nombre, f, c);
+        Datos.agregarError("Error Semantico", "Error al obtener valor del vector " + nombre, f, c);
         return "";
     }
 
@@ -148,7 +148,7 @@ public class VariableCJS {
                 return tam;
             }
         }
-        Errores.agregarError("Error Semantico", "No existe el vector " + nombre, f, c);
+        Datos.agregarError("Error Semantico", "No existe el vector " + nombre, f, c);
         return 0;
     }
 
@@ -166,7 +166,7 @@ public class VariableCJS {
                 }
             }
         }
-        Errores.agregarError("Error Semantico", "No existe el vector " + nombre, f, c);
+        Datos.agregarError("Error Semantico", "No existe el vector " + nombre, f, c);
         return null;
     }
 

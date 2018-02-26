@@ -15,7 +15,7 @@ import javax.swing.JScrollPane;
  */
 public class PanelHistorial extends javax.swing.JPanel {
     
-    JScrollPane scroll = new JScrollPane();
+   // JScrollPane scroll = new JScrollPane();
     JLabel titulo = new JLabel();
     
     public PanelHistorial() {
@@ -47,7 +47,7 @@ public class PanelHistorial extends javax.swing.JPanel {
                 }
                 
                 private void ActionPerformed(ActionEvent evt) {
-                    Metodo.crearPestania(h.ruta);
+                    Metodos.crearPestania(h.ruta);
                 }
             });
             

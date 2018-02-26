@@ -3,6 +3,7 @@ package ccss;
 //import java.io.*;
 import java_cup.runtime.*;
 import java.util.ArrayList;
+import usacweb.Datos;
 init with {:
 
 :};
@@ -13,8 +14,9 @@ parser code
 public void syntax_error(Symbol s){
 /**Metodo al que se llama automaticamente ante algun error sintactico.*/
         System.out.println("Error Sintactico en la Linea " + (s.right+1) +" Columna "+s.left+ ". Identificador " +s.value + " no reconocido." );
-int linea = s.right+1; int columna = s.left; 
-String texto = "Identificador " +s.value + " no reconocido.";
+        int linea = s.right+1; int columna = s.left; 
+        String texto = "Identificador " +s.value + " no reconocido.";
+          Datos.agregarError("Error Sintactico",texto, linea,columna);
 
 }            
 public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{

@@ -3,8 +3,8 @@ package chtml.Ejecutar;
 import ccss.Ejecutar.Estilo;
 import chtml.NodoCHTML;
 import java.util.ArrayList;
-import usacweb.Errores;
-import usacweb.Metodo;
+import usacweb.Datos;
+import usacweb.Metodos;
 import usacweb.UsacWeb;
 
 public class Recorrido {
@@ -35,7 +35,7 @@ public class Recorrido {
                         case 2:
                             Recorrido(raiz.hijos[0]);
                             result = Recorrido(raiz.hijos[1]);
-                            Elementos.dibujar(result);
+//                            Elementos.dibujar(result);
                             break;
                     }
                     break;
@@ -66,23 +66,23 @@ public class Recorrido {
                             break;
                         case 4:
                             String ruta = raiz.hijos[2].texto.replace("\"", "");
-                            String texto = Metodo.abrir(ruta);
-                            UsacWeb.pilaArchivo.push(Metodo.obtenerNombre(ruta));
+                            String texto = Metodos.abrir(ruta);
+                            UsacWeb.pilaArchivo.push(Metodos.obtenerNombre(ruta));
                             if (texto.equals("")) {
-                                Errores.agregarError("Error Semantico", "El archivo no se ha encontrado", raiz.hijos[0].fila, raiz.hijos[0].col);
+                                Datos.agregarError("Error Semantico", "El archivo no se ha encontrado", raiz.hijos[0].fila, raiz.hijos[0].col);
                                 break;
                             }
                             if (raiz.hijos[0].texto.equalsIgnoreCase("ccss")) {
                                 try {
                                     ccss.ccss.analizar(texto);
                                 } catch (Exception ex) {
-                                    Errores.agregarError("Error Semantico", "No se pudo analizar el archivo ccss", raiz.hijos[0].fila, raiz.hijos[0].col);
+                                    Datos.agregarError("Error Semantico", "No se pudo analizar el archivo ccss", raiz.hijos[0].fila, raiz.hijos[0].col);
                                 }
                             } else {
                                 try {
                                     cjs.cjs.analizar(texto);
                                 } catch (Exception ex) {
-                                    Errores.agregarError("Error Semantico", "No se pudo analizar el archivo ccss", raiz.hijos[0].fila, raiz.hijos[0].col);
+                                    Datos.agregarError("Error Semantico", "No se pudo analizar el archivo ccss", raiz.hijos[0].fila, raiz.hijos[0].col);
                                 }
                             }
                             UsacWeb.pilaArchivo.pop();
@@ -394,7 +394,7 @@ public class Recorrido {
                 case "ERROR":
                     switch (raiz.cantidadHijos) {
                         case 2:
-                            Errores.agregarError("Error Sintactico", raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            Datos.agregarError("Error Sintactico", raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                     }
                     break;

@@ -6,7 +6,7 @@
 package chtml;
 
 import java_cup.runtime.*;
-import usacweb.Errores;
+import usacweb.Datos;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -596,7 +596,7 @@ public void syntax_error(Symbol s){
         System.out.println("Error Sintactico en la Linea " + (s.right+1) +" Columna "+s.left+ ". Identificador " +s.value + " no reconocido." );
         int linea = s.right+1; int columna = s.left; 
         String texto = "Identificador " +s.value + " no reconocido.";
-        Errores.agregarError("Error Sintactico",texto, linea,columna);
+     Datos.agregarError("Error Sintactico",texto, linea,columna);
 
 }            
 public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{

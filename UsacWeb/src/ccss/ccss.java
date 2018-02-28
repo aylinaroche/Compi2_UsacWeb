@@ -35,7 +35,7 @@ public class ccss {
             System.out.println(e);
         }
         usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba.ccss");
-        archivo1();
+        archivo2();
     }
 
     public static void analizar(String texto) throws Exception {
@@ -66,7 +66,7 @@ public class ccss {
         usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba");
         Recorrido r = new Recorrido();
         r.Recorrido(NODO);
-      
+
     }
 
     public static void archivo1() {
@@ -89,7 +89,7 @@ public class ccss {
                     + "Tamtex := 13; \n"
                     + "//Fin Grupo_areas_2\n"
                     + "\n"
-                   + "//Inicioidentificador_1 \n"
+                    + "//Inicioidentificador_1 \n"
                     + "ID (identificador_1); \n"
                     + "Formato := mayuscula, NEGRILLA, capital-t; \n"
                     + "Letra := \"Arial\"+15;"
@@ -107,6 +107,59 @@ public class ccss {
         } catch (Exception ex) {
             Logger.getLogger(ccss.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("ERROR :OOOO = " + ex);
+        }
+    }
+
+    public static void archivo2() {
+        try {
+            analizar("PASO2 [\n"
+                    + "id (panel_redireccion); \n"
+                    + "alineadO := derecha; \n"
+                    + "FondoElemento:= \"yelow\"; \n"
+                    + "borde := [3, \"blue\", true]; \n"
+                    + "]\n"
+                    + "formulario_inicial [ \n"
+                    + "/* estilos agregar para el primer panel que contiene botones para rediccionar */ \n"
+                    + "//inicio - panel 1 \n"
+                    + "id (panel_redireccion); \n"
+                    + "alineadO := derecha; \n"
+                    + "FondoElemento:= \"yelow\"; \n"
+                    + "borde := [3, \"blue\", true]; \n"
+                    + "//fin - panel 1 \n"
+                    + "\n"
+                    + "// inicio grupo de botones de rediccrecion \n"
+                    + "grUpO (boton_redireccion); \n"
+                    + "alineadO := centrado;\n"
+                    + "]\n"
+                    + "\n"
+                    + "\n"
+                    + "PASOS [\n"
+                    + "//inicio - panel 5 interno \n"
+                    + "ID (panel_5);\n"
+                    + "alineadO := derecha;\n"
+                    + "FondoElemento:= \"cian\"; \n"
+                    + "borde := [5, \"blue\", false]; \n"
+                    + "\n"
+                    + "//fin panel 5 interno \n"
+                    + "\n"
+                    + "//inicio grupo salida texto 1 \n"
+                    + "grupo (salida_texto_1); \n"
+                    + "LetrA := \"Arial\"; \n"
+                    + "TamTex := 14; \n"
+                    + "forMAto := negrilla; \n"
+                    + "ColorTExt := \"blue\"; \n"
+                    + "//fin grupo salida texto 1 \n"
+                    + "\n"
+                    + "//inicio grupo salida texto 2\n"
+                    + "grupo (salida_texto_2); \n"
+                    + "LetrA := \"Courier New\"; \n"
+                    + "TamTex := 12;\n"
+                    + " ColorTExt := \"purple\"; \n"
+                    + " //fin grupo salida texto 2\n"
+                    + "\n"
+                    + " ]"
+                    + "");
+        } catch (Exception e) {
         }
     }
 }

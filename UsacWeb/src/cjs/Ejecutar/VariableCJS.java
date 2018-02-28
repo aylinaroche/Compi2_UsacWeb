@@ -158,10 +158,11 @@ public class VariableCJS {
             if (s.nombre.equalsIgnoreCase(nombre) && s.archivo.equalsIgnoreCase(pilaArchivo.peek())) {
                 if (s.valor instanceof ArrayList) {
                     ArrayList lista = (ArrayList) s.valor;
-                    String cadena = "";
-                    for (int j = 0; j < lista.size(); j++) {
-                        cadena += lista.get(j);
+                    String cadena = "{";
+                    for (int j = 0; j < lista.size() - 1; j++) {
+                        cadena += lista.get(j) + ",";
                     }
+                    cadena += lista.get(lista.size() - 1) + "}";
                     return cadena;
                 }
             }

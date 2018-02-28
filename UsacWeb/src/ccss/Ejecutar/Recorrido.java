@@ -54,7 +54,7 @@ public class Recorrido {
                             BloqueCCSS.crearBloque(selector, tipo, nombre, atr1, raiz.hijos[2].fila, raiz.hijos[2].col);
                             break;
                         case 5:
-                            ArrayList atr2 = (ArrayList) Recorrido(raiz.hijos[0]);
+                            ArrayList atr2 = (ArrayList) Recorrido(raiz.hijos[4]);
                             BloqueCCSS.crearBloque(selector, tipo, nombre, atr2, raiz.hijos[2].fila, raiz.hijos[2].col);
                             break;
                     }
@@ -90,11 +90,15 @@ public class Recorrido {
                                     Estilo e2 = new Estilo(raiz.hijos[0].texto, auto);
                                     result = e2;
                                     break;
+                            }
+                            break;
+                        case 10:
+                            switch (raiz.hijos[0].texto) {
                                 case "borde":
                                     ArrayList borde = new ArrayList();
-                                    borde.add(raiz.hijos[3].texto); //tamanio
-                                    borde.add(raiz.hijos[5].texto); //color
-                                    borde.add(Recorrido(raiz.hijos[5])); //curva
+                                    borde.add(Recorrido(raiz.hijos[3])); //tamanio
+                                    borde.add(Recorrido(raiz.hijos[5])); //color
+                                    borde.add(Recorrido(raiz.hijos[7])); //curva
                                     Estilo e3 = new Estilo(raiz.hijos[0].texto, borde);
                                     result = e3;
                                     break;

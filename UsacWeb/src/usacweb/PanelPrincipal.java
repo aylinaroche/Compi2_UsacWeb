@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -42,7 +43,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
         boxV1.removeAll();
         Box boxH1 = Box.createHorizontalBox();
         crearBotones();
-        ruta.setText("C:\\Users\\Aroche\\Documents\\Archivos\\Paso1.chtml");
+        ruta.setText("C:\\Users\\Aroche\\Documents\\Archivos\\Paso2.chtml");
         ruta.setFont(new java.awt.Font("Verdana", 0, 12));
         ruta.setPreferredSize(new Dimension(1300, 30));
         ruta.setMaximumSize(ruta.getPreferredSize());
@@ -150,7 +151,10 @@ public class PanelPrincipal extends javax.swing.JPanel {
                 String texto = Metodos.abrir(ruta.getText());
                 UsacWeb.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
                 try {
-                    chtml.analizar(texto);
+                    Object result = chtml.analizar(texto);
+                    if (result instanceof JPanel) {
+                        crearHTML((JPanel) result);
+                    }
                 } catch (Exception ex) {
                     System.out.println("Error al analizar archivo: " + ruta.getText() + "\n" + ex);
                 }
@@ -170,7 +174,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
                     rutaAux = ruta.getText();
                     removeAll();
                     crearTODO();
-                    JPanel panel = (JPanel) Elementos.dibujar(Elementos.compPrueba());
+                    JPanel panel = (JPanel) Elementos.dibujar2(Elementos.compPrueba());
                     boxV1.add(panel);
                     setLayout(new BorderLayout());
                     add(boxV1, BorderLayout.CENTER);
@@ -234,6 +238,23 @@ public class PanelPrincipal extends javax.swing.JPanel {
                 UsacWeb.listaFavoritos.add(ruta.getText());
             }
         });
+    }
+
+    public void crearHTML(JPanel panel) {
+        rutaAux = ruta.getText();
+        removeAll();
+        crearTODO();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
+        Box boxH1 = Box.createHorizontalBox();
+        boxH1.add(Box.createHorizontalGlue());
+        boxH1.add(panel);
+        boxH1.add(Box.createHorizontalGlue());
+        JScrollPane scroll = new JScrollPane();
+        scroll.setViewportView(boxH1);
+        boxV1.add(scroll);
+        setLayout(new BorderLayout());
+        add(boxV1, BorderLayout.CENTER);
+        updateUI();
     }
 
     @SuppressWarnings("unchecked")

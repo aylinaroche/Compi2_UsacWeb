@@ -33,6 +33,9 @@ public class BloqueCCSS {
         for (int i = 0; i < listaBloques.size(); i++) {
             Bloque s = listaBloques.get(i);
             if (s.nombre.equalsIgnoreCase(nombre) && s.tipo.equalsIgnoreCase(tipo)) {
+                if(s.elementos == null){
+                    return new ArrayList();
+                }
                 return s.elementos;
             }
         }

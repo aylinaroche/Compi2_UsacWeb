@@ -30,11 +30,10 @@ public class Metodos {
             } catch (IOException e) {
             }
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, 0, "Error al abrir el archivo", JOptionPane.WARNING_MESSAGE);
+            Datos.agregarError("Error Semantico", "Error al abrir el archivo", 0, 0);
         }
-
-        System.out.println("\n ********** ARCHIVO ********\n");
-        System.out.println(lectura);
+//        System.out.println("\n ********** ARCHIVO ********\n");
+//        System.out.println(lectura);
         return lectura;
     }
 

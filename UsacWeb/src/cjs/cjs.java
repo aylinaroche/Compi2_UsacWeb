@@ -11,9 +11,9 @@ import java.util.logging.Logger;
 import java_cup.runtime.Symbol;
 
 public class cjs {
-
+    
     public static NodoCJS NODO;
-
+    
     public static void main(String[] args) throws Exception {
         String path_Lexico = System.getProperty("user.dir").replace("\\", "/") + "/src/cjs/LexicoCJS.jflex";
 //Genera el LEXICO
@@ -23,7 +23,7 @@ public class cjs {
         jflex.Main.main(Flex);
 //Genera el SINTACTICO
         String Params[] = new String[5];
-
+        
         Params[0] = "-destdir";//habilita destino
         Params[1] = System.getProperty("user.dir").replace("\\", "/") + "/src/cjs";//destino
         Params[2] = "-parser";//habilita nombre
@@ -36,10 +36,10 @@ public class cjs {
             System.out.println(e);
         }
         usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba.cjs");
-        archivo1();
-        VariableCJS.imprimir();
+        archivo2();
+       // VariableCJS.imprimir();
     }
-
+    
     public static void analizar(String texto) throws Exception {
         StringReader miReader = new StringReader(texto);
         LexicoCJS miAnalizador = new LexicoCJS(miReader);
@@ -59,11 +59,11 @@ public class cjs {
         } catch (IOException e) {
             System.out.println("ERRROOOOR::: " + e);
         }
-
+        
         iniciar();
         VariableCJS.imprimir();
     }
-
+    
     public static void iniciar() {
         usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba");
         VariableCJS.pilaAmbito.push("Global");
@@ -75,7 +75,7 @@ public class cjs {
         VariableCJS.nivelAmbito--;
         VariableCJS.pilaAmbito.pop();
     }
-
+    
     public static void archivo1() {
         try {
             analizar(""
@@ -195,6 +195,74 @@ public class cjs {
         } catch (Exception ex) {
             Logger.getLogger(cjs.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("ERROR :OOOO = " + ex);
+        }
+    }
+    
+    public static void archivo2() {
+        try {
+            analizar("Dimv miVector : { 14 ,240 , 350 }; \n"
+                    + "Dimv nombres : {\"Hola\", \"Mundo\" , \"Otra\" , \"Vez\" }; \n"
+                    + "DimV nuevoVector : { \"Hola\" , \"Mundo\" , 1 , 2 , 3 }; \n"
+                    + "DimV vectorStatico{3}; \n"
+                    + "DimV miNumero: 4;\n"
+                    + "DimV tamanioVector;\n"
+                    + "\n"
+                    + "tamanioVector: miVector.conteo;\n"
+                    + "\n"
+                    + "miNumero : nuevoVector.conteo;\n"
+                    + "\n"
+                    + "imprimir(\"probando metodos vectores \\n\");\n"
+                    + "\n"
+                    + "imprimir(\"miVector: \" + tamanioVector + \"\\n\");\n"
+                    + "imprimir(\"nuevoVector: \" + miNumero + \"\\n\");\n"
+                    + "\n"
+                    + "\n"
+                    + "imprimir(\"PROBANDO ACCESO A VECTORES \\n\");\n"
+                    + "\n"
+                    + "imprimir(miVector{1} + \"\\n\");\n"
+                    + "\n"
+                    + "\n"
+                    + "imprimir(\"resultado de miVector : \" + miVector.aTexto());\n"
+                    + "\n"
+                    + "si(tamanioVector < (miNumero * 5)){\n"
+                    + "\n"
+                    + "	imprimir(\"Estoy en el if 1\");\n"
+                    + "	DimV nada:0;\n"
+                    + "	imprimir(\"el while se debe de imprimir 1 vez\");\n"
+                    + "	mientras(nada<tamanioVector){\n"
+                    + "		imprimir(\"vuelta \" + nada);\n"
+                    + "		imprimir(\"dentro del while probaremos el selecciona\");\n"
+                    + "		selecciona(miNumero-1) {\n"
+                    + "			caso 20:\n"
+                    + "				imprimir(\"este caso 20 no es\");\n"
+                    + "				detener;\n"
+                    + "			caso 6:\n"
+                    + "				imprimir(\"este caso 6  tampoco es\");\n"
+                    + "				detener;\n"
+                    + "			caso 4:\n"
+                    + "				imprimir(\"este caso 4  si es, imprimo la posicion 4 de nuevoVector \" + nuevoVector{3});\n"
+                    + "				imprimir(\"no le puse detener\");\n"
+                    + "				para(dimv a:0 ; a<4;++){\n"
+                    + "					imprimir(\"estoy en el para:\" + a);\n"
+                    + "					si(a == 1){\n"
+                    + "						imprimir(\"Quise imprimir la vuelta 1 otra vez\");\n"
+                    + "\n"
+                    + "					}sino{\n"
+                    + "\n"
+                    + "						imprimir(\"pues aca en el sino no pasa nada \");\n"
+                    + "					}\n"
+                    + "				}\n"
+                    + "			defecto:\n"
+                    + "				imprimir(\"Si funciono el seleccionar\");\n"
+                    + "\n"
+                    + "		}\n"
+                    + "		imprimir(\"me sali del seleccionar\");\n"
+                    + "		detener;\n"
+                    + "		nada:nada+1;\n"
+                    + "	}\n"
+                    + "}"
+                    + "");
+        } catch (Exception e) {
         }
     }
 }

@@ -34,10 +34,10 @@ public class chtml {
             System.out.println(e);
         }
         usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba.Html");
-        archivo1();
+        archivo2();
     }
 
-    public static void analizar(String texto) throws Exception {
+    public static Object analizar(String texto) throws Exception {
         StringReader miReader = new StringReader(texto);
         LexicoCHTML miAnalizador = new LexicoCHTML(miReader);
         // VariableG.pilaAmbito.push(paradigmas.Atributos.nombreArchivo);
@@ -55,22 +55,23 @@ public class chtml {
             }
         } catch (IOException e) {
             System.out.println("ERRROOOOR::: " + e);
-            return;
+            return null;
         }
 
-        iniciar();
+        return iniciar();
     }
 
-    public static void iniciar() {
+    public static Object iniciar() {
         usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba");
         Recorrido r = new Recorrido();
-        r.Recorrido(NODO);
+        Object result = r.Recorrido(NODO);
+        return result;
     }
 
     public static void archivo1() {
         try {
             analizar(""
-                    + "<CHTML>" 
+                    + "<CHTML>"
                     + "	<ENCABEZADO> \n"
                     + "		<CJS ruta = \"C:/fichero/fichero_1.cjs\";><FIN-CJS> \n"
                     + "		<CCSS ruta = \"C:/fichero/estilo_2.ccss\";><FIN-CCSS> \n"
@@ -87,66 +88,103 @@ public class chtml {
                     + "			<FIN-PANEL> \n"
                     + "		<FIN-PANEL>\n"
                     + "		\n"
-//                    + "		<PANEL>\n"
-//                    + "			<IMAGEN> c://proyecto1/imagen.png <FIN-IMAGEN> \n"
-//                    + "			<IMAGEN ruta=\"c://fichero/hoja.chtml\";> c://proy1/foto.jpg <FIN-IMAGEN> \n"
-//                    + "			<IMAGEN click=\"metodo()\";> c://proyecto1/clase.gif <FIN-IMAGEN>\n"
-//                    + "			\n"
-//                    + "			<BOTON> Enviar <FIN-BOTON> \n"
-//                    + "			<BOTON click=\"salida_consola()\";>Este es un botón<FIN-BOTON> \n"
-//                    + "			<BOTON ruta=\"c://pro_1/index.chtml\";> Principal <FIN-BOTON>\n"
-//                    + "			\n"
-//                    + "			<ENLACE ruta=\"ruta/ruta\";> <//- Texto a mostrar -//> <FIN-ENLACE> \n"
-//                    + "			<ENLACE ruta=\"c://ruta/ruta.chtml\";> Página \nRuta <FIN-ENLACE>\n"
-//                    + "			\n"
-//                    + "			<TABLA> "
-//                    + "				<FIL_T>"
-//                    + "				<CB>Nombre<FIN-CB> \n"
-//                    + "				<CB>Apellido<FIN-CB> \n"
-//                    + "				<CB>Edad<FIN-CB>\n"
-//                    + "                         <FIN-FIL_T> \n"
-//                    + "				<FIL_T> \n"
-//                    + "				<CT>Mack<FIN-CT> \n"
-//                    + "				<CT>Hill<FIN-CT> \n"
-//                    + "				<CT>15<FIN-CT> \n"
-//                    + "                         <FIN-FIL_T> \n"
-//                    + "				<FIL_T> \n"
-//                    + "				<CT>Stark<FIN-CT> \n"
-//                    + "				<CT>Iron<FIN-CT> \n"
-//                    + "				<CT>50<FIN-CT> \n"
-//                    + "				<FIN-FIL_T> \n"
-//                    + "			<FIN-TABLA>"
-//                    + "			<TEXTO_A> Nombre<FIN-TEXTO_A>\n"
-//                    + "			\n"
-//                    + "			<CAJA_TEXTO> Contenido en la caja de texto <FIN-CAJA_TEXTO> \n"
-//                    + "			<CAJA_TEXTO> <FIN-CAJA_TEXTO>"
-//                    + "			<CAJA click=\"metodo()\";> "
-//                    + "			<OPCION valor=\"1\";>Uno<FIN-OPCION> \n"
-//                    + "			<OPCION valor=\"2\";>Dos<FIN-OPCION> \n"
-//                    + "			<OPCION valor=\"3\";>Tres<FIN-OPCION> \n"
-//                          + "			<OPCION valor=\"4\";>4<FIN-OPCION>\n" //verificar que acepte el 4
-//                    + "			<FIN-CAJA>"
-//                    + "			\n"
-//                    + "			<SPINNER>15<FIN-SPINNER>\n"
-//                    + "			<SPINNER>1<FIN-SPINNER>\n"
-//                    + "			\n"
-//                    + "			<SALTO-FIN> \n"
-//                    + "			<CAJA> "
-//                    + "\n"
-//                    + "			<OPCION valor=\"1\";>Uno<FIN-OPCION> \n"
-//                    + "			<OPCION valor=\"2\";>Dos<FIN-OPCION> \n"
-//                    + "			<FIN-CAJA> \n"
-//                    + "			<SALTO-FIN> \n"
-//                    + "			<CAJA_TEXTO> Contenido en la caja de texto <FIN-CAJA_TEXTO>\n"
-//                    + "			\n"
-//                    + "			\n"
-//                    + "		<FIN-PANEL>\n"
+                    //                    + "		<PANEL>\n"
+                    //                    + "			<IMAGEN> c://proyecto1/imagen.png <FIN-IMAGEN> \n"
+                    //                    + "			<IMAGEN ruta=\"c://fichero/hoja.chtml\";> c://proy1/foto.jpg <FIN-IMAGEN> \n"
+                    //                    + "			<IMAGEN click=\"metodo()\";> c://proyecto1/clase.gif <FIN-IMAGEN>\n"
+                    //                    + "			\n"
+                    //                    + "			<BOTON> Enviar <FIN-BOTON> \n"
+                    //                    + "			<BOTON click=\"salida_consola()\";>Este es un botón<FIN-BOTON> \n"
+                    //                    + "			<BOTON ruta=\"c://pro_1/index.chtml\";> Principal <FIN-BOTON>\n"
+                    //                    + "			\n"
+                    //                    + "			<ENLACE ruta=\"ruta/ruta\";> <//- Texto a mostrar -//> <FIN-ENLACE> \n"
+                    //                    + "			<ENLACE ruta=\"c://ruta/ruta.chtml\";> Página \nRuta <FIN-ENLACE>\n"
+                    //                    + "			\n"
+                    //                    + "			<TABLA> "
+                    //                    + "				<FIL_T>"
+                    //                    + "				<CB>Nombre<FIN-CB> \n"
+                    //                    + "				<CB>Apellido<FIN-CB> \n"
+                    //                    + "				<CB>Edad<FIN-CB>\n"
+                    //                    + "                         <FIN-FIL_T> \n"
+                    //                    + "				<FIL_T> \n"
+                    //                    + "				<CT>Mack<FIN-CT> \n"
+                    //                    + "				<CT>Hill<FIN-CT> \n"
+                    //                    + "				<CT>15<FIN-CT> \n"
+                    //                    + "                         <FIN-FIL_T> \n"
+                    //                    + "				<FIL_T> \n"
+                    //                    + "				<CT>Stark<FIN-CT> \n"
+                    //                    + "				<CT>Iron<FIN-CT> \n"
+                    //                    + "				<CT>50<FIN-CT> \n"
+                    //                    + "				<FIN-FIL_T> \n"
+                    //                    + "			<FIN-TABLA>"
+                    //                    + "			<TEXTO_A> Nombre<FIN-TEXTO_A>\n"
+                    //                    + "			\n"
+                    //                    + "			<CAJA_TEXTO> Contenido en la caja de texto <FIN-CAJA_TEXTO> \n"
+                    //                    + "			<CAJA_TEXTO> <FIN-CAJA_TEXTO>"
+                    //                    + "			<CAJA click=\"metodo()\";> "
+                    //                    + "			<OPCION valor=\"1\";>Uno<FIN-OPCION> \n"
+                    //                    + "			<OPCION valor=\"2\";>Dos<FIN-OPCION> \n"
+                    //                    + "			<OPCION valor=\"3\";>Tres<FIN-OPCION> \n"
+                    //                          + "			<OPCION valor=\"4\";>4<FIN-OPCION>\n" //verificar que acepte el 4
+                    //                    + "			<FIN-CAJA>"
+                    //                    + "			\n"
+                    //                    + "			<SPINNER>15<FIN-SPINNER>\n"
+                    //                    + "			<SPINNER>1<FIN-SPINNER>\n"
+                    //                    + "			\n"
+                    //                    + "			<SALTO-FIN> \n"
+                    //                    + "			<CAJA> "
+                    //                    + "\n"
+                    //                    + "			<OPCION valor=\"1\";>Uno<FIN-OPCION> \n"
+                    //                    + "			<OPCION valor=\"2\";>Dos<FIN-OPCION> \n"
+                    //                    + "			<FIN-CAJA> \n"
+                    //                    + "			<SALTO-FIN> \n"
+                    //                    + "			<CAJA_TEXTO> Contenido en la caja de texto <FIN-CAJA_TEXTO>\n"
+                    //                    + "			\n"
+                    //                    + "			\n"
+                    //                    + "		<FIN-PANEL>\n"
                     + "	<FIN-CUERPO>\n"
                     + "<FIN-cHTML>\n"
                     + "");
         } catch (Exception ex) {
             Logger.getLogger(chtml.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("ERROR :OOOO = " + ex);
+        }
+    }
+
+    public static void archivo2() {
+        try {
+            analizar("<//- Inicio CHT2ML -//> \n"
+                    + "\n"
+                    + "<CHTML> \n"
+                    + "<//- Contenido encabezado -//> \n"
+                    + "	<ENCABEZADO> \n"
+                    + "		<CCSS ruta=\"C:\\Users\\Aroche\\Documents\\Archivos\\ArchivoCCSS1.ccss\";><FIN-CCSS> \n"
+                    + "		<CJS ruta=\"C:\\Users\\Aroche\\Documents\\Archivos\\ArchivoCJS1.cjs\";><FIN-CJS> \n"
+                    + "		<TITULO>PAGINA 1<FIN-TITULO> \n"
+                    + "	<FIN-ENCABEZADO>\n"
+                    + "\n"
+                    + "<CUERPO> \n"
+                    + "	<//- <PANEL id = \"panel_1\"; grupo= \"panel_redireccion\"; ancho = \"716\"; alto = \"50\";> \n"
+                    + "		<BOTON grupo = \"boton_redireccion\"; alto = \"35\"; ancho = \"120\"; ruta= \"C:\\proyecto1\\informacion.chtml\";>Informacion<FIN-BOTON>\n"
+                    + "		<BOTON grupo = \"boton_redireccion\"; alto = \"35\"; ancho = \"160\"; ruta= \"C:\\proyecto1\\tabla.chtml\";>Tabla Estudiante<FIN-BOTON> \n"
+                    + "		<BOTON grupo = \"boton_redireccion\"; alto = \"35\"; ancho = \"100\"; ruta= \"C:\\proyecto1\\index.chtml\";> Principal <FIN-BOTON> \n"
+                    + "	<FIN-PANEL> \n"
+                    + "	 <SALTO-FIN>\n"
+                    + "	 -//> \n"
+                    + "	\n"
+                    + "\n"
+                    + "	 <PANEL id = \"panel_2\" ; grupo=\"titulo\"; ancho = \"716\"; alto = \"50\";> \n"
+                    + "		<//- esta linea contiene salto de linea en el texto -//> \n"
+                    + "		<TEXTO id=\"titulo_doc\"; grupo= \"titulo\";>Calificacion Compiladores 2 \n"
+                    + "		Proyecto 2<FIN-TEXTO> \n"
+                    + "	 <FIN-PANEL> \n"
+                    + "	 \n"
+                    + "	 <//- Se agregaron tres saltos de linea -//> \n"
+                    + "	 <SALTO-FIN> <SALTO-FIN> <SALTO-FIN>\n"
+                    + "<FIN-CUERPO>\n"
+                    + "\n"
+                    + "<FIN-CHTML>");
+        } catch (Exception e) {
         }
     }
 }

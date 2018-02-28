@@ -43,7 +43,8 @@ public class Datos {
     public static void agregarSalida(String t, int f, int c) {
         Salida e = new Salida(UsacWeb.pilaArchivo.peek(), t, f, c);
         listaImprimir.add(e);
-        System.out.println("-> " + t + ": " + f + ": " + c + ": " + e.archivo);
+        //System.out.println(">>> " + t + ": " + f + ": " + c + ": " + e.archivo);
+         System.out.println(">>> " + t );
     }
 
     public static Object[][] obtenerSalida() {

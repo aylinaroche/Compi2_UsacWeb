@@ -16,6 +16,7 @@ public class Variable implements Cloneable {
         this.valor = v;
         this.ambito = a;
         this.nivel = ni;
+        this.tamanio = tam;
         this.archivo = usacweb.UsacWeb.pilaArchivo.peek();
     }
 

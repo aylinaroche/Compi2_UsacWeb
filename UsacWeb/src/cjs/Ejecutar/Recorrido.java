@@ -133,7 +133,7 @@ public class Recorrido {
                 case "ACCESO":
                     switch (raiz.cantidadHijos) {
                         case 3:
-                            if ("conteo".equals(raiz.hijos[2].texto)) {
+                            if ("conteo".equalsIgnoreCase(raiz.hijos[2].texto)) {
                                 result = VariableCJS.obtenerTamanio(raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);
                             } else {
                                 result = VariableCJS.obtenerCadena(raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);
@@ -251,7 +251,7 @@ public class Recorrido {
                                             Recorrido(raiz.hijos[4]);
                                             result = "true";
                                         }
-                                    } catch (Exception e) {
+                                    } catch (NumberFormatException e) {
                                         System.out.println("Error ss = " + e);
                                     }
                                 }
@@ -385,7 +385,7 @@ public class Recorrido {
                 case "IMPRIMIR":
                     String imp = Recorrido(raiz.hijos[2]).toString();
                     if (imp != null) {
-                        System.out.println(imp);
+                        //System.out.println(imp);
                         Datos.agregarSalida(imp, raiz.hijos[0].fila, raiz.hijos[0].col);
                     }
                     break;

@@ -7,6 +7,7 @@ package ccss;
 
 import java_cup.runtime.*;
 import java.util.ArrayList;
+import usacweb.Datos;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -106,32 +107,34 @@ public class SintacticoCCSS extends java_cup.runtime.lr_parser {
     "\ufff3\022\ufff3\023\ufff3\024\ufff3\027\ufff3\030\ufff3\031\ufff3" +
     "\032\ufff3\033\ufff3\042\ufff3\001\002\000\022\036\105\040" +
     "\101\045\107\046\106\054\103\057\102\061\110\062\104" +
-    "\001\002\000\004\051\125\001\002\000\016\035\uffcc\036" +
-    "\uffcc\043\uffcc\051\uffcc\053\uffcc\060\uffcc\001\002\000\022" +
-    "\036\105\040\101\045\107\046\106\054\103\057\102\061" +
-    "\110\062\104\001\002\000\016\035\uffcf\036\uffcf\043\uffcf" +
-    "\051\uffcf\053\uffcf\060\uffcf\001\002\000\016\035\uffcd\036" +
-    "\uffcd\043\uffcd\051\uffcd\053\uffcd\060\uffcd\001\002\000\022" +
-    "\036\105\040\101\045\107\046\106\054\103\057\102\061" +
-    "\110\062\104\001\002\000\016\035\uffd1\036\uffd1\043\uffd1" +
-    "\051\uffd1\053\uffd1\060\uffd1\001\002\000\016\035\uffd2\036" +
-    "\uffd2\043\uffd2\051\uffd2\053\uffd2\060\uffd2\001\002\000\016" +
-    "\035\uffce\036\uffce\043\uffce\051\uffce\053\uffce\060\uffce\001" +
-    "\002\000\014\035\113\036\114\043\112\051\uffd8\053\115" +
-    "\001\002\000\022\036\105\040\101\045\107\046\106\054" +
-    "\103\057\102\061\110\062\104\001\002\000\022\036\105" +
-    "\040\101\045\107\046\106\054\103\057\102\061\110\062" +
-    "\104\001\002\000\022\036\105\040\101\045\107\046\106" +
+    "\001\002\000\004\051\125\001\002\000\020\034\uffcc\035" +
+    "\uffcc\036\uffcc\043\uffcc\051\uffcc\053\uffcc\060\uffcc\001\002" +
+    "\000\022\036\105\040\101\045\107\046\106\054\103\057" +
+    "\102\061\110\062\104\001\002\000\020\034\uffcf\035\uffcf" +
+    "\036\uffcf\043\uffcf\051\uffcf\053\uffcf\060\uffcf\001\002\000" +
+    "\020\034\uffcd\035\uffcd\036\uffcd\043\uffcd\051\uffcd\053\uffcd" +
+    "\060\uffcd\001\002\000\022\036\105\040\101\045\107\046" +
+    "\106\054\103\057\102\061\110\062\104\001\002\000\020" +
+    "\034\uffd1\035\uffd1\036\uffd1\043\uffd1\051\uffd1\053\uffd1\060" +
+    "\uffd1\001\002\000\020\034\uffd2\035\uffd2\036\uffd2\043\uffd2" +
+    "\051\uffd2\053\uffd2\060\uffd2\001\002\000\020\034\uffce\035" +
+    "\uffce\036\uffce\043\uffce\051\uffce\053\uffce\060\uffce\001\002" +
+    "\000\016\034\uffd8\035\113\036\114\043\112\051\uffd8\053" +
+    "\115\001\002\000\022\036\105\040\101\045\107\046\106" +
     "\054\103\057\102\061\110\062\104\001\002\000\022\036" +
     "\105\040\101\045\107\046\106\054\103\057\102\061\110" +
-    "\062\104\001\002\000\016\035\uffd3\036\uffd3\043\uffd3\051" +
-    "\uffd3\053\uffd3\060\uffd3\001\002\000\016\035\uffd5\036\uffd5" +
-    "\043\112\051\uffd5\053\115\060\uffd5\001\002\000\016\035" +
-    "\uffd6\036\uffd6\043\112\051\uffd6\053\115\060\uffd6\001\002" +
-    "\000\016\035\uffd4\036\uffd4\043\uffd4\051\uffd4\053\uffd4\060" +
-    "\uffd4\001\002\000\016\035\uffd0\036\uffd0\043\112\051\uffd0" +
-    "\053\115\060\uffd0\001\002\000\014\035\113\036\114\043" +
-    "\112\053\115\060\124\001\002\000\016\035\uffd7\036\uffd7" +
+    "\062\104\001\002\000\022\036\105\040\101\045\107\046" +
+    "\106\054\103\057\102\061\110\062\104\001\002\000\022" +
+    "\036\105\040\101\045\107\046\106\054\103\057\102\061" +
+    "\110\062\104\001\002\000\020\034\uffd3\035\uffd3\036\uffd3" +
+    "\043\uffd3\051\uffd3\053\uffd3\060\uffd3\001\002\000\020\034" +
+    "\uffd5\035\uffd5\036\uffd5\043\112\051\uffd5\053\115\060\uffd5" +
+    "\001\002\000\020\034\uffd6\035\uffd6\036\uffd6\043\112\051" +
+    "\uffd6\053\115\060\uffd6\001\002\000\020\034\uffd4\035\uffd4" +
+    "\036\uffd4\043\uffd4\051\uffd4\053\uffd4\060\uffd4\001\002\000" +
+    "\020\034\uffd0\035\uffd0\036\uffd0\043\112\051\uffd0\053\115" +
+    "\060\uffd0\001\002\000\014\035\113\036\114\043\112\053" +
+    "\115\060\124\001\002\000\020\034\uffd7\035\uffd7\036\uffd7" +
     "\043\uffd7\051\uffd7\053\uffd7\060\uffd7\001\002\000\040\003" +
     "\ufff0\004\ufff0\005\ufff0\012\ufff0\020\ufff0\021\ufff0\022\ufff0" +
     "\023\ufff0\024\ufff0\027\ufff0\030\ufff0\031\ufff0\032\ufff0\033" +
@@ -161,23 +164,26 @@ public class SintacticoCCSS extends java_cup.runtime.lr_parser {
     "\001\002\000\004\051\147\001\002\000\040\003\uffec\004" +
     "\uffec\005\uffec\012\uffec\020\uffec\021\uffec\022\uffec\023\uffec" +
     "\024\uffec\027\uffec\030\uffec\031\uffec\032\uffec\033\uffec\042" +
-    "\uffec\001\002\000\004\041\151\001\002\000\004\052\152" +
-    "\001\002\000\004\034\153\001\002\000\004\054\154\001" +
-    "\002\000\004\034\155\001\002\000\006\045\041\046\043" +
-    "\001\002\000\004\042\157\001\002\000\004\051\160\001" +
-    "\002\000\040\003\uffeb\004\uffeb\005\uffeb\012\uffeb\020\uffeb" +
-    "\021\uffeb\022\uffeb\023\uffeb\024\uffeb\027\uffeb\030\uffeb\031" +
-    "\uffeb\032\uffeb\033\uffeb\042\uffeb\001\002\000\004\040\162" +
-    "\001\002\000\004\060\163\001\002\000\004\051\164\001" +
-    "\002\000\040\003\ufff8\004\026\005\032\012\035\020\031" +
-    "\021\030\022\027\023\036\024\023\027\022\030\025\031" +
-    "\024\032\ufff8\033\ufff8\042\ufff8\001\002\000\040\003\ufffa" +
-    "\004\026\005\032\012\035\020\031\021\030\022\027\023" +
-    "\036\024\023\027\022\030\025\031\024\032\ufffa\033\ufffa" +
-    "\042\ufffa\001\002\000\012\003\ufff6\032\ufff6\033\ufff6\042" +
-    "\ufff6\001\002\000\006\002\ufffd\040\ufffd\001\002\000\012" +
-    "\003\ufffc\032\ufffc\033\ufffc\042\ufffc\001\002\000\004\002" +
-    "\001\001\002\000\006\002\uffff\040\uffff\001\002" });
+    "\uffec\001\002\000\004\041\151\001\002\000\022\036\105" +
+    "\040\101\045\107\046\106\054\103\057\102\061\110\062" +
+    "\104\001\002\000\004\034\153\001\002\000\022\036\105" +
+    "\040\101\045\107\046\106\054\103\057\102\061\110\062" +
+    "\104\001\002\000\004\034\155\001\002\000\006\045\041" +
+    "\046\043\001\002\000\004\042\157\001\002\000\004\051" +
+    "\160\001\002\000\040\003\uffeb\004\uffeb\005\uffeb\012\uffeb" +
+    "\020\uffeb\021\uffeb\022\uffeb\023\uffeb\024\uffeb\027\uffeb\030" +
+    "\uffeb\031\uffeb\032\uffeb\033\uffeb\042\uffeb\001\002\000\004" +
+    "\040\162\001\002\000\004\060\163\001\002\000\004\051" +
+    "\164\001\002\000\040\003\ufff8\004\026\005\032\012\035" +
+    "\020\031\021\030\022\027\023\036\024\023\027\022\030" +
+    "\025\031\024\032\ufff8\033\ufff8\042\ufff8\001\002\000\040" +
+    "\003\ufffa\004\026\005\032\012\035\020\031\021\030\022" +
+    "\027\023\036\024\023\027\022\030\025\031\024\032\ufffa" +
+    "\033\ufffa\042\ufffa\001\002\000\012\003\ufff6\032\ufff6\033" +
+    "\ufff6\042\ufff6\001\002\000\006\002\ufffd\040\ufffd\001\002" +
+    "\000\012\003\ufffc\032\ufffc\033\ufffc\042\ufffc\001\002\000" +
+    "\004\002\001\001\002\000\006\002\uffff\040\uffff\001\002" +
+    "" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -221,13 +227,14 @@ public class SintacticoCCSS extends java_cup.runtime.lr_parser {
     "\001\000\004\013\137\001\001\000\002\001\001\000\002" +
     "\001\001\000\006\016\142\017\110\001\001\000\002\001" +
     "\001\000\002\001\001\000\004\013\145\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\001\000\002\001\001\000\002\001\001\000\006\016" +
+    "\151\017\110\001\001\000\002\001\001\000\006\016\153" +
+    "\017\110\001\001\000\002\001\001\000\004\013\155\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\004\013\155\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\006\006\164\007\032\001\001\000" +
-    "\004\007\066\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001" });
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\006\006\164\007\032\001\001\000\004\007\066\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -279,8 +286,9 @@ public class SintacticoCCSS extends java_cup.runtime.lr_parser {
 public void syntax_error(Symbol s){
 /**Metodo al que se llama automaticamente ante algun error sintactico.*/
         System.out.println("Error Sintactico en la Linea " + (s.right+1) +" Columna "+s.left+ ". Identificador " +s.value + " no reconocido." );
-int linea = s.right+1; int columna = s.left; 
-String texto = "Identificador " +s.value + " no reconocido.";
+        int linea = s.right+1; int columna = s.left; 
+        String texto = "Identificador " +s.value + " no reconocido.";
+          Datos.agregarError("Error Sintactico",texto, linea,columna);
 
 }            
 public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
@@ -733,7 +741,7 @@ class CUP$SintacticoCCSS$actions {
           return CUP$SintacticoCCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // ESTILO ::= borde igual corcheteA numero coma cadena coma VALOR corcheteC puntoComa 
+          case 22: // ESTILO ::= borde igual corcheteA OP coma OP coma VALOR corcheteC puntoComa 
             {
               Caracter RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-9)).left;
@@ -741,18 +749,18 @@ class CUP$SintacticoCCSS$actions {
 		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-9)).value;
 		int nleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-6)).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-6)).right;
-		String n = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-6)).value;
+		Caracter n = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-6)).value;
 		int cleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-4)).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-4)).right;
-		String c = (String)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-4)).value;
+		Caracter c = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-4)).value;
 		int vleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).left;
 		int vright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).right;
 		Caracter v = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-2)).value;
 		 //10
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("ESTILO");
-    E.insertar(new NodoCCSS("borde",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS("[")); E.insertar(new NodoCCSS(n,nright,nleft));E.insertar(new NodoCCSS(","));
-    E.insertar(new NodoCCSS(c));  E.insertar(new NodoCCSS(","));  E.insertar(v.nodo);  E.insertar(new NodoCCSS("]")); E.insertar(new NodoCCSS(";"));
+    E.insertar(new NodoCCSS("borde",iright,ileft));E.insertar(new NodoCCSS("=")); E.insertar(new NodoCCSS("[")); E.insertar(n.nodo);E.insertar(new NodoCCSS(","));
+    E.insertar(c.nodo);  E.insertar(new NodoCCSS(","));  E.insertar(v.nodo);  E.insertar(new NodoCCSS("]")); E.insertar(new NodoCCSS(";"));
     RESULT.nodo = E;
 
               CUP$SintacticoCCSS$result = parser.getSymbolFactory().newSymbol("ESTILO",5, ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.elementAt(CUP$SintacticoCCSS$top-9)), ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()), RESULT);

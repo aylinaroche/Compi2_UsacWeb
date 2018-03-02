@@ -1,5 +1,7 @@
 package cjs.Ejecutar;
 
+import static chtml.chtml.html;
+
 public class Variable implements Cloneable {
 
     public String ambito;
@@ -17,7 +19,7 @@ public class Variable implements Cloneable {
         this.ambito = a;
         this.nivel = ni;
         this.tamanio = tam;
-        this.archivo = usacweb.UsacWeb.pilaArchivo.peek();
+        this.archivo = html.pilaArchivo.peek();
     }
 
     @Override

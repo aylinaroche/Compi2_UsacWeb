@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Stack;
 
 /**
  *
@@ -13,18 +12,19 @@ import java.util.Stack;
 public class UsacWeb {
 
     public static ArrayList<Historial> listaHistorial = new ArrayList();
-    public static Stack<String> pilaArchivo = new Stack();
     public static ArrayList<String> listaFavoritos = new ArrayList();
-    public static Interfaz i = new Interfaz();
-    public static String codigoCHTML;
-    public static String codigoCCSS;
-    public static String codigoCJS;
+    public static ArrayList<HTML> listaHTML = new ArrayList<HTML>();
+    public static Interfaz interfaz = new Interfaz();
+//    public static String codigoCHTML;
+//    public static String codigoCCSS;
+//    public static String codigoCJS; 
+// public static Stack<String> pilaArchivo = new Stack();
 
     public static void main(String[] args) {
 
-        i.setSize(800, 800);
-        i.show(true);
-        i.setLocationRelativeTo(null);
+        interfaz.setSize(800, 800);
+        interfaz.show(true);
+        interfaz.setLocationRelativeTo(null);
 
     }
 
@@ -34,7 +34,5 @@ public class UsacWeb {
         Historial h = new Historial(ruta, formato.format(date));
         listaHistorial.add(h);
     }
-    
-
 
 }

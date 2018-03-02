@@ -5,13 +5,10 @@ import ccss.Ejecutar.Estilo;
 import static chtml.Ejecutar.Elementos.convertirColor;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import usacweb.Datos;
 
 /**
@@ -116,6 +113,7 @@ public class Imagen {
         if (texto != null) {
             try {
 
+               // boton.setIcon(new ImageIcon());
             } catch (Exception e) {
                 Datos.agregarError("Error Semantico", "Error al agregar imagen", f, c);
             }

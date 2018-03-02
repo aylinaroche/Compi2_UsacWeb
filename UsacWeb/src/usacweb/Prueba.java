@@ -32,6 +32,10 @@ public class Prueba extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextPane2 = new javax.swing.JTextPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        paneeeeee = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -61,6 +65,15 @@ public class Prueba extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(51, 153, 0));
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, 270, 170));
+
+        jScrollPane1.setViewportView(jTextPane2);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, -1, -1));
+
+        paneeeeee.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jScrollPane2.setViewportView(paneeeeee);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 290, 220));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -110,8 +123,12 @@ public class Prueba extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextPane jTextPane2;
+    private javax.swing.JTextPane paneeeeee;
     // End of variables declaration//GEN-END:variables
 }

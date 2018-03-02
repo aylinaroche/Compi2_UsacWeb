@@ -2,11 +2,11 @@ package chtml.Ejecutar;
 
 import ccss.Ejecutar.Estilo;
 import chtml.NodoCHTML;
+import static chtml.chtml.html;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import usacweb.Datos;
 import usacweb.Metodos;
-import usacweb.UsacWeb;
 
 public class Recorrido {
 
@@ -36,7 +36,7 @@ public class Recorrido {
                         case 2:
                             Recorrido(raiz.hijos[0]);
                             result = Recorrido(raiz.hijos[1]);
-                            JPanel panel = (JPanel) Elementos.dibujar((Componente) result);
+                            JPanel panel = (JPanel) Elementos.dibujar((Componente) result, 0);
                             result = panel;
                             break;
                     }
@@ -69,7 +69,7 @@ public class Recorrido {
                         case 4:
                             String ruta = raiz.hijos[2].texto.replace("\"", "");
                             String texto = Metodos.abrir(ruta);
-                            UsacWeb.pilaArchivo.push(Metodos.obtenerNombre(ruta));
+                            html.pilaArchivo.push(Metodos.obtenerNombre(ruta));
                             if (texto.equals("")) {
                                 Datos.agregarError("Error Semantico", "El archivo no se ha encontrado", raiz.hijos[0].fila, raiz.hijos[0].col);
                                 break;
@@ -87,28 +87,28 @@ public class Recorrido {
                                     Datos.agregarError("Error Semantico", "No se pudo analizar el archivo cjs", raiz.hijos[0].fila, raiz.hijos[0].col);
                                 }
                             }
-                            UsacWeb.pilaArchivo.pop();
+                            html.pilaArchivo.pop();
                             break;
                     }
                     break;
                 case "CUERPO":
                     switch (raiz.cantidadHijos) {
                         case 2:
-                            result = Panel.crearPanel(new ArrayList(), null, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            result = Panel.crearCuerpo(new ArrayList(), null, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                         case 4:
                             if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
                                 result = Recorrido(raiz.hijos[1]);
-                                result = Panel.crearPanel((ArrayList) result, null, raiz.hijos[0].fila, raiz.hijos[0].col);
+                                result = Panel.crearCuerpo((ArrayList) result, null, raiz.hijos[0].fila, raiz.hijos[0].col);
                             } else {
                                 result = Recorrido(raiz.hijos[2]);
-                                result = Panel.crearPanel(new ArrayList(), (ArrayList) result, raiz.hijos[0].fila, raiz.hijos[0].col);
+                                result = Panel.crearCuerpo(new ArrayList(), (ArrayList) result, raiz.hijos[0].fila, raiz.hijos[0].col);
                             }
                             break;
                         case 5:
                             ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
                             result = Recorrido(raiz.hijos[3]);
-                            result = Panel.crearPanel(elem, (ArrayList) result, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            result = Panel.crearCuerpo(elem, (ArrayList) result, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                     }
                     break;
@@ -404,21 +404,24 @@ public class Recorrido {
                 case "SPINNER":
                     switch (raiz.cantidadHijos) {
                         case 2:
-                            //Crearlo vacio
+                            result = Contador.crearSpinner(new ArrayList(), "0", raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                         case 4:
                             if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
-
+                                result = Recorrido(raiz.hijos[1]);
+                                result = Contador.crearSpinner((ArrayList) result, "0", raiz.hijos[0].fila, raiz.hijos[0].col);
                             } else {
-
+                                String texto = raiz.hijos[2].texto.replace(">", "").replace("<", "");
+                                result = Contador.crearSpinner(new ArrayList(), texto, raiz.hijos[0].fila, raiz.hijos[0].col);
                             }
                             break;
                         case 5:
-                            result = Recorrido(raiz.hijos[1]);
+                            ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
+                            String texto = raiz.hijos[3].texto.replace(">", "").replace("<", "");
+                            result = Contador.crearSpinner(elem, texto, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                     }
                     break;
-                //////
                 case "ERROR":
                     Datos.agregarError("Error Sintactico", raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);
 

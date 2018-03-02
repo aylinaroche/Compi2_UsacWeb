@@ -43,7 +43,6 @@ public class Interfaz extends javax.swing.JFrame {
         botonMenos.setBackground(new Color(102, 0, 51));
         botonMenos.setForeground(new Color(255, 255, 255));
         botonMenos.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 14));
-        //botonMenos.setBorder(null);
 
         agregarAccion();
         boxH1.add(Box.createHorizontalGlue());
@@ -56,6 +55,7 @@ public class Interfaz extends javax.swing.JFrame {
         panelPestanias.setBackground(new Color(102, 0, 51));
         panelPestanias.setForeground(new Color(255, 255, 255));
         panelPestanias.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 14));
+        panelPestanias.setName("Pestania1");
         boxH2.add(panelPestanias);
 
         Box boxV1 = Box.createVerticalBox();
@@ -66,6 +66,13 @@ public class Interfaz extends javax.swing.JFrame {
         contenedor.add(panel);
         initComponents();
         setSize(500, 300);
+
+        HTML h = new HTML(panelPestanias.getName());
+        try {
+            UsacWeb.listaHTML.add(h);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
 
     }
 
@@ -101,15 +108,20 @@ public class Interfaz extends javax.swing.JFrame {
             }
 
             private void MasActionPerformed(ActionEvent evt) {
-                Box box = Box.createHorizontalBox();
-                PanelPrincipal panel = new PanelPrincipal("");
-                //  panel.setLayout(null);
+                Box boxH = Box.createHorizontalBox();
+                panelPestanias.setName("Pestania" + contPestania);
+                PanelPrincipal panel = new PanelPrincipal(panelPestanias.getName());
                 panel.setBackground(Color.BLACK);
                 panel.setPreferredSize(new Dimension(30000, 30000));
                 panel.setMaximumSize(panel.getPreferredSize());
-                box.add(panel);
-                panelPestanias.addTab("Pestania" + contPestania, box);
+                boxH.add(panel);
+//                Box boxV = Box.createVerticalBox();
+//                boxV.add(boxH);
+//                boxV.add(Box.createVerticalGlue());
+                panelPestanias.addTab("Pestania" + contPestania, boxH);
                 panelPestanias.setSelectedIndex(panelPestanias.getTabCount() - 1);
+
+                UsacWeb.listaHTML.add(new HTML(panelPestanias.getName()));
                 contPestania++;
             }
         });

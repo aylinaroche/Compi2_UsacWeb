@@ -1,10 +1,10 @@
 package cjs.Ejecutar;
 
-import static cjs.Ejecutar.VariableCJS.nivelAmbito;
-import static cjs.Ejecutar.VariableCJS.pilaAmbito;
+import static chtml.chtml.html;
 import java.util.ArrayList;
 import cjs.NodoCJS;
 import usacweb.Datos;
+import usacweb.Mensaje;
 
 public class Recorrido {
 
@@ -147,8 +147,8 @@ public class Recorrido {
                     break;
                 case "IF":
                     String condicion;
-                    pilaAmbito.push("if");
-                    nivelAmbito += 1;
+                    html.pilaAmbito.push("if");
+                    html.nivelAmbito += 1;
                     switch (raiz.cantidadHijos) {
                         case 7:
                             condicion = Recorrido(raiz.hijos[2]).toString();
@@ -166,8 +166,8 @@ public class Recorrido {
                             break;
                     }
                     VariableCJS.eliminarVariables();
-                    pilaAmbito.pop();
-                    nivelAmbito -= 1;
+                    html.pilaAmbito.pop();
+                    html.nivelAmbito -= 1;
 
                     break;
                 case "ELSE":
@@ -178,8 +178,8 @@ public class Recorrido {
                     }
                     break;
                 case "CICLO":
-                    pilaAmbito.push("Mientras");
-                    nivelAmbito += 1;
+                    html.pilaAmbito.push("Mientras");
+                    html.nivelAmbito += 1;
                     switch (raiz.cantidadHijos) {
                         case 7:
                             boolean w;
@@ -199,14 +199,14 @@ public class Recorrido {
                             break;
                     }
                     salir = false;
-                    pilaAmbito.pop();
+                    html.pilaAmbito.pop();
                     VariableCJS.eliminarVariables();
-                    nivelAmbito -= 1;
+                    html.nivelAmbito -= 1;
 
                     break;
                 case "SWITCH":
-                    pilaAmbito.push("switch");
-                    nivelAmbito += 1;
+                    html.pilaAmbito.push("switch");
+                    html.nivelAmbito += 1;
                     switch (raiz.cantidadHijos) {
                         case 7:
                             valorSwitch = Recorrido(raiz.hijos[2]).toString();
@@ -220,9 +220,9 @@ public class Recorrido {
                             }
                             break;
                     }
-                    pilaAmbito.pop();
+                    html.pilaAmbito.pop();
                     VariableCJS.eliminarVariables();
-                    nivelAmbito -= 1;
+                    html.nivelAmbito -= 1;
 
                     break;
                 case "CASO":
@@ -262,12 +262,12 @@ public class Recorrido {
                     Recorrido(raiz.hijos[2]);
                     break;
                 case "PARA":
-                    pilaAmbito.push("For");
+                    html.pilaAmbito.push("For");
                     Boolean f;
                     switch (raiz.cantidadHijos) {
                         case 10:
                             Recorrido(raiz.hijos[2]);
-                            nivelAmbito += 1;
+                            html.nivelAmbito += 1;
                             condicion = Recorrido(raiz.hijos[3]).toString();
                             f = "true".equals(condicion);
                             int limite = 0;
@@ -275,7 +275,7 @@ public class Recorrido {
                             while (f) {
                                 salir = false;
                                 if (limite == 0) {
-                                    var = VariableCJS.listaVariables.get(VariableCJS.listaVariables.size() - 1).nombre;
+                                    var = html.listaVariables.get(html.listaVariables.size() - 1).nombre;
                                 }
                                 result = Recorrido(raiz.hijos[8]);//accion
                                 int i = (int) Recorrido(raiz.hijos[5]); //i++
@@ -294,11 +294,11 @@ public class Recorrido {
                             }
                             salir = false;
                             VariableCJS.eliminarVariables();
-                            pilaAmbito.pop();
-                            nivelAmbito -= 1;
+                            html.pilaAmbito.pop();
+                            html.nivelAmbito -= 1;
                             break;
                         case 12:
-                            nivelAmbito += 1;
+                            html.nivelAmbito += 1;
                             int limite2 = 0;
                             String var2 = raiz.hijos[2].texto;
                             Object valor = Recorrido(raiz.hijos[3]);
@@ -324,8 +324,8 @@ public class Recorrido {
                             }
                             salir = false;
                             VariableCJS.eliminarVariables();
-                            pilaAmbito.pop();
-                            nivelAmbito -= 1;
+                            html.pilaAmbito.pop();
+                            html.nivelAmbito -= 1;
 
                             break;
                     }
@@ -378,7 +378,9 @@ public class Recorrido {
                     String msj = Recorrido(raiz.hijos[2]).toString();
                     if (msj != null) {
                         System.out.println(msj);
-                        // usacweb.UsacWeb.listaImprimir.add(msj);
+                        usacweb.UsacWeb.interfaz.setEnabled(false);
+                        Mensaje m = new Mensaje(msj);
+                        m.show();
                     }
                     break;
 

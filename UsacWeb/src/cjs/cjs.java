@@ -1,5 +1,6 @@
 package cjs;
 
+import static chtml.chtml.html;
 import cjs.Ejecutar.Recoleccion;
 import cjs.Ejecutar.Recorrido;
 import cjs.Ejecutar.VariableCJS;
@@ -35,7 +36,7 @@ public class cjs {
         } catch (Exception e) {
             System.out.println(e);
         }
-        usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba.cjs");
+        html.pilaArchivo.push("ArchivoPrueba.cjs");
         archivo2();
        // VariableCJS.imprimir();
     }
@@ -65,15 +66,15 @@ public class cjs {
     }
     
     public static void iniciar() {
-        usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba");
-        VariableCJS.pilaAmbito.push("Global");
-        VariableCJS.nivelAmbito++;
+        html.pilaArchivo.push("ArchivoPrueba");
+        html.pilaAmbito.push("Global");
+        html.nivelAmbito++;
         Recoleccion r = new Recoleccion();
         r.Recorrido(NODO);
         Recorrido c = new Recorrido();
         c.Recorrido(NODO);
-        VariableCJS.nivelAmbito--;
-        VariableCJS.pilaAmbito.pop();
+        html.nivelAmbito--;
+        html.pilaAmbito.pop();
     }
     
     public static void archivo1() {

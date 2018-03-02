@@ -1,5 +1,6 @@
 package usacweb;
 
+import static chtml.chtml.html;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.BufferedReader;
@@ -54,14 +55,14 @@ public class Metodos {
         panelPestanias.setSelectedIndex(panelPestanias.getTabCount() - 1);
 
         String texto = Metodos.abrir(ruta);
-        UsacWeb.pilaArchivo.push(nombre);
+        html.pilaArchivo.push(nombre);
 //        try {
 //            chtml.analizar(texto);
 //        } catch (Exception ex) {
 //            System.out.println("Error al analizar archivo: " + ruta + "\n" + ex);
 //        }
         UsacWeb.agregarHistorial(ruta);
-        UsacWeb.pilaArchivo.pop();
+        html.pilaArchivo.pop();
     }
 
 }

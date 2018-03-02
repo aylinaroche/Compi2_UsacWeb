@@ -27,11 +27,13 @@ public class PanelPrincipal extends javax.swing.JPanel {
     JButton botonOpciones = new JButton();
     JButton botonHistorial = new JButton();
     JButton botonFavorito = new JButton();
-    String rutaAux = "";
-
+    static String rutaAux = "C:\\Users\\Aroche\\Documents\\Archivos\\Paso4.chtml";
+    String pestania = "";
+    
     Box boxV1 = Box.createVerticalBox();
 
-    public PanelPrincipal(String r) {
+    public PanelPrincipal(String p) {
+        pestania = p;
         accionesBoton();
         accionesBarra();
         crearTODO();
@@ -43,7 +45,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
         boxV1.removeAll();
         Box boxH1 = Box.createHorizontalBox();
         crearBotones();
-        ruta.setText("C:\\Users\\Aroche\\Documents\\Archivos\\Paso2.chtml");
+        ruta.setText(rutaAux);
         ruta.setFont(new java.awt.Font("Verdana", 0, 12));
         ruta.setPreferredSize(new Dimension(1300, 30));
         ruta.setMaximumSize(ruta.getPreferredSize());
@@ -149,17 +151,28 @@ public class PanelPrincipal extends javax.swing.JPanel {
 
             private void ActionPerformed(ActionEvent evt) {
                 String texto = Metodos.abrir(ruta.getText());
-                UsacWeb.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
-                try {
-                    Object result = chtml.analizar(texto);
-                    if (result instanceof JPanel) {
-                        crearHTML((JPanel) result);
+
+                for (int i = 0; i < UsacWeb.listaHTML.size(); i++) {
+                    UsacWeb.listaHTML.set(i, new HTML(panelPestanias.getName()));
+                    HTML html = UsacWeb.listaHTML.get(i);
+                    
+                    if (html.nombre.equalsIgnoreCase(panelPestanias.getName())) {
+
+                        html.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
+                        try {
+                            Object result = chtml.analizar(texto, html);
+                            if (result instanceof JPanel) {
+                                crearHTML((JPanel) result);
+                            };
+                        } catch (Exception ex) {
+                            System.out.println("Error al analizar archivo: " + ruta.getText() + "\n" + ex);
+                        }
+                        html.pilaArchivo.pop();
+                        break;
                     }
-                } catch (Exception ex) {
-                    System.out.println("Error al analizar archivo: " + ruta.getText() + "\n" + ex);
                 }
+
                 UsacWeb.agregarHistorial(ruta.getText());
-                UsacWeb.pilaArchivo.pop();
             }
         });
 
@@ -181,6 +194,19 @@ public class PanelPrincipal extends javax.swing.JPanel {
                     updateUI();
                 } catch (Exception e) {
                 }
+            }
+        });
+
+        botonAdelante.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActionPerformed(evt);
+            }
+
+            private void ActionPerformed(ActionEvent evt) {
+                usacweb.UsacWeb.interfaz.setEnabled(false);
+                Mensaje m = new Mensaje("Yeeeeeeeeiiiiiiiiiiiiii");
+                m.show();
             }
         });
     }

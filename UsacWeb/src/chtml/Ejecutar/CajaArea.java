@@ -8,8 +8,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.border.Border;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 import usacweb.Datos;
 
 /**
@@ -19,17 +21,25 @@ import usacweb.Datos;
 public class CajaArea {
 
     public static Componente crearTexto(ArrayList elementos, String texto, Boolean editable, int f, int c) {
-       
+
         String letra = "Comic Sans MS";
         int tamanio = 12;
         int estilo = 0;
         int estilo2 = 0;
-        int alto = 50, ancho = 100;
-        //Iniciar boton
-        JTextArea area = new JTextArea();
+        int alto = 400, ancho = 800;
+        //JTextArea area = new JTextArea();
+
+        JTextPane area = new JTextPane();
+        // System.out.println("Texto = " + texto);
+        texto = texto.replace("\n", "");
         area.setText(texto);
         area.setFont(new Font(letra, estilo, tamanio));
         area.setEditable(editable);
+        area.setBackground(new Color(0, 0, 0, 0));
+
+        SimpleAttributeSet attribs = new SimpleAttributeSet();
+        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_CENTER);
+        area.setParagraphAttributes(attribs, true);
 
         for (int i = 0; i < elementos.size(); i++) {
             try {
@@ -46,6 +56,8 @@ public class CajaArea {
                             case "fondo":
                                 Color color = convertirColor(e2.valor.toString());
                                 area.setBackground(color);
+                                StyleConstants.setBackground(attribs, color);
+                                area.setParagraphAttributes(attribs, true);
                                 break;
                             case "opaque":
                                 if (e2.valor.toString().equalsIgnoreCase("true")) {
@@ -65,6 +77,7 @@ public class CajaArea {
                                         }
                                         Border border = BorderFactory.createLineBorder(colorBorde, tam, curva);
                                         area.setBorder(border);
+
                                     } catch (NumberFormatException ex) {
                                         Datos.agregarError("Error Semantico", "Error al asignar borde al panel " + e2.valor.toString(), f, c);
                                     }
@@ -95,9 +108,14 @@ public class CajaArea {
                                         switch (form.toLowerCase()) {
                                             case "negrilla":
                                                 estilo = estilo + 1;
+                                                StyleConstants.setBold(attribs, true);
+                                                StyleConstants.setFontSize(attribs, 16);
+                                                area.setParagraphAttributes(attribs, true);
                                                 break;
                                             case "cursiva":
                                                 estilo = estilo + 2;
+                                                StyleConstants.setItalic(attribs, true);
+                                                area.setParagraphAttributes(attribs, true);
                                                 break;
                                             case "mayuscula":
                                                 estilo2 = 3;
@@ -108,6 +126,7 @@ public class CajaArea {
                                                 area.setText(area.getText().toLowerCase());
                                                 break;
                                             case "capital-t":
+                                            case "capital":
                                                 estilo2 = 5;
                                                 area.setText(Elementos.primeraMayuscula(area.getText()));
                                                 break;
@@ -117,9 +136,20 @@ public class CajaArea {
                                 break;
                             case "letra":
                                 letra = (String) e2.valor;
+                                StyleConstants.setFontFamily(attribs, letra);
+                                area.setParagraphAttributes(attribs, true);
                                 break;
                             case "tamtex":
-                                tamanio = Integer.parseInt(e2.valor.toString());
+                                if (e2.valor instanceof Double) {
+                                    Double decimal = (Double) e2.valor;
+                                    tamanio = decimal.intValue();
+                                    StyleConstants.setFontSize(attribs, tamanio);
+                                    area.setParagraphAttributes(attribs, true);
+                                } else if (e2.valor instanceof Integer) {
+                                    tamanio = Integer.parseInt(e2.valor.toString());
+                                    StyleConstants.setFontSize(attribs, tamanio);
+                                    area.setParagraphAttributes(attribs, true);
+                                }
                                 break;
                             case "visible":
                                 area.setVisible(false);
@@ -129,27 +159,33 @@ public class CajaArea {
                                 break;
                             case "colortext":
                                 Color colorT = convertirColor(e2.valor.toString());
-                                area.setForeground(colorT);
+                                //area.setForeground(colorT);
+                                StyleConstants.setForeground(attribs, colorT);
+                                area.setParagraphAttributes(attribs, true);
                                 break;
                             case "autoredimension":
 
                                 break;
                             case "alineado":
-//                                switch (e2.valor.toString()) {
-//                                    case "izquierda":
-//                                        area.setHorizontalAlignment(SwingConstants.LEFT);
-//                                        break;
-//                                    case "derecha":
-//                                        area.setHorizontalAlignment(SwingConstants.RIGHT);
-//                                        break;
-//                                    case "centrado":
-//                                        area.setHorizontalAlignment(SwingConstants.CENTER);
-//                                        break;
-//                                    case "justificado":
-//                                        area.setHorizontalAlignment(SwingConstants.LEADING);
-//                                        break;
-//                                }
-//                                break;
+                                switch (e2.valor.toString()) {
+                                    case "izquierda":
+                                        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_LEFT);
+                                        area.setParagraphAttributes(attribs, true);
+                                        break;
+                                    case "derecha":
+                                        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_RIGHT);
+                                        area.setParagraphAttributes(attribs, true);
+                                        break;
+                                    case "centrado":
+                                        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_CENTER);
+                                        area.setParagraphAttributes(attribs, true);
+                                        break;
+                                    case "justificado":
+                                        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_JUSTIFIED);
+                                        area.setParagraphAttributes(attribs, true);
+                                        break;
+                                }
+                                break;
                             default:
                                 Datos.agregarError("Error Semantico", "Atributo " + e2.nombre + " incorrecto en panel", f, c);
                                 break;
@@ -164,20 +200,26 @@ public class CajaArea {
                 } else if (e.nombre.equalsIgnoreCase("ancho")) {
                     ancho = Integer.parseInt((String) e.valor);
                 } else if (e.nombre.equalsIgnoreCase("alineado")) {
-//                    switch (e.valor.toString()) {
-//                        case "izquierda":
-//                            area.setHorizontalAlignment(SwingConstants.LEFT);
-//                            break;
-//                        case "derecha":
-//                            area.setHorizontalAlignment(SwingConstants.RIGHT);
-//                            break;
-//                        case "centrado":
-//                            area.setHorizontalAlignment(SwingConstants.CENTER);
-//                            break;
-//                        case "justificado":
-//                            area.setHorizontalAlignment(SwingConstants.LEADING);
-//                            break;
-//                    }
+                    switch (e.valor.toString()) {
+                        case "izquierda":
+                            StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_LEFT);
+                            area.setParagraphAttributes(attribs, true);
+                            break;
+                        case "derecha":
+                            StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_RIGHT);
+                            area.setParagraphAttributes(attribs, true);
+                            break;
+                        case "centrado":
+                            attribs = new SimpleAttributeSet();
+                            StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_CENTER);
+                            area.setParagraphAttributes(attribs, true);
+                            break;
+                        case "justificado":
+                            attribs = new SimpleAttributeSet();
+                            StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_JUSTIFIED);
+                            area.setParagraphAttributes(attribs, true);
+                            break;
+                    }
                 } else {
                     Datos.agregarError("Error Semantico", "Atributo " + e.nombre + " incorrecto en area de texto", f, c);
                 }
@@ -189,6 +231,7 @@ public class CajaArea {
         //FONT
         try {
             area.setFont(new Font(letra, estilo, tamanio));
+            //area.setText(texto);
         } catch (Exception e) {
             Datos.agregarError("Error Semantico", "Error al agregar font al area de texto", f, c);
         }

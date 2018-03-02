@@ -21,12 +21,12 @@ import usacweb.Datos;
 public class Boton {
 
     public static Componente crearBoton(ArrayList elementos, String texto, int f, int c) {
-        String nombre = "";
+
         String letra = "Comic Sans MS";
         int tamanio = 12;
         int estilo = 0;
         int estilo2 = 0;
-        int alto = 20, ancho = 20;
+        int alto = 40, ancho = 100;
         //Iniciar boton
         JButton boton = new JButton();
         boton.setText(texto);
@@ -121,7 +121,12 @@ public class Boton {
                                 letra = (String) e2.valor;
                                 break;
                             case "tamtex":
-                                tamanio = Integer.parseInt(e2.valor.toString());
+                                if (e2.valor instanceof Double) {
+                                    Double decimal = (Double) e2.valor;
+                                    tamanio = decimal.intValue();
+                                } else if (e2.valor instanceof Integer) {
+                                    tamanio = Integer.parseInt(e2.valor.toString());
+                                }
                                 break;
                             case "visible":
                                 boton.setVisible(false);
@@ -134,7 +139,7 @@ public class Boton {
                                 boton.setForeground(colorT);
                                 break;
                             case "autoredimension":
-                                
+
                                 break;
                             case "alineado":
                                 switch (e2.valor.toString()) {
@@ -153,7 +158,7 @@ public class Boton {
                                 }
                                 break;
                             default:
-                                Datos.agregarError("Error Semantico", "Atributo " + e2.nombre + " incorrecto en panel", f, c);
+                                Datos.agregarError("Error Semantico", "Atributo " + e2.nombre + " incorrecto en el boton", f, c);
                                 break;
                         }
 
@@ -162,9 +167,19 @@ public class Boton {
                     Color color = convertirColor((String) e.valor);
                     boton.setBackground(color);
                 } else if (e.nombre.equalsIgnoreCase("alto")) {
-                    alto = Integer.parseInt((String) e.valor);
+                    if (e.valor instanceof Double) {
+                        Double decimal = (Double) e.valor;
+                        alto = decimal.intValue();
+                    } else if (e.valor instanceof Integer) {
+                        alto = Integer.parseInt(e.valor.toString());
+                    }
                 } else if (e.nombre.equalsIgnoreCase("ancho")) {
-                    ancho = Integer.parseInt((String) e.valor);
+                     if (e.valor instanceof Double) {
+                        Double decimal = (Double) e.valor;
+                        ancho = decimal.intValue();
+                    } else if (e.valor instanceof Integer) {
+                        ancho = Integer.parseInt(e.valor.toString());
+                    }
                 } else if (e.nombre.equalsIgnoreCase("alineado")) {
                     switch (e.valor.toString()) {
                         case "izquierda":
@@ -200,7 +215,7 @@ public class Boton {
                         }
 
                         private void ActionPerformed(ActionEvent evt) {
-                           
+
                         }
 
                     });

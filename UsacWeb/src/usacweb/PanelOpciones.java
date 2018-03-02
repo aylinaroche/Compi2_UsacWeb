@@ -1,5 +1,6 @@
 package usacweb;
 
+import static chtml.chtml.html;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -117,7 +118,7 @@ public class PanelOpciones extends javax.swing.JPanel {
     public void crearPaneles() {
         prueba();
         JTextArea areaChtml = new JTextArea();
-        areaChtml.setText(UsacWeb.codigoCHTML);
+        areaChtml.setText(html.codigoCHTML);
         JScrollPane scroll1 = new JScrollPane();
         scroll1.setViewportView(areaChtml);
         scroll1.setPreferredSize(new Dimension(1200, 180));
@@ -126,7 +127,7 @@ public class PanelOpciones extends javax.swing.JPanel {
         panelCHTML.setName("panelCHTML");
 
         JTextArea areaCjs = new JTextArea();
-        areaCjs.setText(UsacWeb.codigoCJS);
+        areaCjs.setText(html.codigoCJS);
         JScrollPane scroll2 = new JScrollPane();
         scroll2.setViewportView(areaCjs);
         scroll2.setPreferredSize(new Dimension(1200, 180));
@@ -135,7 +136,7 @@ public class PanelOpciones extends javax.swing.JPanel {
         panelCJS.add(scroll2);
 
         JTextArea areaCcss = new JTextArea();
-        areaCcss.setText(UsacWeb.codigoCCSS);
+        areaCcss.setText(html.codigoCCSS);
         JScrollPane scroll3 = new JScrollPane();
         scroll3.setViewportView(areaCcss);
         scroll3.setPreferredSize(new Dimension(1200, 180));
@@ -273,7 +274,7 @@ public class PanelOpciones extends javax.swing.JPanel {
                     }
 
                     System.out.println("\n DESPUES ::" + lista[i].toString());
-                    UsacWeb.i.repaint();
+                    UsacWeb.interfaz.repaint();
                     return;
                 } else {
                     System.out.println("Saber que rayos: " + comp.getName());
@@ -300,7 +301,7 @@ public class PanelOpciones extends javax.swing.JPanel {
                     lista[i] = nuevo;
                     this.updateUI();
                     System.out.println("\n\n\n DESPUES ::" + lista[i].toString());
-                    UsacWeb.i.repaint();
+                    UsacWeb.interfaz.repaint();
                     return lista;
                 } else {
                     System.out.println("Saber que rayos: " + comp.getName());
@@ -330,7 +331,7 @@ public class PanelOpciones extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void prueba() {
-        UsacWeb.codigoCHTML = "//inicio - panel 5 interno \n"
+       html.codigoCHTML = "//inicio - panel 5 interno \n"
                 + "\n"
                 + "PASOS [\n"
                 + "\n"

@@ -1,14 +1,15 @@
 package usacweb;
 
+import static chtml.chtml.html;
 import java.util.ArrayList;
 
 public class Datos {
 
-    public static ArrayList<Errror> listaErrores = new ArrayList();
-    public static ArrayList<Salida> listaImprimir = new ArrayList();
+    static ArrayList<Errror> listaErrores = new ArrayList();
+    static ArrayList<Salida> listaImprimir = new ArrayList();
 
     public static void agregarError(String t, String d, int f, int c) {
-        Errror e = new Errror(UsacWeb.pilaArchivo.peek(), d, t, f, c);
+        Errror e = new Errror(html.pilaArchivo.peek(), d, t, f, c);
         listaErrores.add(e);
         System.out.println("-> " + t + ": " + d + ": " + f + ": " + c + ": " + e.archivo);
     }
@@ -41,7 +42,7 @@ public class Datos {
     }
 
     public static void agregarSalida(String t, int f, int c) {
-        Salida e = new Salida(UsacWeb.pilaArchivo.peek(), t, f, c);
+        Salida e = new Salida(html.pilaArchivo.peek(), t, f, c);
         listaImprimir.add(e);
         //System.out.println(">>> " + t + ": " + f + ": " + c + ": " + e.archivo);
          System.out.println(">>> " + t );

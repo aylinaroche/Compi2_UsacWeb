@@ -1,5 +1,6 @@
 package cjs.Ejecutar;
 
+import static chtml.chtml.html;
 import cjs.NodoCJS;
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class Funcion implements Cloneable {
         this.nodo = v;
         this.ambito = a;
         this.parametro = p;
-        this.archivo = usacweb.UsacWeb.pilaArchivo.peek();
+        this.archivo = html.pilaArchivo.peek();
     }
 
     @Override

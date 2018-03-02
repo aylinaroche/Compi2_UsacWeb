@@ -298,6 +298,12 @@ TEXTO::= texto:i ELEMENTOS:n cadenacon:s fintexto{: //4
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(s)); E.insertar(new NodoCHTML("finboton>"));
     RESULT.nodo = E;
 :}
+|texto:i ELEMENTOS:n cadenasin:s fintexto{: //4
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("TEXTO");
+    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(s)); E.insertar(new NodoCHTML("finboton>"));
+    RESULT.nodo = E;
+:}
 |texto:i ELEMENTOS:n mayor menor fintexto{: //3
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("TEXTO");
@@ -783,7 +789,7 @@ SPINNER::= spinner:i ELEMENTOS:n cadenasin:e finspinner{: //5
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(">")); E.insertar(new NodoCHTML(e));E.insertar(new NodoCHTML("<finspinner>"));
     RESULT.nodo = E;
 :}
-|spinner:i ELEMENTOS:n mayor finspinner{: //4
+|spinner:i ELEMENTOS:n mayor menor finspinner{: //4
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("SPINNER");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo);  E.insertar(new NodoCHTML(">"));E.insertar(new NodoCHTML("<finspinner>"));
@@ -795,7 +801,7 @@ SPINNER::= spinner:i ELEMENTOS:n cadenasin:e finspinner{: //5
     E.insertar(new NodoCHTML(i,iright,ileft));  E.insertar(new NodoCHTML(">")); E.insertar(new NodoCHTML(e));E.insertar(new NodoCHTML("<finspinner>"));
     RESULT.nodo = E;
 :}
-|spinner:i mayor finspinner{: //2
+|spinner:i mayor menor finspinner{: //2
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("SPINNER");
     E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(new NodoCHTML("><finspinner>"));

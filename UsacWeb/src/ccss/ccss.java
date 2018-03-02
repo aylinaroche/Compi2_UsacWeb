@@ -2,6 +2,7 @@ package ccss;
 
 import ccss.Ejecutar.BloqueCCSS;
 import ccss.Ejecutar.Recorrido;
+import static chtml.chtml.html;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
@@ -34,7 +35,7 @@ public class ccss {
         } catch (Exception e) {
             System.out.println(e);
         }
-        usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba.ccss");
+       html.pilaArchivo.push("ArchivoPrueba.ccss");
         archivo2();
     }
 
@@ -63,7 +64,7 @@ public class ccss {
     }
 
     public static void iniciar() {
-        usacweb.UsacWeb.pilaArchivo.push("ArchivoPrueba");
+        html.pilaArchivo.push("ArchivoPrueba");
         Recorrido r = new Recorrido();
         r.Recorrido(NODO);
 

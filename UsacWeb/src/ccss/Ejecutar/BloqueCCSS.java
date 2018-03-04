@@ -34,7 +34,7 @@ public class BloqueCCSS {
                 return s.elementos;
             }
         }
-        Datos.agregarError("Error Semantico", "El bloque " + nombre + " no existe", 0, 0);
+     //   Datos.agregarError("Error Semantico", "El bloque " + nombre + " no existe", 0, 0);
         return new ArrayList();
     }
 

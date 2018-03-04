@@ -15,9 +15,11 @@ public class HTML {
     public String nombre;
     //GLOBAL
     public Stack<String> pilaArchivo = new Stack();
-    public static String codigoCHTML;
-    public static String codigoCCSS;
-    public static String codigoCJS;
+    public String codigoCHTML;
+    public String codigoCCSS;
+    public String codigoCJS;
+    public int numPagina =0;
+    public ArrayList<String> listaPaginas  = new ArrayList();
     //CJS
     public Stack<String> pilaAmbito = new Stack<>();
     public int nivelAmbito;
@@ -28,7 +30,8 @@ public class HTML {
 
     public HTML(String n) {
         this.nombre = n;
-        System.out.println("Nuevo html = " + n);
+      //  System.out.println("Nuevo html = " + n);
     }
   
+    
 }

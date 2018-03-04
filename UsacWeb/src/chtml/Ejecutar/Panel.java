@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import usacweb.Datos;
 
@@ -21,7 +22,8 @@ public class Panel {
 
     public static Componente crearPanel(ArrayList elementos, ArrayList componentes, int f, int c) {
         String alineado = "centrado";
-        int alto = 1000, ancho = 1000;
+        int alto = 500, ancho = 1000;
+        JScrollPane scroll = new JScrollPane();
         JPanel panel = new JPanel();
         //panel.setSize(100, 100);
         panel.setLayout(new BorderLayout());
@@ -114,6 +116,7 @@ public class Panel {
             panel.setPreferredSize(new Dimension(ancho, alto));
             panel.setMaximumSize(panel.getPreferredSize());
         }
+        //scroll.setViewportView(panel);
         Componente resultado = new Componente("Panel", panel.getName(), panel, componentes, alineado);
         return resultado;
     }

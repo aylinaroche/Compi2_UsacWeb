@@ -1,5 +1,6 @@
 package chtml.Ejecutar;
 
+import cjs.Ejecutar.EventoCJS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.awt.Component.CENTER_ALIGNMENT;
@@ -11,8 +12,14 @@ import java.util.Arrays;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import usacweb.Datos;
 import static usacweb.Interfaz.panelPestanias;
@@ -42,12 +49,16 @@ public class Elementos {
                 return Color.CYAN;
             case "magenta":
                 return Color.MAGENTA;
+            case "orange":
+                return Color.ORANGE;
             case "pink":
                 return Color.PINK;
             case "white":
                 return Color.WHITE;
             case "yellow":
                 return Color.YELLOW;
+            case "gray":
+                return Color.GRAY;
             case "green":
                 return Color.GREEN;
             case "purple":
@@ -78,20 +89,54 @@ public class Elementos {
                     if (d instanceof JButton) {
                         JButton b = (JButton) d;
                         boxH1.add(b);
+                        EventoCJS.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof JPanel) {
                         JPanel b = (JPanel) d;
                         boxH1.add(b);
+                        EventoCJS.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof JTextArea) {
                         JTextArea b = (JTextArea) d;
                         boxH1.add(b);
+                        EventoCJS.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof JTextPane) {
                         JTextPane b = (JTextPane) d;
                         boxH1.add(b);
+                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                    } else if (d instanceof JSpinner) {
+                        JSpinner b = (JSpinner) d;
+                        boxH1.add(b);
+                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                    } else if (d instanceof JTextField) {
+                        JTextField b = (JTextField) d;
+                        boxH1.add(b);
+                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                    } else if (d instanceof JScrollPane) {
+                        JScrollPane b = (JScrollPane) d;
+                        boxH1.add(b);
+                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                    } else if (d instanceof JComboBox) {
+                        JComboBox b = (JComboBox) d;
+                        boxH1.add(b);
+                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                    } else if (d instanceof JLabel) {
+                        JLabel b = (JLabel) d;
+                        boxH1.add(b);
+                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                    } else if (d instanceof JTable) {
+                        JTable b = (JTable) d;
+                        boxH1.add(b);
+                        EventoCJS.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof String) {
                         if (comp.alineado.equalsIgnoreCase("izquierda")) {
                             boxH1.add(Box.createHorizontalGlue());
                         }
                         boxV1.add(boxH1);
+                        JTextArea a = new JTextArea();
+                        a.setSize(10, 10);
+                        a.setPreferredSize(new Dimension(5, 5));
+                        a.setMaximumSize(a.getPreferredSize());
+                        a.setBackground(new Color(0, 0, 0, 0));
+                        boxV1.add(a);
                         boxH1 = Box.createHorizontalBox();
                     }
                 }
@@ -104,6 +149,11 @@ public class Elementos {
                 boxV1.add(Box.createVerticalGlue());
             }
             panel.add(boxV1);
+//              JScrollPane scroll = new JScrollPane();
+//            scroll.setViewportView(panel);
+//            scroll.setSize(panel.getSize());
+//            scroll.setPreferredSize(panel.getSize());
+//            scroll.setMaximumSize(scroll.getPreferredSize());
             return panel;
         }
         return comp.valor;

@@ -35,7 +35,7 @@ public class ccss {
         } catch (Exception e) {
             System.out.println(e);
         }
-       html.pilaArchivo.push("ArchivoPrueba.ccss");
+        html.pilaArchivo.push("ArchivoPrueba.ccss");
         archivo2();
     }
 
@@ -60,7 +60,7 @@ public class ccss {
         }
 
         iniciar();
-        BloqueCCSS.imprimirBloque();
+       // BloqueCCSS.imprimirBloque();
     }
 
     public static void iniciar() {

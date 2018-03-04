@@ -50,7 +50,7 @@ public class Interfaz extends javax.swing.JFrame {
         boxH1.add(botonMenos);
 
         Box boxH2 = Box.createHorizontalBox();
-        PanelPrincipal principal = new PanelPrincipal("");
+        PanelPrincipal principal = new PanelPrincipal("Pestania1");
         panelPestanias.add("Pestania1", principal);
         panelPestanias.setBackground(new Color(102, 0, 51));
         panelPestanias.setForeground(new Color(255, 255, 255));
@@ -110,18 +110,15 @@ public class Interfaz extends javax.swing.JFrame {
             private void MasActionPerformed(ActionEvent evt) {
                 Box boxH = Box.createHorizontalBox();
                 panelPestanias.setName("Pestania" + contPestania);
-                PanelPrincipal panel = new PanelPrincipal(panelPestanias.getName());
+                PanelPrincipal panel = new PanelPrincipal("Pestania"+contPestania);
                 panel.setBackground(Color.BLACK);
                 panel.setPreferredSize(new Dimension(30000, 30000));
                 panel.setMaximumSize(panel.getPreferredSize());
                 boxH.add(panel);
-//                Box boxV = Box.createVerticalBox();
-//                boxV.add(boxH);
-//                boxV.add(Box.createVerticalGlue());
                 panelPestanias.addTab("Pestania" + contPestania, boxH);
                 panelPestanias.setSelectedIndex(panelPestanias.getTabCount() - 1);
-
                 UsacWeb.listaHTML.add(new HTML(panelPestanias.getName()));
+                
                 contPestania++;
             }
         });

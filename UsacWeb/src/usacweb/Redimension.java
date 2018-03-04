@@ -60,13 +60,7 @@ public class Redimension extends javax.swing.JPanel {
 
     public static void main(String[] args)
     {
-        EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                createAndShowGUI();
-            }
-        });
+        EventQueue.invokeLater(Redimension::createAndShowGUI);
     }
 
     @SuppressWarnings("unchecked")

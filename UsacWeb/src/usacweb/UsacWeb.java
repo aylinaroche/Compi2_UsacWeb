@@ -15,10 +15,6 @@ public class UsacWeb {
     public static ArrayList<String> listaFavoritos = new ArrayList();
     public static ArrayList<HTML> listaHTML = new ArrayList<HTML>();
     public static Interfaz interfaz = new Interfaz();
-//    public static String codigoCHTML;
-//    public static String codigoCCSS;
-//    public static String codigoCJS; 
-// public static Stack<String> pilaArchivo = new Stack();
 
     public static void main(String[] args) {
 

@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.text.SimpleAttributeSet;
@@ -27,15 +28,25 @@ public class CajaArea {
         int estilo = 0;
         int estilo2 = 0;
         int alto = 400, ancho = 800;
-        //JTextArea area = new JTextArea();
 
+        JScrollPane scroll = new JScrollPane();
         JTextPane area = new JTextPane();
-        // System.out.println("Texto = " + texto);
-        texto = texto.replace("\n", "");
-        area.setText(texto);
+
         area.setFont(new Font(letra, estilo, tamanio));
         area.setEditable(editable);
-        area.setBackground(new Color(0, 0, 0, 0));
+        if (editable == true) {
+            area.setBackground(Color.WHITE);
+            area.setText(texto);
+        } else {
+            area.setBackground(new Color(0, 0, 0, 0));
+            area.setOpaque(false);
+            //  texto = texto.replace("\n", "");
+            area.setText(texto);
+        }
+        if (texto.equals(" ") | texto.equals("  ") | texto.equals("  ")) {
+            alto = 10;
+            ancho = 10;
+        }
 
         SimpleAttributeSet attribs = new SimpleAttributeSet();
         StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_CENTER);
@@ -240,7 +251,12 @@ public class CajaArea {
             area.setPreferredSize(new Dimension(ancho, alto));
             area.setMaximumSize(area.getPreferredSize());
         }
-        Componente resultado = new Componente("Texto", area.getName(), area, new ArrayList());
+        if (editable == true) {
+            scroll.setViewportView(area);
+            Componente resultado = new Componente("CajaArea", area.getName(), scroll, new ArrayList());
+            return resultado;
+        }
+        Componente resultado = new Componente("CajaArea", area.getName(), area, new ArrayList());
         return resultado;
     }
 

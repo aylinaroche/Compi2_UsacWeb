@@ -128,7 +128,7 @@ OPCION::=SWITCH:n{:
     RESULT.nodo = OPCION;
 :}
 |MENSAJE:n{:
-    NodoCJS OPCION = new NodoCJS("MENSAJE");
+    NodoCJS OPCION = new NodoCJS("OPCION");
     RESULT = new Caracter();
     OPCION.insertar(n.nodo);
     RESULT.nodo = OPCION;

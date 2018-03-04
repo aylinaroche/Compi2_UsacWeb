@@ -1,14 +1,16 @@
 package usacweb;
 
-import chtml.Ejecutar.Elementos;
 import chtml.chtml;
+import cjs.Ejecutar.EventoCJS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -27,13 +29,13 @@ public class PanelPrincipal extends javax.swing.JPanel {
     JButton botonOpciones = new JButton();
     JButton botonHistorial = new JButton();
     JButton botonFavorito = new JButton();
-    static String rutaAux = "C:\\Users\\Aroche\\Documents\\Archivos\\Paso4.chtml";
-    String pestania = "";
-    
+    static String rutaAux = "C:\\Users\\Aroche\\Documents\\Archivos\\Prueba1.chtml";
+    String nombrePestania = "";
+
     Box boxV1 = Box.createVerticalBox();
 
     public PanelPrincipal(String p) {
-        pestania = p;
+        nombrePestania = p;
         accionesBoton();
         accionesBarra();
         crearTODO();
@@ -58,6 +60,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
         boxV1.add(boxH1);
         Box boxH2 = crearBarra();
         boxV1.add(boxH2);
+        repaint();
 
     }
 
@@ -151,27 +154,35 @@ public class PanelPrincipal extends javax.swing.JPanel {
 
             private void ActionPerformed(ActionEvent evt) {
                 String texto = Metodos.abrir(ruta.getText());
-
+                int auxNum = chtml.html.numPagina;
+                ArrayList auxPaginas = chtml.html.listaPaginas;
                 for (int i = 0; i < UsacWeb.listaHTML.size(); i++) {
-                    UsacWeb.listaHTML.set(i, new HTML(panelPestanias.getName()));
                     HTML html = UsacWeb.listaHTML.get(i);
-                    
-                    if (html.nombre.equalsIgnoreCase(panelPestanias.getName())) {
 
+                    if (html.nombre.equalsIgnoreCase(nombrePestania)) {
+                        System.out.println("Nombre = " + nombrePestania);
+                        UsacWeb.listaHTML.set(i, new HTML(nombrePestania));
                         html.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
+                        html.numPagina = auxNum;
+                        html.listaPaginas = auxPaginas;
                         try {
                             Object result = chtml.analizar(texto, html);
+                            html.codigoCHTML = texto;
                             if (result instanceof JPanel) {
                                 crearHTML((JPanel) result);
-                            };
+                            } else if (result instanceof JScrollPane) {
+                                crearHTML((JScrollPane) result);
+                            }
+                            EventoCJS.verificarEvento("Documento", "Listo");
                         } catch (Exception ex) {
                             System.out.println("Error al analizar archivo: " + ruta.getText() + "\n" + ex);
                         }
                         html.pilaArchivo.pop();
+                        html.numPagina++;
+                        html.listaPaginas.add(ruta.getText());
                         break;
                     }
                 }
-
                 UsacWeb.agregarHistorial(ruta.getText());
             }
         });
@@ -183,16 +194,39 @@ public class PanelPrincipal extends javax.swing.JPanel {
             }
 
             private void ActionPerformed(ActionEvent evt) {
-                try {
-                    rutaAux = ruta.getText();
-                    removeAll();
-                    crearTODO();
-                    JPanel panel = (JPanel) Elementos.dibujar2(Elementos.compPrueba());
-                    boxV1.add(panel);
-                    setLayout(new BorderLayout());
-                    add(boxV1, BorderLayout.CENTER);
-                    updateUI();
-                } catch (Exception e) {
+
+                for (int i = 0; i < UsacWeb.listaHTML.size(); i++) {
+                    HTML html = UsacWeb.listaHTML.get(i);
+
+                    if (html.nombre.equalsIgnoreCase(nombrePestania)) {
+                        System.out.println("Nombre = " + nombrePestania);
+                        UsacWeb.listaHTML.set(i, chtml.html);
+                        html = chtml.html;
+                        html.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
+
+                        if (html.numPagina > 1) {
+                            String ruta = html.listaPaginas.get(html.numPagina);
+                            String texto = Metodos.abrir(ruta);
+
+                            try {
+                                Object result = chtml.analizar(texto, html);
+                                html.codigoCHTML = texto;
+                                if (result instanceof JPanel) {
+                                    crearHTML((JPanel) result);
+                                } else if (result instanceof JScrollPane) {
+                                    crearHTML((JScrollPane) result);
+                                }
+                                EventoCJS.verificarEvento("Documento", "Listo");
+                            } catch (Exception ex) {
+                                System.out.println("Error al analizar archivo: " + ruta + "\n" + ex);
+                            }
+                            html.pilaArchivo.pop();
+                            html.numPagina--;
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(null, " No existe pagina anterior ", "WARNING", JOptionPane.WARNING_MESSAGE);
+                        }
+                    }
                 }
             }
         });
@@ -204,9 +238,39 @@ public class PanelPrincipal extends javax.swing.JPanel {
             }
 
             private void ActionPerformed(ActionEvent evt) {
-                usacweb.UsacWeb.interfaz.setEnabled(false);
-                Mensaje m = new Mensaje("Yeeeeeeeeiiiiiiiiiiiiii");
-                m.show();
+                for (int i = 0; i < UsacWeb.listaHTML.size(); i++) {
+                    HTML html = UsacWeb.listaHTML.get(i);
+
+                    if (html.nombre.equalsIgnoreCase(nombrePestania)) {
+                        System.out.println("Nombre = " + nombrePestania);
+                        UsacWeb.listaHTML.set(i, chtml.html);
+                        html = chtml.html;
+                        html.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
+
+                        if (html.numPagina > 1) {
+                            String ruta = html.listaPaginas.get(html.numPagina);
+                            String texto = Metodos.abrir(ruta);
+
+                            try {
+                                Object result = chtml.analizar(texto, html);
+                                html.codigoCHTML = texto;
+                                if (result instanceof JPanel) {
+                                    crearHTML((JPanel) result);
+                                } else if (result instanceof JScrollPane) {
+                                    crearHTML((JScrollPane) result);
+                                }
+                                EventoCJS.verificarEvento("Documento", "Listo");
+                            } catch (Exception ex) {
+                                System.out.println("Error al analizar archivo: " + ruta + "\n" + ex);
+                            }
+                            html.pilaArchivo.pop();
+                            html.numPagina++;
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(null, " No existe pagina anterior ", "WARNING", JOptionPane.WARNING_MESSAGE);
+                        }
+                    }
+                }
             }
         });
     }
@@ -248,7 +312,6 @@ public class PanelPrincipal extends javax.swing.JPanel {
                 panel.setBackground(new Color(255, 255, 255));
                 scroll.setViewportView(panel);
                 box.add(scroll);
-                // box.add(panel);
                 panelPestanias.addTab("Historial", box);
                 panelPestanias.setSelectedIndex(panelPestanias.getTabCount() - 1);
             }
@@ -277,7 +340,21 @@ public class PanelPrincipal extends javax.swing.JPanel {
         boxH1.add(Box.createHorizontalGlue());
         JScrollPane scroll = new JScrollPane();
         scroll.setViewportView(boxH1);
-        boxV1.add(scroll);
+        boxV1.add(boxH1);
+        setLayout(new BorderLayout());
+        add(boxV1, BorderLayout.CENTER);
+        updateUI();
+    }
+
+    public void crearHTML(JScrollPane panel) {
+        rutaAux = ruta.getText();
+        removeAll();
+        crearTODO();
+        Box boxH1 = Box.createHorizontalBox();
+        boxH1.add(Box.createHorizontalGlue());
+        boxH1.add(panel);
+        boxH1.add(Box.createHorizontalGlue());
+        boxV1.add(boxH1);
         setLayout(new BorderLayout());
         add(boxV1, BorderLayout.CENTER);
         updateUI();

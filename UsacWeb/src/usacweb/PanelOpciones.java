@@ -116,7 +116,7 @@ public class PanelOpciones extends javax.swing.JPanel {
     }
 
     public void crearPaneles() {
-        prueba();
+        //prueba();
         JTextArea areaChtml = new JTextArea();
         areaChtml.setText(html.codigoCHTML);
         JScrollPane scroll1 = new JScrollPane();
@@ -145,7 +145,7 @@ public class PanelOpciones extends javax.swing.JPanel {
         panelCCSS.add(scroll3);
 
         String[] tituloSalida = {"ARCHIVO", "FILA", "COLUMNA", "SALIDA"};
-        Object[][] objeto1 = Datos.obtenerErrores();
+        Object[][] objeto1 = Datos.obtenerSalida();
         JTable tablaSalida = new JTable(objeto1, tituloSalida);
         tablaSalida.setFont(new Font("Comic Sans MS", 0, 14));
         tablaSalida.setForeground(new Color(102, 0, 0));
@@ -246,74 +246,7 @@ public class PanelOpciones extends javax.swing.JPanel {
             }
         });
     }
-
-    public void modificarComponente(Component[] lista, String nombre, Component nuevo) {
-        Component[] result = null;
-        for (int i = 0; i < lista.length; i++) {
-            Component comp = lista[i];
-            if (comp instanceof Box) {
-                Box box = (Box) comp;
-
-                //Component[] c = 
-                modificarComponente(box.getComponents(), nombre, nuevo);
-                box.updateUI();
-
-            }
-            if (comp.getName() != null) {
-                if (comp.getName().equalsIgnoreCase(nombre)) {
-                    System.out.println("ANTES ::" + lista[i].toString());
-                    System.out.println("EUREKA");
-                    if (lista[i] instanceof JPanel) {
-                        JPanel n = (JPanel) nuevo;
-                        lista[i] = n;
-                        n.updateUI();
-                    } else if (lista[i] instanceof JLabel) {
-                        JLabel n = (JLabel) nuevo;
-                        lista[i] = n;
-                        n.updateUI();
-                    }
-
-                    System.out.println("\n DESPUES ::" + lista[i].toString());
-                    UsacWeb.interfaz.repaint();
-                    return;
-                } else {
-                    System.out.println("Saber que rayos: " + comp.getName());
-                }
-            } else {
-                System.out.println("nulo");
-            }
-
-        }
-    }
-
-    public Component[] modificarComponente111(Component[] lista, String nombre, Component nuevo) {
-        Component[] result = new Component[lista.length];
-        for (int i = 0; i < lista.length; i++) {
-            Component comp = lista[i];
-            if (comp instanceof Box) {
-                Box box = (Box) comp;
-                result = modificarComponente111(box.getComponents(), nombre, nuevo);
-            }
-            if (comp.getName() != null) {
-                if (comp.getName().equalsIgnoreCase(nombre)) {
-                    System.out.println("ANTES ::" + lista[i].toString());
-                    System.out.println("EUREKA");
-                    lista[i] = nuevo;
-                    this.updateUI();
-                    System.out.println("\n\n\n DESPUES ::" + lista[i].toString());
-                    UsacWeb.interfaz.repaint();
-                    return lista;
-                } else {
-                    System.out.println("Saber que rayos: " + comp.getName());
-                }
-            } else {
-                System.out.println("nulo");
-            }
-
-        }
-        return result;
-    }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

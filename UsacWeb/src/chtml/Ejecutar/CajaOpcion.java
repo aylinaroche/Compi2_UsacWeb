@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import usacweb.Datos;
@@ -22,15 +23,13 @@ import usacweb.Datos;
 public class CajaOpcion {
 
     public static Componente crearCajaOpcion(ArrayList elementos, ArrayList opciones, int f, int c) {
-        String nombre = "";
+
         String letra = "Comic Sans MS";
+        int estilo2 = 0;
         int tamanio = 12;
         int estilo = 0;
-        int estilo2 = 0;
-        int alto = 20, ancho = 20;
-        //Iniciar boton
+        int alto = 40, ancho = 200;
         JComboBox combo = new JComboBox();
-        //combo.setText(texto);
         combo.setFont(new Font(letra, estilo, tamanio));
 
         for (int i = 0; i < elementos.size(); i++) {
@@ -73,50 +72,50 @@ public class CajaOpcion {
                                 }
                                 break;
                             case "texto":
-//                                String text = (String) e2.valor;
-//                                switch (estilo2) {
-//                                    case 3:
-//                                        combo.setText(text.toUpperCase());
-//                                        break;
-//                                    case 4:
-//                                        combo.setText(text.toLowerCase());
-//                                        break;
-//                                    case 5:
-//                                        combo.setText(Elementos.primeraMayuscula(text));
-//                                        break;
-//                                    default:
-//                                        combo.setText(text);
-//                                        break;
-//                                }
+                                String text = (String) e2.valor;
+                                switch (estilo2) {
+                                    case 3:
+                                        combo.addItem(text.toUpperCase());
+                                        break;
+                                    case 4:
+                                        combo.addItem(text.toLowerCase());
+                                        break;
+                                    case 5:
+                                        combo.addItem(Elementos.primeraMayuscula(text));
+                                        break;
+                                    default:
+                                        combo.addItem(text);
+                                        break;
+                                }
                                 break;
                             case "formato":
-//                                if (e2.valor instanceof ArrayList) {
-//                                    ArrayList formato = (ArrayList) e2.valor;
-//                                    for (int k = 0; k < formato.size(); k++) {
-//                                        String form = (String) formato.get(k);
-//                                        switch (form.toLowerCase()) {
-//                                            case "negrilla":
-//                                                estilo = estilo + 1;
-//                                                break;
-//                                            case "cursiva":
-//                                                estilo = estilo + 2;
-//                                                break;
-//                                            case "mayuscula":
-//                                                estilo2 = 3;
-//                                                combo.setText(combo.getText().toUpperCase());
-//                                                break;
-//                                            case "minuscula":
-//                                                estilo2 = 4;
-//                                                combo.setText(combo.getText().toLowerCase());
-//                                                break;
-//                                            case "capital-t":
-//                                                estilo2 = 5;
-//                                                combo.setText(Elementos.primeraMayuscula(combo.getText()));
-//                                                break;
-//                                        }
-//
-//                                    }
-//                                }
+                                if (e2.valor instanceof ArrayList) {
+                                    ArrayList formato = (ArrayList) e2.valor;
+                                    for (int k = 0; k < formato.size(); k++) {
+                                        String form = (String) formato.get(k);
+                                        switch (form.toLowerCase()) {
+                                            case "negrilla":
+                                                estilo = estilo + 1;
+                                                break;
+                                            case "cursiva":
+                                                estilo = estilo + 2;
+                                                break;
+                                            case "mayuscula":
+                                                estilo2 = 3;
+                                                //combo.setText(combo.getText().toUpperCase());
+                                                break;
+                                            case "minuscula":
+                                                estilo2 = 4;
+                                                // combo.setText(combo.getText().toLowerCase());
+                                                break;
+                                            case "capital-t":
+                                                estilo2 = 5;
+                                                // combo.setText(Elementos.primeraMayuscula(combo.getText()));
+                                                break;
+                                        }
+
+                                    }
+                                }
                                 break;
                             case "letra":
                                 letra = (String) e2.valor;
@@ -138,20 +137,20 @@ public class CajaOpcion {
 
                                 break;
                             case "alineado":
-//                                switch (e2.valor.toString()) {
-//                                    case "izquierda":
-//                                        combo.setHorizontalAlignment(SwingConstants.LEFT);
-//                                        break;
-//                                    case "derecha":
-//                                        combo.setHorizontalAlignment(SwingConstants.RIGHT);
-//                                        break;
-//                                    case "centrado":
-//                                        combo.setHorizontalAlignment(SwingConstants.CENTER);
-//                                        break;
-//                                    case "justificado":
-//                                        combo.setHorizontalAlignment(SwingConstants.LEADING);
-//                                        break;
-//                                }
+                                switch (e2.valor.toString()) {
+                                    case "izquierda":
+                                        combo.setAlignmentX(SwingConstants.LEFT);
+                                        break;
+                                    case "derecha":
+                                        combo.setAlignmentX(SwingConstants.RIGHT);
+                                        break;
+                                    case "centrado":
+                                        combo.setAlignmentX(SwingConstants.CENTER);
+                                        break;
+                                    case "justificado":
+                                        combo.setAlignmentX(SwingConstants.LEADING);
+                                        break;
+                                }
                                 break;
                             default:
                                 Datos.agregarError("Error Semantico", "Atributo " + e2.nombre + " incorrecto en panel", f, c);
@@ -167,32 +166,21 @@ public class CajaOpcion {
                 } else if (e.nombre.equalsIgnoreCase("ancho")) {
                     ancho = Integer.parseInt((String) e.valor);
                 } else if (e.nombre.equalsIgnoreCase("alineado")) {
-//                    switch (e.valor.toString()) {
-//                        case "izquierda":
-//                            combo.setHorizontalAlignment(SwingConstants.LEFT);
-//                            break;
-//                        case "derecha":
-//                            combo.setHorizontalAlignment(SwingConstants.RIGHT);
-//                            break;
-//                        case "centrado":
-//                            combo.setHorizontalAlignment(SwingConstants.CENTER);
-//                            break;
-//                        case "justificado":
-//                            combo.setHorizontalAlignment(SwingConstants.LEADING);
-//                            break;
-//                    }
-                } else if (e.nombre.equalsIgnoreCase("ruta")) {
-                    combo.addActionListener(new java.awt.event.ActionListener() {
-                        @Override
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                            ActionPerformed(evt);
-                        }
-
-                        private void ActionPerformed(ActionEvent evt) {
-
-                        }
-
-                    });
+                    switch (e.valor.toString()) {
+                        case "izquierda":
+                            combo.setAlignmentX(SwingConstants.LEFT);
+                            break;
+                        case "derecha":
+                            combo.setAlignmentX(SwingConstants.RIGHT);
+                            break;
+                        case "centrado":
+                            combo.setAlignmentX(SwingConstants.CENTER);
+                            break;
+                        case "justificado":
+                            combo.setAlignmentX(SwingConstants.LEADING);
+                            break;
+                    }
+                    break;
                 } else if (e.nombre.equalsIgnoreCase("click")) {
                     combo.addActionListener(new java.awt.event.ActionListener() {
                         @Override
@@ -225,16 +213,14 @@ public class CajaOpcion {
             combo.setPreferredSize(new Dimension(ancho, alto));
             combo.setMaximumSize(combo.getPreferredSize());
         }
-        
+
         for (int i = 0; i < opciones.size(); i++) {
-            
-           // ComboBoxModel model = new ComboBoxModel() {};
-          //combo.setModel();
-            
+            Componente comp = (Componente) opciones.get(i);
+            if (comp.valor != null) {
+                combo.addItem(comp.valor.toString());
+            }
         }
-        
-        
-        Componente resultado = new Componente("Boton", combo.getName(), combo, new ArrayList());
+        Componente resultado = new Componente("CajaOpcion", combo.getName(), combo, new ArrayList());
         return resultado;
     }
 

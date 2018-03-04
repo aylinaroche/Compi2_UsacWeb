@@ -7,11 +7,17 @@ package usacweb;
 public class Mensaje extends javax.swing.JFrame {
 
     public Mensaje(String msj) {
-        System.out.println("Mensaje = " + msj);
-
+        //System.out.println("Mensaje = " + msj);
+        this.setTitle("Mensaje");
         initComponents();
         lblMensaje.setText(msj);
+    }
 
+    public Mensaje(String titulo, String msj) {
+      //  System.out.println("Mensaje = " + msj);
+        this.setTitle(titulo);
+        initComponents();
+        lblMensaje.setText(msj);
     }
 
     @SuppressWarnings("unchecked")
@@ -22,7 +28,7 @@ public class Mensaje extends javax.swing.JFrame {
         btnCerrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblMensaje.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

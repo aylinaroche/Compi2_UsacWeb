@@ -1,6 +1,7 @@
 package usacweb;
 
-import static chtml.chtml.html;
+import chtml.chtml;
+import cjs.Ejecutar.EventoCJS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.BufferedReader;
@@ -9,6 +10,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.Box;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import static usacweb.Interfaz.panelPestanias;
 
 /**
@@ -46,23 +49,41 @@ public class Metodos {
     public static void crearPestania(String ruta) {
         String nombre = obtenerNombre(ruta);
         Box box = Box.createHorizontalBox();
+        panelPestanias.setName("Pestania" + UsacWeb.interfaz.contPestania);
         PanelPrincipal panel = new PanelPrincipal(ruta);
+        panel.ruta.setText(ruta);
         panel.setBackground(Color.BLACK);
         panel.setPreferredSize(new Dimension(30000, 30000));
         panel.setMaximumSize(panel.getPreferredSize());
         box.add(panel);
-        panelPestanias.addTab(nombre, box);
+        panelPestanias.addTab("Pestania" + UsacWeb.interfaz.contPestania, box);
         panelPestanias.setSelectedIndex(panelPestanias.getTabCount() - 1);
+        UsacWeb.listaHTML.add(new HTML(panelPestanias.getName()));
 
         String texto = Metodos.abrir(ruta);
-        html.pilaArchivo.push(nombre);
-//        try {
-//            chtml.analizar(texto);
-//        } catch (Exception ex) {
-//            System.out.println("Error al analizar archivo: " + ruta + "\n" + ex);
-//        }
-        UsacWeb.agregarHistorial(ruta);
-        html.pilaArchivo.pop();
+
+        if (!"".equals(texto)) {
+            HTML html = UsacWeb.listaHTML.get(UsacWeb.listaHTML.size() - 1);
+            html.pilaArchivo.push(nombre);
+            try {
+                Object result = chtml.analizar(texto, html);
+                html.codigoCHTML = texto;
+                if (result instanceof JPanel) {
+                    panel.crearHTML((JPanel) result);
+                } else if (result instanceof JScrollPane) {
+                    panel.crearHTML((JScrollPane) result);
+                }
+                EventoCJS.verificarEvento("Documento", "Listo");
+            } catch (Exception ex) {
+                System.out.println("Error al analizar archivo: " + ruta + "\n" + ex);
+            }
+            html.pilaArchivo.pop();
+            UsacWeb.agregarHistorial(ruta);
+            html.numPagina++;
+            html.listaPaginas.add(ruta);
+            return;
+        }
+        JOptionPane.showMessageDialog(null, " No se ha encontrado el archivo: " + ruta, "WARNING", JOptionPane.WARNING_MESSAGE);
     }
 
 }

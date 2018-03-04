@@ -1009,7 +1009,7 @@ class CUP$SintacticoCJS$actions {
 		int nright = ((java_cup.runtime.Symbol)CUP$SintacticoCJS$stack.peek()).right;
 		Caracter n = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCJS$stack.peek()).value;
 		
-    NodoCJS OPCION = new NodoCJS("MENSAJE");
+    NodoCJS OPCION = new NodoCJS("OPCION");
     RESULT = new Caracter();
     OPCION.insertar(n.nodo);
     RESULT.nodo = OPCION;

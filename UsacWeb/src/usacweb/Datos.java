@@ -26,11 +26,11 @@ public class Datos {
         if (Datos.listaErrores.size() > 0) {
             for (int j = 0; j < Datos.listaErrores.size(); j++) {
                 Errror e = Datos.listaErrores.get(j);
-                tabla[j][1] = e.archivo;
+                tabla[j][0] = e.archivo;
+                tabla[j][1] = e.columna;
                 tabla[j][2] = e.fila;
-                tabla[j][3] = e.columna;
-                tabla[j][4] = e.tipo;
-                tabla[j][5] = e.descripcion;
+                tabla[j][3] = e.tipo;
+                tabla[j][4] = e.descripcion;
             }
         } else {
             Object[][] tabla2 = new Object[][]{
@@ -45,19 +45,19 @@ public class Datos {
         Salida e = new Salida(html.pilaArchivo.peek(), t, f, c);
         listaImprimir.add(e);
         //System.out.println(">>> " + t + ": " + f + ": " + c + ": " + e.archivo);
-         System.out.println(">>> " + t );
+        System.out.println(">>> " + t);
     }
 
     public static Object[][] obtenerSalida() {
-        
+
         Object[][] tabla = new Object[Datos.listaImprimir.size()][4];
         if (Datos.listaImprimir.size() > 0) {
             for (int j = 0; j < Datos.listaImprimir.size(); j++) {
                 Salida e = Datos.listaImprimir.get(j);
-                tabla[j][1] = e.archivo;
+                tabla[j][0] = e.archivo;
+                tabla[j][1] = e.columna;
                 tabla[j][2] = e.fila;
-                tabla[j][3] = e.columna;
-                tabla[j][4] = e.texto;
+                tabla[j][3] = e.texto;
             }
         } else {
             Object[][] tabla2 = new Object[][]{

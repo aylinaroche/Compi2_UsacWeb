@@ -1,5 +1,15 @@
-
 package usacweb;
+
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.font.TextAttribute;
+import java.util.Map;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 
 /**
  *
@@ -11,8 +21,58 @@ public class Prueba extends javax.swing.JFrame {
      * Creates new form Prueba
      */
     public Prueba() {
+
+        JComboBox<JLabel> combo = new JComboBox();
+        JLabel l1 = new JLabel();
+        l1.setText("Como");
+        combo.addItem(l1);
+
+        JLabel l2 = new JLabel();
+        l2.setText("estas");
+        combo.addItem(l2);
+
+        JLabel l3 = new JLabel();
+        l3.setText("tu");
+        combo.addItem(l3);
+        combo.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActionPerformed(evt);
+            }
+
+            private void ActionPerformed(ActionEvent evt) {
+                System.out.println(combo.getSelectedItem());
+            }
+        });
+
+        combo.setBounds(0, 0, 300, 50);
+        add(combo);
+
         initComponents();
         jComboBox1.addItem("hola");
+        pane.setText("cccccccccccccc\naaaaaaaaaaaaa\nccccc");
+        //pane.setAlignmentX(SwingConstants.CENTER);
+        SimpleAttributeSet attribs = new SimpleAttributeSet();
+        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_CENTER);
+        pane.setParagraphAttributes(attribs, true);
+
+        Font font = jLabel1.getFont();
+        Map atr = font.getAttributes();
+        atr.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        jLabel1.setFont(font.deriveFont(atr));
+        ///////////////////////////
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+                    {new Button("b1"),new Button("b1"),new Button("b1"),new Button("b1")},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null}
+                },
+                new String[]{
+                    "Title 1", "Title 2", "Title 3", "Title 4"
+                }
+        ));
     }
 
     /**
@@ -32,14 +92,15 @@ public class Prueba extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane2 = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        paneeeeee = new javax.swing.JTextPane();
+        pane = new javax.swing.JTextPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Comic Sans MS", 3, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(102, 0, 0));
         jButton1.setText("jButton1");
@@ -60,20 +121,35 @@ public class Prueba extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane5);
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 190, 170));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 190, 170));
 
         jLabel1.setBackground(new java.awt.Color(51, 153, 0));
         jLabel1.setText("jLabel1");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, 270, 170));
 
-        jScrollPane1.setViewportView(jTextPane2);
+        jScrollPane2.setViewportView(pane);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, -1, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 180, 140));
 
-        paneeeeee.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        jScrollPane2.setViewportView(paneeeeee);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 290, 220));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 360, 190));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -81,6 +157,10 @@ public class Prueba extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        System.out.println("Enlaceeeee");
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -123,12 +203,12 @@ public class Prueba extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTextPane jTextPane2;
-    private javax.swing.JTextPane paneeeeee;
+    private javax.swing.JTextPane pane;
     // End of variables declaration//GEN-END:variables
 }

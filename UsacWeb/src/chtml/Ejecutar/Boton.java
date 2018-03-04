@@ -3,6 +3,7 @@ package chtml.Ejecutar;
 import ccss.Ejecutar.BloqueCCSS;
 import ccss.Ejecutar.Estilo;
 import static chtml.Ejecutar.Elementos.convertirColor;
+import cjs.Ejecutar.FuncionCJS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import usacweb.Datos;
+import usacweb.Metodos;
 
 /**
  *
@@ -174,7 +176,7 @@ public class Boton {
                         alto = Integer.parseInt(e.valor.toString());
                     }
                 } else if (e.nombre.equalsIgnoreCase("ancho")) {
-                     if (e.valor instanceof Double) {
+                    if (e.valor instanceof Double) {
                         Double decimal = (Double) e.valor;
                         ancho = decimal.intValue();
                     } else if (e.valor instanceof Integer) {
@@ -203,7 +205,7 @@ public class Boton {
                         }
 
                         private void ActionPerformed(ActionEvent evt) {
-
+                            Metodos.crearPestania(e.valor.toString());
                         }
 
                     });
@@ -215,7 +217,7 @@ public class Boton {
                         }
 
                         private void ActionPerformed(ActionEvent evt) {
-
+                            FuncionCJS.buscarFuncion(e.valor.toString(), new ArrayList(), f, c);
                         }
 
                     });

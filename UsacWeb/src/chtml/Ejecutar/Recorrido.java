@@ -4,7 +4,6 @@ import ccss.Ejecutar.Estilo;
 import chtml.NodoCHTML;
 import static chtml.chtml.html;
 import java.util.ArrayList;
-import javax.swing.JPanel;
 import usacweb.Datos;
 import usacweb.Metodos;
 
@@ -36,8 +35,8 @@ public class Recorrido {
                         case 2:
                             Recorrido(raiz.hijos[0]);
                             result = Recorrido(raiz.hijos[1]);
-                            JPanel panel = (JPanel) Elementos.dibujar((Componente) result, 0);
-                            result = panel;
+                            // JPanel panel = (JPanel) Elementos.dibujar((Componente) result, 0);
+                            result = Elementos.dibujar((Componente) result, 0);
                             break;
                     }
                     break;
@@ -75,12 +74,14 @@ public class Recorrido {
                                 break;
                             }
                             if (raiz.hijos[0].texto.equalsIgnoreCase("<ccss")) {
+                                html.codigoCCSS = html.codigoCCSS + "\n\n" + texto;
                                 try {
                                     ccss.ccss.analizar(texto);
                                 } catch (Exception ex) {
                                     Datos.agregarError("Error Semantico", "No se pudo analizar el archivo ccss", raiz.hijos[0].fila, raiz.hijos[0].col);
                                 }
                             } else {
+                                html.codigoCJS = html.codigoCJS + "\n\n" + texto;
                                 try {
                                     cjs.cjs.analizar(texto);
                                 } catch (Exception ex) {
@@ -162,8 +163,17 @@ public class Recorrido {
                     break;
                 case "TEXTO":
                     switch (raiz.cantidadHijos) {
+                        case 2:
+                            result = CajaArea.crearTexto(new ArrayList(), " ", false, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            break;
                         case 3:
-                            result = CajaArea.crearTexto(new ArrayList(), "", false, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
+                                result = Recorrido(raiz.hijos[1]);
+                                result = CajaArea.crearTexto((ArrayList) result, " ", false, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            } else {
+                                String texto = raiz.hijos[1].texto.replace(">", "").replace("<", "");
+                                result = CajaArea.crearTexto(new ArrayList(), texto, false, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            }
                             break;
                         case 4:
                             ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
@@ -237,55 +247,67 @@ public class Recorrido {
                             break;
                     }
                     break;
-
                 case "ENLACE":
                     switch (raiz.cantidadHijos) {
                         case 2:
-                            //Crearlo vacio
+                            result = Enlace.crearEnlace(new ArrayList(), "Enlace", raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                         case 3:
                             if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
-
+                                result = Recorrido(raiz.hijos[1]);
+                                result = Enlace.crearEnlace((ArrayList) result, "Enlace", raiz.hijos[0].fila, raiz.hijos[0].col);
                             } else {
-
+                                String texto = raiz.hijos[1].texto.replace(">", "").replace("<", "");
+                                result = Enlace.crearEnlace(new ArrayList(), texto, raiz.hijos[0].fila, raiz.hijos[0].col);
                             }
                             break;
                         case 4:
-                            result = Recorrido(raiz.hijos[1]);
+                            ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
+                            String texto = raiz.hijos[2].texto.replace(">", "").replace("<", "");
+                            result = Enlace.crearEnlace(elem, texto, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                     }
                     break;
                 case "TABLA":
                     switch (raiz.cantidadHijos) {
                         case 2:
-                            //Crearlo vacio
+                            result = Tabla.crearTabla(new ArrayList(), new ArrayList(), raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                         case 4:
                             if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
-
+                                result = Recorrido(raiz.hijos[1]);
+                                result = Tabla.crearTabla((ArrayList) result, new ArrayList(), raiz.hijos[0].fila, raiz.hijos[0].col);
                             } else {
-
+                                result = Recorrido(raiz.hijos[2]);
+                                result = Tabla.crearTabla(new ArrayList(), (ArrayList) result, raiz.hijos[0].fila, raiz.hijos[0].col);
                             }
                             break;
                         case 5:
-                            result = Recorrido(raiz.hijos[1]);
+                            ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
+                            result = Recorrido(raiz.hijos[3]);
+                            result = Tabla.crearTabla(elem, (ArrayList) result, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                     }
                     break;
                 case "LISTAFILA":
                     switch (raiz.cantidadHijos) {
                         case 1:
-                            Recorrido(raiz.hijos[0]);
+                            ArrayList l1 = new ArrayList();
+                            result = Recorrido(raiz.hijos[0]);
+                            l1.add(result);
+                            result = l1;
                             break;
                         case 2:
-                            Recorrido(raiz.hijos[0]);
-                            result = Recorrido(raiz.hijos[1]);
+                            ArrayList l2 = (ArrayList) Recorrido(raiz.hijos[0]);
+                            l2.add(Recorrido(raiz.hijos[1]));
+                            result = l2;
                             break;
                     }
                     break;
                 case "FILA":
                     switch (raiz.cantidadHijos) {
                         case 2:
+                            result = new ArrayList();
                             break;
                         case 3:
                             result = Recorrido(raiz.hijos[1]);
@@ -295,21 +317,34 @@ public class Recorrido {
                 case "CELDAS":
                     switch (raiz.cantidadHijos) {
                         case 1:
-                            Recorrido(raiz.hijos[0]);
+                            ArrayList l1 = new ArrayList();
+                            result = Recorrido(raiz.hijos[0]);
+                            l1.add(result);
+                            result = l1;
                             break;
                         case 2:
-                            Recorrido(raiz.hijos[0]);
-                            result = Recorrido(raiz.hijos[1]);
+                            ArrayList l2 = (ArrayList) Recorrido(raiz.hijos[0]);
+                            l2.add(Recorrido(raiz.hijos[1]));
+                            result = l2;
                             break;
                     }
                     break;
                 case "CELDA":
                     switch (raiz.cantidadHijos) {
-                        case 3:
-                            if (raiz.hijos[0].texto.equals("cb")) {
-
+                        case 2:
+                            if (raiz.hijos[0].texto.equalsIgnoreCase("<cb")) {
+                                result = new Componente("cb", "vacio", "", new ArrayList());
                             } else {
-
+                                result = new Componente("ct", "vacio", "", new ArrayList());
+                            }
+                            break;
+                        case 3:
+                            if (raiz.hijos[0].texto.equalsIgnoreCase("<cb")) {
+                                result = Recorrido(raiz.hijos[1]);
+                                result = new Componente("cb", "Texto", result, new ArrayList());
+                            } else {
+                                result = Recorrido(raiz.hijos[1]);
+                                result = new Componente("ct", "texto", result, new ArrayList());
                             }
                             break;
                     }
@@ -317,6 +352,8 @@ public class Recorrido {
                 case "CONTENIDO":
                     switch (raiz.cantidadHijos) {
                         case 1:
+                            String texto = raiz.hijos[0].texto.replace(">", "").replace("<", "");
+                            result = new Componente("texto", "texto", texto, new ArrayList());
                             break;
                         case 3:
                             result = Recorrido(raiz.hijos[1]);
@@ -326,9 +363,18 @@ public class Recorrido {
                 case "TEXTOA":
                     switch (raiz.cantidadHijos) {
                         case 2:
-                            result = CajaArea.crearTexto(new ArrayList(), "", false, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            result = CajaArea.crearTexto(new ArrayList(), "", true, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                         case 3:
+                            if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
+                                result = Recorrido(raiz.hijos[1]);
+                                result = CajaArea.crearTexto((ArrayList) result, "", true, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            } else {
+                                String texto = raiz.hijos[1].texto.replace(">", "").replace("<", "");
+                                result = CajaArea.crearTexto(new ArrayList(), texto, true, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            }
+                            break;
+                        case 4:
                             ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
                             String texto = raiz.hijos[2].texto.replace(">", "").replace("<", "");
                             result = CajaArea.crearTexto(elem, texto, true, raiz.hijos[0].fila, raiz.hijos[0].col);
@@ -338,49 +384,25 @@ public class Recorrido {
                 case "CAJATEXTO":
                     switch (raiz.cantidadHijos) {
                         case 2:
-                            //Crearlo vacio
+                            result = CajaTexto.crearCajaTexto(new ArrayList(), "Boton", raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                         case 3:
                             if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
-
+                                result = Recorrido(raiz.hijos[1]);
+                                result = CajaTexto.crearCajaTexto((ArrayList) result, "Boton", raiz.hijos[0].fila, raiz.hijos[0].col);
                             } else {
-
+                                String texto = raiz.hijos[1].texto.replace(">", "").replace("<", "");
+                                result = CajaTexto.crearCajaTexto(new ArrayList(), texto, raiz.hijos[0].fila, raiz.hijos[0].col);
                             }
                             break;
                         case 4:
-                            result = Recorrido(raiz.hijos[1]);
+                            ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
+                            String texto = raiz.hijos[2].texto.replace(">", "").replace("<", "");
+                            result = CajaTexto.crearCajaTexto(elem, texto, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                     }
                     break;
                 case "CAJA":
-                    switch (raiz.cantidadHijos) {
-                        case 2:
-                            //Crearlo vacio
-                            break;
-                        case 4:
-                            if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
-
-                            } else {
-
-                            }
-                            break;
-                        case 5:
-                            result = Recorrido(raiz.hijos[1]);
-                            break;
-                    }
-                    break;
-                case "OPCION":
-                    switch (raiz.cantidadHijos) {
-                        case 1:
-                            Recorrido(raiz.hijos[0]);
-                            break;
-                        case 2:
-                            Recorrido(raiz.hijos[0]);
-                            result = Recorrido(raiz.hijos[1]);
-                            break;
-                    }
-                    break;
-                case "OPCIONES":
                     switch (raiz.cantidadHijos) {
                         case 2:
                             result = CajaOpcion.crearCajaOpcion(new ArrayList(), new ArrayList(), raiz.hijos[0].fila, raiz.hijos[0].col);
@@ -401,6 +423,43 @@ public class Recorrido {
                             break;
                     }
                     break;
+
+                case "OPCIONES":
+                    switch (raiz.cantidadHijos) {
+                        case 1:
+                            ArrayList l1 = new ArrayList();
+                            result = Recorrido(raiz.hijos[0]);
+                            l1.add(result);
+                            result = l1;
+                            break;
+                        case 2:
+                            ArrayList l2 = (ArrayList) Recorrido(raiz.hijos[0]);
+                            l2.add(Recorrido(raiz.hijos[1]));
+                            result = l2;
+                            break;
+                    }
+                    break;
+                case "OPCION":
+                    switch (raiz.cantidadHijos) {
+                        case 2:
+                            result = new Componente("opcion", "opcion", "", new ArrayList());
+                            break;
+                        case 3:
+                            if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
+                                result = Recorrido(raiz.hijos[1]);
+                                result = new Componente("opcion", "opcion", "", (ArrayList) result);
+                            } else {
+                                String texto = raiz.hijos[3].texto.replace(">", "").replace("<", "");
+                                result = new Componente("opcion", "opcion", texto, new ArrayList());
+                            }
+                            break;
+                        case 4:
+                            ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
+                            String texto = raiz.hijos[2].texto.replace(">", "").replace("<", "");
+                            result = new Componente("opcion", "opcion", texto, elem);
+                            break;
+                    }
+                    break;
                 case "SPINNER":
                     switch (raiz.cantidadHijos) {
                         case 2:
@@ -417,7 +476,7 @@ public class Recorrido {
                             break;
                         case 5:
                             ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
-                            String texto = raiz.hijos[3].texto.replace(">", "").replace("<", "");
+                            String texto = raiz.hijos[3].texto.replace(">", "").replace("<", "").replace(" ", "");
                             result = Contador.crearSpinner(elem, texto, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                     }

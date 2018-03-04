@@ -5,6 +5,7 @@ import ccss.Ejecutar.Estilo;
 import static chtml.Ejecutar.Elementos.convertirColor;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,10 +19,11 @@ import usacweb.Datos;
 public class Imagen {
 
     public static Componente crearImagen(ArrayList elementos, String texto, int f, int c) {
-        String nombre = "";
-        int alto = 20, ancho = 20;
+        int alto = 50, ancho = 100;
         //Iniciar boton
         JButton boton = new JButton();
+        boton.setBackground(Color.WHITE);
+        Boolean correcta = false;
 
         for (int i = 0; i < elementos.size(); i++) {
             try {
@@ -64,7 +66,7 @@ public class Imagen {
                                 }
                                 break;
                             default:
-                                Datos.agregarError("Error Semantico", "Atributo " + e2.nombre + " incorrecto en panel", f, c);
+                                Datos.agregarError("Error Semantico", "Atributo " + e2.nombre + " incorrecto en imagen", f, c);
                                 break;
                         }
 
@@ -93,29 +95,41 @@ public class Imagen {
                     }
                 } else if (e.nombre.equalsIgnoreCase("ruta")) {
                     if (e.valor.toString() != null) {
-                        try {
-
-                        } catch (Exception ex) {
-
+                        String sFichero = e.valor.toString();
+                        File fichero = new File(sFichero);
+                        if (fichero.exists()) {
+                            try {
+                                boton.setIcon(new ImageIcon(e.valor.toString()));
+                                correcta = true;
+                            } catch (Exception ex) {
+                                boton.setIcon(new ImageIcon("C:\\Users\\Aroche\\Documents\\NetBeansProjects\\UsacWeb\\src\\Imagenes\\found.png"));
+                                correcta = false;
+                            }
+                        } else {
+                            boton.setIcon(new ImageIcon("C:\\Users\\Aroche\\Documents\\NetBeansProjects\\UsacWeb\\src\\Imagenes\\found.png"));
+                            correcta = false;
+                            Datos.agregarError("Error Semantico", "No existe la imagen descrita en la ruta", f, c);
                         }
                     }
 
                 } else {
-                    Datos.agregarError("Error Semantico", "Atributo " + e.nombre + " incorrecto en panel", f, c);
+                    Datos.agregarError("Error Semantico", "Atributo " + e.nombre + " incorrecto en imagen", f, c);
                 }
 
             } catch (NumberFormatException e) {
-                Datos.agregarError("Error Semantico", "Error al crear el boton", f, c);
+                Datos.agregarError("Error Semantico", "Error al crear imagen", f, c);
             }
         }
-        //SETEAR VALORES 
-        //FONT
-        if (texto != null) {
-            try {
-
-               // boton.setIcon(new ImageIcon());
-            } catch (Exception e) {
-                Datos.agregarError("Error Semantico", "Error al agregar imagen", f, c);
+        if (!"".equals(texto) && correcta == false) {
+            File fichero = new File(texto);
+            if (fichero.exists()) {
+                try {
+                    boton.setIcon(new ImageIcon(texto));
+                } catch (Exception ex) {
+                    boton.setIcon(new ImageIcon("C:\\Users\\Aroche\\Documents\\NetBeansProjects\\UsacWeb\\src\\Imagenes\\found.png"));
+                }
+            } else {
+                Datos.agregarError("Error Semantico", "No existe la imagen", f, c);
             }
         }
         if (alto > 0 && ancho > 0) {
@@ -123,7 +137,7 @@ public class Imagen {
             boton.setPreferredSize(new Dimension(ancho, alto));
             boton.setMaximumSize(boton.getPreferredSize());
         }
-        Componente resultado = new Componente("Boton", boton.getName(), boton, new ArrayList());
+        Componente resultado = new Componente("Imagen", boton.getName(), boton, new ArrayList());
         return resultado;
     }
 }

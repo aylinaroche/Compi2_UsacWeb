@@ -27,7 +27,7 @@ public class FuncionCJS {
         for (int i = 0; i < listaFunciones.size(); i++) {
             Funcion mf = (Funcion) listaFunciones.get(i);
 
-            if (mf.nombre.equalsIgnoreCase(id) && mf.archivo.equalsIgnoreCase(html.pilaArchivo.peek())) {
+            if (mf.nombre.equalsIgnoreCase(id)) {
                 html.pilaAmbito.push(id);
                 html.nivelAmbito++;
                 if (parametro.isEmpty() && mf.parametro.isEmpty()) {

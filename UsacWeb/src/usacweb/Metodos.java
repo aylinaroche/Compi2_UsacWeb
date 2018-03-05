@@ -1,7 +1,7 @@
 package usacweb;
 
 import chtml.chtml;
-import cjs.Ejecutar.EventoCJS;
+import cjs.Ejecutar.Documento;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.BufferedReader;
@@ -73,7 +73,7 @@ public class Metodos {
                 } else if (result instanceof JScrollPane) {
                     panel.crearHTML((JScrollPane) result);
                 }
-                EventoCJS.verificarEvento("Documento", "Listo");
+                Documento.verificarEvento("Documento", "Listo");
             } catch (Exception ex) {
                 System.out.println("Error al analizar archivo: " + ruta + "\n" + ex);
             }

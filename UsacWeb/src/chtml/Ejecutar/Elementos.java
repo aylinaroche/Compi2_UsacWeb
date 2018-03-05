@@ -1,6 +1,6 @@
 package chtml.Ejecutar;
 
-import cjs.Ejecutar.EventoCJS;
+import cjs.Ejecutar.Documento;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.awt.Component.CENTER_ALIGNMENT;
@@ -89,43 +89,43 @@ public class Elementos {
                     if (d instanceof JButton) {
                         JButton b = (JButton) d;
                         boxH1.add(b);
-                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                        Documento.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof JPanel) {
                         JPanel b = (JPanel) d;
                         boxH1.add(b);
-                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                        Documento.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof JTextArea) {
                         JTextArea b = (JTextArea) d;
                         boxH1.add(b);
-                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                        Documento.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof JTextPane) {
                         JTextPane b = (JTextPane) d;
                         boxH1.add(b);
-                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                        Documento.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof JSpinner) {
                         JSpinner b = (JSpinner) d;
                         boxH1.add(b);
-                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                        Documento.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof JTextField) {
                         JTextField b = (JTextField) d;
                         boxH1.add(b);
-                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                        Documento.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof JScrollPane) {
                         JScrollPane b = (JScrollPane) d;
                         boxH1.add(b);
-                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                        Documento.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof JComboBox) {
                         JComboBox b = (JComboBox) d;
                         boxH1.add(b);
-                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                        Documento.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof JLabel) {
                         JLabel b = (JLabel) d;
                         boxH1.add(b);
-                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                        Documento.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof JTable) {
                         JTable b = (JTable) d;
                         boxH1.add(b);
-                        EventoCJS.verificarEvento(b.getName(), "Listo");
+                        Documento.verificarEvento(b.getName(), "Listo");
                     } else if (d instanceof String) {
                         if (comp.alineado.equalsIgnoreCase("izquierda")) {
                             boxH1.add(Box.createHorizontalGlue());

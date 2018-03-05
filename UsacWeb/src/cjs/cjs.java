@@ -12,9 +12,9 @@ import java.util.logging.Logger;
 import java_cup.runtime.Symbol;
 
 public class cjs {
-    
+
     public static NodoCJS NODO;
-    
+
     public static void main(String[] args) throws Exception {
         String path_Lexico = System.getProperty("user.dir").replace("\\", "/") + "/src/cjs/LexicoCJS.jflex";
 //Genera el LEXICO
@@ -24,7 +24,7 @@ public class cjs {
         jflex.Main.main(Flex);
 //Genera el SINTACTICO
         String Params[] = new String[5];
-        
+
         Params[0] = "-destdir";//habilita destino
         Params[1] = System.getProperty("user.dir").replace("\\", "/") + "/src/cjs";//destino
         Params[2] = "-parser";//habilita nombre
@@ -37,10 +37,10 @@ public class cjs {
             System.out.println(e);
         }
         html.pilaArchivo.push("ArchivoPrueba.cjs");
-        archivo2();
-       // VariableCJS.imprimir();
+        archivo3();
+        // VariableCJS.imprimir();
     }
-    
+
     public static void analizar(String texto) throws Exception {
         StringReader miReader = new StringReader(texto);
         LexicoCJS miAnalizador = new LexicoCJS(miReader);
@@ -60,11 +60,11 @@ public class cjs {
         } catch (IOException e) {
             System.out.println("ERRROOOOR::: " + e);
         }
-        
+
         iniciar();
         VariableCJS.imprimir();
     }
-    
+
     public static void iniciar() {
         html.pilaArchivo.push("ArchivoPrueba");
         html.pilaAmbito.push("Global");
@@ -76,7 +76,7 @@ public class cjs {
         html.nivelAmbito--;
         html.pilaAmbito.pop();
     }
-    
+
     public static void archivo1() {
         try {
             analizar(""
@@ -175,20 +175,20 @@ public class cjs {
                     //                    + "\n"
                     //                    + "\n"
                     + ""
-                    + "Dimv a : \"31/10/1999\";"
-                    + "Dimv b : \"31/12/1999 23:59:50\";"
-                    + "Dimv c : \"Hola\";"
-                    + "$"
-                    + "Dimv d : 8;"
-                    + "Si( a << b){ \n"
-                    + "	imprimir(\"true1\"); \n"
-                    + "}"
-                    + "Si( c != 8 ){ \n"
-                    + "	imprimir(\"true2\"); \n"
-                    + "}"
-                    + "Si( c == c ){ \n"
-                    + "	imprimir(\"true3\"); \n"
-                    + "}"
+                    //                    + "Dimv a : \"31/10/1999\";"
+                    //                    + "Dimv b : \"31/12/1999 23:59:50\";"
+                    //                    + "Dimv c : \"Hola\";"
+                    //                    + "$"
+                    //                    + "Dimv d : 8;"
+                    //                    + "Si( a << b){ \n"
+                    //                    + "	imprimir(\"true1\"); \n"
+                    //                    + "}"
+                    //                    + "Si( c != 8 ){ \n"
+                    //                    + "	imprimir(\"true2\"); \n"
+                    //                    + "}"
+                    //                    + "Si( c == c ){ \n"
+                    //                    + "	imprimir(\"true3\"); \n"
+                    //                    + "}"
                     + " "//falso
                     + ""//falso
                     + "" //falso
@@ -198,7 +198,7 @@ public class cjs {
             System.out.println("ERROR :OOOO = " + ex);
         }
     }
-    
+
     public static void archivo2() {
         try {
             analizar("Dimv miVector : { 14 ,240 , 350 }; \n"
@@ -266,4 +266,36 @@ public class cjs {
         } catch (Exception e) {
         }
     }
+
+    public static void archivo3() {
+        try {
+            analizar(""
+                    + "Documento.Observador(\"listo\", mi_funcion()); \n"
+                    + "\n"
+                    + "Documento.Obtener(\"id_titulo\");\n"
+                    + "\n"
+                    + "\n"
+                    + "Dimv mi_boton : Documento.Obtener(\"mi_boton\"); \n"
+                    + "\n"
+                    + "Mi_boton.setElemento(\"ruta\", \"C:/…\");\n"
+                    + "\n"
+                    + "Documento.Obtener(\"mi_imagen\").setElemento (\"ruta\",\"~/rutanueva\");\n"
+                    + "\n"
+                    + "Documento.Observador(\"listo\", funcion(){ \n"
+                    + "	Imprimir(\"Documento listo\"); \n"
+                    + "	});\n"
+                    + "\n"
+                    + "Dimv mi_boton : Documento.Obtener(\"mi_boton\"); \n"
+                    + "funcion mi_funcion(){ \n"
+                    + "	imprimir(\"Estas dentro de mi_funcion\"); \n"
+                    + "} \n"
+                    + "\n"
+                    + "Mi_boton.Observador(\"clic\", mi_funcion());"
+                    + "");
+        } catch (Exception ex) {
+            Logger.getLogger(cjs.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERROR :OOOO = " + ex);
+        }
+    }
+
 }

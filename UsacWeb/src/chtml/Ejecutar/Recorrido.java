@@ -36,7 +36,13 @@ public class Recorrido {
                             Recorrido(raiz.hijos[0]);
                             result = Recorrido(raiz.hijos[1]);
                             // JPanel panel = (JPanel) Elementos.dibujar((Componente) result, 0);
-                            result = Elementos.dibujar((Componente) result, 0);
+                            try {
+                                html.componentes = (Componente) result;
+                                result = Elementos.dibujar((Componente) result, 0);
+
+                            } catch (Exception e) {
+                                System.out.println("Error al dibujar");
+                            }
                             break;
                     }
                     break;

@@ -1,7 +1,7 @@
 package usacweb;
 
 import chtml.chtml;
-import cjs.Ejecutar.EventoCJS;
+import cjs.Ejecutar.Documento;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -156,15 +156,18 @@ public class PanelPrincipal extends javax.swing.JPanel {
                 String texto = Metodos.abrir(ruta.getText());
                 int auxNum = chtml.html.numPagina;
                 ArrayList auxPaginas = chtml.html.listaPaginas;
+
                 for (int i = 0; i < UsacWeb.listaHTML.size(); i++) {
                     HTML html = UsacWeb.listaHTML.get(i);
 
                     if (html.nombre.equalsIgnoreCase(nombrePestania)) {
+                        html.numPagina = auxNum;
+                        html.listaPaginas = auxPaginas;
+
                         System.out.println("Nombre = " + nombrePestania);
                         UsacWeb.listaHTML.set(i, new HTML(nombrePestania));
                         html.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
-                        html.numPagina = auxNum;
-                        html.listaPaginas = auxPaginas;
+
                         try {
                             Object result = chtml.analizar(texto, html);
                             html.codigoCHTML = texto;
@@ -173,13 +176,14 @@ public class PanelPrincipal extends javax.swing.JPanel {
                             } else if (result instanceof JScrollPane) {
                                 crearHTML((JScrollPane) result);
                             }
-                            EventoCJS.verificarEvento("Documento", "Listo");
+                            Documento.verificarEvento("Documento", "Listo");
                         } catch (Exception ex) {
                             System.out.println("Error al analizar archivo: " + ruta.getText() + "\n" + ex);
                         }
                         html.pilaArchivo.pop();
                         html.numPagina++;
                         html.listaPaginas.add(ruta.getText());
+
                         break;
                     }
                 }
@@ -194,20 +198,22 @@ public class PanelPrincipal extends javax.swing.JPanel {
             }
 
             private void ActionPerformed(ActionEvent evt) {
-
+                int auxNum = chtml.html.numPagina;
+                ArrayList auxPaginas = chtml.html.listaPaginas;
                 for (int i = 0; i < UsacWeb.listaHTML.size(); i++) {
                     HTML html = UsacWeb.listaHTML.get(i);
 
                     if (html.nombre.equalsIgnoreCase(nombrePestania)) {
                         System.out.println("Nombre = " + nombrePestania);
-                        UsacWeb.listaHTML.set(i, chtml.html);
-                        html = chtml.html;
+                        UsacWeb.listaHTML.set(i, new HTML(chtml.html.nombre));
+                       // html = chtml.html;
                         html.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
-
-                        if (html.numPagina > 1) {
-                            String ruta = html.listaPaginas.get(html.numPagina);
-                            String texto = Metodos.abrir(ruta);
-
+                        html.numPagina = auxNum;
+                        html.listaPaginas = auxPaginas;
+                        if (html.numPagina - 2 >= 0) {
+                            String rutaAtras = html.listaPaginas.get(html.numPagina - 2);
+                            String texto = Metodos.abrir(rutaAtras);
+                            ruta.setText(rutaAtras);
                             try {
                                 Object result = chtml.analizar(texto, html);
                                 html.codigoCHTML = texto;
@@ -216,9 +222,9 @@ public class PanelPrincipal extends javax.swing.JPanel {
                                 } else if (result instanceof JScrollPane) {
                                     crearHTML((JScrollPane) result);
                                 }
-                                EventoCJS.verificarEvento("Documento", "Listo");
+                                Documento.verificarEvento("Documento", "Listo");
                             } catch (Exception ex) {
-                                System.out.println("Error al analizar archivo: " + ruta + "\n" + ex);
+                                System.out.println("Error al analizar archivo: " + rutaAtras + "\n" + ex);
                             }
                             html.pilaArchivo.pop();
                             html.numPagina--;
@@ -238,19 +244,24 @@ public class PanelPrincipal extends javax.swing.JPanel {
             }
 
             private void ActionPerformed(ActionEvent evt) {
+                int auxNum = chtml.html.numPagina;
+                ArrayList auxPaginas = chtml.html.listaPaginas;
                 for (int i = 0; i < UsacWeb.listaHTML.size(); i++) {
                     HTML html = UsacWeb.listaHTML.get(i);
 
                     if (html.nombre.equalsIgnoreCase(nombrePestania)) {
                         System.out.println("Nombre = " + nombrePestania);
-                        UsacWeb.listaHTML.set(i, chtml.html);
-                        html = chtml.html;
+                        UsacWeb.listaHTML.set(i, new HTML(chtml.html.nombre));
+                        //html = chtml.html;
                         html.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
+                        html.numPagina = auxNum;
+                        html.listaPaginas = auxPaginas;
 
-                        if (html.numPagina > 1) {
-                            String ruta = html.listaPaginas.get(html.numPagina);
-                            String texto = Metodos.abrir(ruta);
+                        if (html.numPagina < html.listaPaginas.size()) {
 
+                            String rutaAdelante = html.listaPaginas.get(html.numPagina);
+                            String texto = Metodos.abrir(rutaAdelante);
+                            ruta.setText(rutaAdelante);
                             try {
                                 Object result = chtml.analizar(texto, html);
                                 html.codigoCHTML = texto;
@@ -259,15 +270,15 @@ public class PanelPrincipal extends javax.swing.JPanel {
                                 } else if (result instanceof JScrollPane) {
                                     crearHTML((JScrollPane) result);
                                 }
-                                EventoCJS.verificarEvento("Documento", "Listo");
+                                Documento.verificarEvento("Documento", "Listo");
                             } catch (Exception ex) {
-                                System.out.println("Error al analizar archivo: " + ruta + "\n" + ex);
+                                System.out.println("Error al analizar archivo: " + rutaAdelante + "\n" + ex);
                             }
                             html.pilaArchivo.pop();
                             html.numPagina++;
                             break;
                         } else {
-                            JOptionPane.showMessageDialog(null, " No existe pagina anterior ", "WARNING", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(null, " No existe pagina siguiente ", "WARNING", JOptionPane.WARNING_MESSAGE);
                         }
                     }
                 }

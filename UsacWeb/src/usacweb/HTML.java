@@ -1,6 +1,8 @@
 package usacweb;
 
 import ccss.Ejecutar.Bloque;
+import chtml.Ejecutar.Componente;
+import cjs.Ejecutar.Elemento;
 import cjs.Ejecutar.Funcion;
 import cjs.Ejecutar.Variable;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.util.Stack;
 public class HTML {
 
     public String nombre;
+    public Componente componentes= null;
     //GLOBAL
     public Stack<String> pilaArchivo = new Stack();
     public String codigoCHTML;
@@ -25,6 +28,7 @@ public class HTML {
     public int nivelAmbito;
     public ArrayList<Variable> listaVariables = new ArrayList<>();
     public ArrayList<Funcion> listaFunciones = new ArrayList();
+    public ArrayList<Elemento> listaElementos = new ArrayList();
     //CCSS
     public ArrayList<Bloque> listaBloques = new ArrayList<>();
 

@@ -1919,6 +1919,9 @@ class CUP$SintacticoCJS$actions {
           case 59: // SET ::= documento punto obtener parentesisA OP parentesisC punto set parentesisA cadena coma OP parentesisC puntoComa 
             {
               Caracter RESULT =null;
+		int ileft = ((java_cup.runtime.Symbol)CUP$SintacticoCJS$stack.elementAt(CUP$SintacticoCJS$top-13)).left;
+		int iright = ((java_cup.runtime.Symbol)CUP$SintacticoCJS$stack.elementAt(CUP$SintacticoCJS$top-13)).right;
+		String i = (String)((java_cup.runtime.Symbol) CUP$SintacticoCJS$stack.elementAt(CUP$SintacticoCJS$top-13)).value;
 		int nleft = ((java_cup.runtime.Symbol)CUP$SintacticoCJS$stack.elementAt(CUP$SintacticoCJS$top-9)).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$SintacticoCJS$stack.elementAt(CUP$SintacticoCJS$top-9)).right;
 		Caracter n = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCJS$stack.elementAt(CUP$SintacticoCJS$top-9)).value;
@@ -1931,7 +1934,7 @@ class CUP$SintacticoCJS$actions {
 		 //8
     NodoCJS A = new NodoCJS("SET");
     RESULT = new Caracter();
-    A.insertar(new NodoCJS("documento.obtener(")); A.insertar(n.nodo);A.insertar(new NodoCJS(").setElemento("));  A.insertar(new NodoCJS(s)); A.insertar(new NodoCJS(","));A.insertar(m.nodo);
+    A.insertar(new NodoCJS("documento.obtener(",iright,ileft)); A.insertar(n.nodo);A.insertar(new NodoCJS(").setElemento("));  A.insertar(new NodoCJS(s)); A.insertar(new NodoCJS(","));A.insertar(m.nodo);
     A.insertar(new NodoCJS(")")); ; A.insertar(new NodoCJS(";"));
     RESULT.nodo = A;
 

@@ -458,10 +458,10 @@ DOCUMENTO::=documento punto obtener parentesisA OP:n parentesisC{: //2
 :};
 
 
-SET::=documento punto obtener parentesisA OP:n parentesisC punto set parentesisA cadena:s coma OP:m parentesisC puntoComa{: //8
+SET::=documento:i punto obtener parentesisA OP:n parentesisC punto set parentesisA cadena:s coma OP:m parentesisC puntoComa{: //8
     NodoCJS A = new NodoCJS("SET");
     RESULT = new Caracter();
-    A.insertar(new NodoCJS("documento.obtener(")); A.insertar(n.nodo);A.insertar(new NodoCJS(").setElemento("));  A.insertar(new NodoCJS(s)); A.insertar(new NodoCJS(","));A.insertar(m.nodo);
+    A.insertar(new NodoCJS("documento.obtener(",iright,ileft)); A.insertar(n.nodo);A.insertar(new NodoCJS(").setElemento("));  A.insertar(new NodoCJS(s)); A.insertar(new NodoCJS(","));A.insertar(m.nodo);
     A.insertar(new NodoCJS(")")); ; A.insertar(new NodoCJS(";"));
     RESULT.nodo = A;
 :}

@@ -394,20 +394,30 @@ public class Recorrido {
                 case "DOCUMENTO":
                     switch (raiz.cantidadHijos) {
                         case 2: //Obtener
+                            result = Recorrido(raiz.hijos[1]);
+                            result = Documento.obtener(result.toString());
                             break;
                         case 5: //observador
-                            EventoCJS.crearEvento("documento", raiz.hijos[1].texto.replace("\"", ""), raiz.hijos[3]);
+                            Documento.crearEvento("documento", raiz.hijos[1].texto.replace("\"", ""), raiz.hijos[3]);
                             break;
                         case 6://id
-                            EventoCJS.crearEvento(raiz.hijos[0].texto, raiz.hijos[2].texto.replace("\"", ""), raiz.hijos[4]);
+                            Documento.crearEvento(raiz.hijos[0].texto, raiz.hijos[2].texto.replace("\"", ""), raiz.hijos[4]);
                             break;
                     }
                     break;
                 case "SET":
                     switch (raiz.cantidadHijos) {
-                        case 7: //Obtener
+                        case 7: //set 
+                            for (int i = 0; i < html.listaElementos.size(); i++) {
+                                Elemento e = html.listaElementos.get(i);
+                                if (e.nombre.equalsIgnoreCase(raiz.hijos[0].texto));
+                                result = Recorrido(raiz.hijos[4]);
+                                Documento.setElemento(e.nombreElemento, raiz.hijos[2].texto.replace("\"", ""), result, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            }
                             break;
-                        case 8: //observador
+                        case 8: //set con obtener
+                            result = Recorrido(raiz.hijos[5]);
+                            Documento.setElemento(raiz.hijos[1].texto, raiz.hijos[3].texto.replace("\"", ""), result, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                     }
                     break;

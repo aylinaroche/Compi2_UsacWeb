@@ -1,20 +1,21 @@
 package cjs.Ejecutar;
 
+import chtml.Ejecutar.Componente;
 import java.util.ArrayList;
 import static chtml.chtml.html;
 import usacweb.Datos;
 
 public class VariableCJS {
 
-//    public static Stack<String> pilaAmbito = new Stack<>();
-//    public static int nivelAmbito = 0;
-//    public static ArrayList<Variable> html.listaVariables = new ArrayList();
     public static void crearVariable(String nombre, Object valor, int f, int c) {
 
         if (valor instanceof ArrayList) {
             ArrayList a = (ArrayList) valor;
             crearVector(nombre, a.size(), valor, f, c);
             return;
+        } else if (valor instanceof Componente) {
+            Componente comp = (Componente) valor;
+            chtml.chtml.html.listaElementos.add(new Elemento(nombre, comp.nombre, comp));
         }
         for (int i = 0; i < html.listaVariables.size(); i++) {
             Variable s = (Variable) html.listaVariables.get(i);

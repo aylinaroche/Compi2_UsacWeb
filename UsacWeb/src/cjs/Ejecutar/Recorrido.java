@@ -130,21 +130,6 @@ public class Recorrido {
                             break;
                     }
                     break;
-                case "ACCESO":
-                    switch (raiz.cantidadHijos) {
-                        case 3:
-                            if ("conteo".equalsIgnoreCase(raiz.hijos[2].texto)) {
-                                result = VariableCJS.obtenerTamanio(raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);
-                            } else {
-                                result = VariableCJS.obtenerCadena(raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);
-                            }
-                            break;
-                        case 4:
-                            result = Recorrido(raiz.hijos[2]);
-                            result = VariableCJS.obtenerVector(raiz.hijos[0].texto, result, raiz.hijos[0].fila, raiz.hijos[0].col);
-                            break;
-                    }
-                    break;
                 case "IF":
                     String condicion;
                     html.pilaAmbito.push("if");
@@ -343,6 +328,41 @@ public class Recorrido {
                             break;
                     }
                     break;
+                case "LLAMADAOPCION":
+                    switch (raiz.cantidadHijos) {
+                        case 1:
+                            result = Recorrido(raiz.hijos[0]);
+                            break;
+                        case 2:
+                            result = Recorrido(raiz.hijos[0]);
+                            Object opcion = Recorrido(raiz.hijos[1]);
+                            if (result instanceof ArrayList) {
+                                ArrayList vector = (ArrayList) result;
+
+                                if (opcion instanceof String) {
+                                    String op = (String) opcion;
+                                    if (op.equalsIgnoreCase("conteo")) {
+                                        result = vector.size();
+                                    } else {
+                                        String cadena = "{";
+                                        for (int j = 0; j < vector.size() - 1; j++) {
+                                            cadena += vector.get(j) + ",";
+                                        }
+                                        cadena += vector.get(vector.size() - 1) + "}";
+                                        result = cadena;
+                                    }
+                                } else {
+                                    if (opcion instanceof Integer) {
+                                        int pos = (Integer) opcion;
+                                        result = vector.get(pos);
+                                    }
+                                }
+                            }
+                            break;
+                    }
+                    retornar = false;
+                    salir = false;
+                    break;
                 case "LLAMADA":
                     switch (raiz.cantidadHijos) {
                         case 3:
@@ -356,6 +376,31 @@ public class Recorrido {
                     }
                     retornar = false;
                     salir = false;
+                    break;
+                case "ACCESO":
+                    switch (raiz.cantidadHijos) {
+                        case 3:
+                            if ("conteo".equalsIgnoreCase(raiz.hijos[2].texto)) {
+                                result = VariableCJS.obtenerTamanio(raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            } else {
+                                result = VariableCJS.obtenerCadena(raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            }
+                            break;
+                        case 4:
+                            result = Recorrido(raiz.hijos[2]);
+                            result = VariableCJS.obtenerVector(raiz.hijos[0].texto, result, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            break;
+                    }
+                    break;
+                case "ACCESO2":
+                    switch (raiz.cantidadHijos) {
+                        case 2:
+                            result = raiz.hijos[1].texto;
+                            break;
+                        case 3:
+                            result = Recorrido(raiz.hijos[1]);
+                            break;
+                    }
                     break;
                 case "VALORES":
                     switch (raiz.cantidadHijos) {
@@ -385,9 +430,9 @@ public class Recorrido {
                     break;
 
                 case "IMPRIMIR":
-                    String imp = Recorrido(raiz.hijos[2]).toString();
-                    if (imp != null) {
-                        //System.out.println(imp);
+                    result = Recorrido(raiz.hijos[2]);
+                    if (result != null) {
+                        String imp = result.toString();
                         Datos.agregarSalida(imp, raiz.hijos[0].fila, raiz.hijos[0].col);
                     }
                     break;
@@ -410,10 +455,15 @@ public class Recorrido {
                         case 7: //set 
                             for (int i = 0; i < html.listaElementos.size(); i++) {
                                 Elemento e = html.listaElementos.get(i);
-                                if (e.nombre.equalsIgnoreCase(raiz.hijos[0].texto));
-                                result = Recorrido(raiz.hijos[4]);
-                                Documento.setElemento(e.nombreElemento, raiz.hijos[2].texto.replace("\"", ""), result, raiz.hijos[0].fila, raiz.hijos[0].col);
+                                System.out.println("" + e.nombre + " - - - " + raiz.hijos[0].texto);
+                                if (e.nombre.equals(raiz.hijos[0].texto)) {
+                                    System.out.println("entro");
+                                    result = Recorrido(raiz.hijos[4]);
+                                    Documento.setElemento(e.nombreElemento, raiz.hijos[2].texto.replace("\"", ""), result, raiz.hijos[0].fila, raiz.hijos[0].col);
+                                    return null;
+                                }
                             }
+                            Datos.agregarError("Error Semantico", "No existe la variable " + raiz.hijos[0].texto + " para el SetElemento", 0, 0);
                             break;
                         case 8: //set con obtener
                             result = Recorrido(raiz.hijos[5]);

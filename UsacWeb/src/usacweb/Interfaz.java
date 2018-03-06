@@ -21,7 +21,7 @@ public class Interfaz extends javax.swing.JFrame {
     public static JTabbedPane panelPestanias = new JTabbedPane();
     public Image imagenFondo;
     public URL fondo;
-    int contPestania = 2;
+    public int contPestania = 2;
 
     public Interfaz() {
         setTitle("USAC WEB");

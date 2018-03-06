@@ -27,6 +27,7 @@ public class Enlace {
         enlace.setBackground(Color.WHITE);
         enlace.setForeground(Color.BLUE);
         enlace.setText(texto);
+        enlace.setName("");
         for (int i = 0; i < elementos.size(); i++) {
             try {
                 Estilo e = (Estilo) elementos.get(i);

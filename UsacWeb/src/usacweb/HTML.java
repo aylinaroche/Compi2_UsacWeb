@@ -16,6 +16,8 @@ public class HTML {
 
     public String nombre;
     public Componente componentes= null;
+    public String ruta;
+    public PanelPrincipal panel = null;
     //GLOBAL
     public Stack<String> pilaArchivo = new Stack();
     public String codigoCHTML;

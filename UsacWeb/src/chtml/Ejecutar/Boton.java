@@ -32,6 +32,7 @@ public class Boton {
         //Iniciar boton
         JButton boton = new JButton();
         boton.setText(texto);
+        boton.setName("");
         boton.setFont(new Font(letra, estilo, tamanio));
 
         for (int i = 0; i < elementos.size(); i++) {
@@ -128,6 +129,12 @@ public class Boton {
                                     tamanio = decimal.intValue();
                                 } else if (e2.valor instanceof Integer) {
                                     tamanio = Integer.parseInt(e2.valor.toString());
+                                } else if (e.valor instanceof String) {
+                                    try {
+                                        tamanio = Integer.parseInt((String) e.valor);
+                                    } catch (NumberFormatException ex) {
+                                        System.out.println("Problema al castear: "+ ex);
+                                    }
                                 }
                                 break;
                             case "visible":
@@ -174,6 +181,12 @@ public class Boton {
                         alto = decimal.intValue();
                     } else if (e.valor instanceof Integer) {
                         alto = Integer.parseInt(e.valor.toString());
+                    } else if (e.valor instanceof String) {
+                        try {
+                            alto = Integer.parseInt((String) e.valor);
+                        } catch (NumberFormatException ex) {
+                            System.out.println(ex);
+                        }
                     }
                 } else if (e.nombre.equalsIgnoreCase("ancho")) {
                     if (e.valor instanceof Double) {
@@ -181,6 +194,12 @@ public class Boton {
                         ancho = decimal.intValue();
                     } else if (e.valor instanceof Integer) {
                         ancho = Integer.parseInt(e.valor.toString());
+                    } else if (e.valor instanceof String) {
+                        try {
+                            ancho = Integer.parseInt((String) e.valor);
+                        } catch (NumberFormatException ex) {
+                            System.out.println(ex);
+                        }
                     }
                 } else if (e.nombre.equalsIgnoreCase("alineado")) {
                     switch (e.valor.toString()) {
@@ -246,7 +265,7 @@ public class Boton {
         return resultado;
     }
 
-    public static Componente cambiarBoton(JButton boton, String atributo, Object valor, int f, int c) {
+    public static Componente modificarBoton(JButton boton, String atributo, Object valor, int f, int c) {
         String letra = boton.getFont().getFontName();
         int tamanio = boton.getFont().getSize();
         int estilo = boton.getFont().getStyle();

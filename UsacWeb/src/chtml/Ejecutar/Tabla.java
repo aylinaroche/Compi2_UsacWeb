@@ -25,6 +25,7 @@ public class Tabla {
         int alto = 500, ancho = 1000;
 
         JTable tabla = new JTable();
+        tabla.setName("");
         tabla.setLayout(new BorderLayout());
 
         for (int i = 0; i < elementos.size(); i++) {

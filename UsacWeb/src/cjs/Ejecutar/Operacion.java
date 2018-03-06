@@ -23,6 +23,8 @@ public class Operacion {
                 switch (dato) {
                     case "ACCESO":
                     case "DOCUMENTO":
+                    case "LLAMADAOPCION":
+                    case "VALORES":
                     case "E":
                         Recorrido r = new Recorrido();
                         Object result = r.Recorrido(nodo.hijos[0]);
@@ -1070,6 +1072,10 @@ public class Operacion {
                         Datos.agregarError("Error Semantico", "Error al operar ||", nodo.hijos[1].fila, nodo.hijos[1].col);
                         return false;
                     default: //(E)
+                        if(nodo.hijos[1].texto.equalsIgnoreCase("valores")){
+                            Recorrido r = new Recorrido();
+                            return r.Recorrido(nodo.hijos[1]);
+                        }
                         return expresion(nodo.hijos[1]);
                 }
         }

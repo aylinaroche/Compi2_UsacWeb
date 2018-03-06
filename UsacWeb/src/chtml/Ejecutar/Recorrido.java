@@ -3,6 +3,7 @@ package chtml.Ejecutar;
 import ccss.Ejecutar.Estilo;
 import chtml.NodoCHTML;
 import static chtml.chtml.html;
+import cjs.Ejecutar.Documento;
 import java.util.ArrayList;
 import usacweb.Datos;
 import usacweb.Metodos;
@@ -39,7 +40,6 @@ public class Recorrido {
                             try {
                                 html.componentes = (Componente) result;
                                 result = Elementos.dibujar((Componente) result, 0);
-
                             } catch (Exception e) {
                                 System.out.println("Error al dibujar");
                             }
@@ -170,21 +170,21 @@ public class Recorrido {
                 case "TEXTO":
                     switch (raiz.cantidadHijos) {
                         case 2:
-                            result = CajaArea.crearTexto(new ArrayList(), " ", false, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            result = CajaArea.crearArea(new ArrayList(), " ", false, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                         case 3:
                             if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
                                 result = Recorrido(raiz.hijos[1]);
-                                result = CajaArea.crearTexto((ArrayList) result, " ", false, raiz.hijos[0].fila, raiz.hijos[0].col);
+                                result = CajaArea.crearArea((ArrayList) result, " ", false, raiz.hijos[0].fila, raiz.hijos[0].col);
                             } else {
                                 String texto = raiz.hijos[1].texto.replace(">", "").replace("<", "");
-                                result = CajaArea.crearTexto(new ArrayList(), texto, false, raiz.hijos[0].fila, raiz.hijos[0].col);
+                                result = CajaArea.crearArea(new ArrayList(), texto, false, raiz.hijos[0].fila, raiz.hijos[0].col);
                             }
                             break;
                         case 4:
                             ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
                             String texto = raiz.hijos[2].texto.replace(">", "").replace("<", "");
-                            result = CajaArea.crearTexto(elem, texto, false, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            result = CajaArea.crearArea(elem, texto, false, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                     }
                     break;
@@ -369,21 +369,21 @@ public class Recorrido {
                 case "TEXTOA":
                     switch (raiz.cantidadHijos) {
                         case 2:
-                            result = CajaArea.crearTexto(new ArrayList(), "", true, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            result = CajaArea.crearArea(new ArrayList(), "", true, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                         case 3:
                             if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
                                 result = Recorrido(raiz.hijos[1]);
-                                result = CajaArea.crearTexto((ArrayList) result, "", true, raiz.hijos[0].fila, raiz.hijos[0].col);
+                                result = CajaArea.crearArea((ArrayList) result, "", true, raiz.hijos[0].fila, raiz.hijos[0].col);
                             } else {
                                 String texto = raiz.hijos[1].texto.replace(">", "").replace("<", "");
-                                result = CajaArea.crearTexto(new ArrayList(), texto, true, raiz.hijos[0].fila, raiz.hijos[0].col);
+                                result = CajaArea.crearArea(new ArrayList(), texto, true, raiz.hijos[0].fila, raiz.hijos[0].col);
                             }
                             break;
                         case 4:
                             ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
                             String texto = raiz.hijos[2].texto.replace(">", "").replace("<", "");
-                            result = CajaArea.crearTexto(elem, texto, true, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            result = CajaArea.crearArea(elem, texto, true, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                     }
                     break;

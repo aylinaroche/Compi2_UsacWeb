@@ -37,7 +37,7 @@ conteo,fecha,hora;
 
 non terminal Caracter INICIO,INSTRUCCIONES,FUNCION,LLAMADA,IF,ELSE,CICLO,SWITCH,PARAMETROS,OP,CASO,VALORES,
 IMPRIMIR,ASIGNACION,INSTRUCCION,OPCION,VARIABLE,DEFECTO,E,ASIGNAR,PARA,MENSAJE,DOCUMENTO,SET,ACCESO,VECTOR,
-OPERADOR,MasVARIABLE;
+OPERADOR,MasVARIABLE,LLAMADAOPCION,ACCESO2;
 
 precedence left mas, menos;
 precedence left por, dividido;
@@ -249,12 +249,6 @@ ASIGNAR ::= dosPuntos OP:n{:
     NodoCJS ASIGNAR = new NodoCJS("ASIGNAR");
     RESULT = new Caracter();
     ASIGNAR.insertar(new NodoCJS(":"));  ASIGNAR.insertar(n.nodo);
-    RESULT.nodo = ASIGNAR;
-:}
-|dosPuntos llaveA VALORES:v llaveC{://1
-    NodoCJS ASIGNAR = new NodoCJS("ASIGNAR");
-    RESULT = new Caracter();
-    ASIGNAR.insertar(new NodoCJS(":"));  ASIGNAR.insertar(new NodoCJS("{")); ASIGNAR.insertar(v.nodo);  ASIGNAR.insertar(new NodoCJS("}")); 
     RESULT.nodo = ASIGNAR;
 :};
 
@@ -474,6 +468,20 @@ SET::=documento:i punto obtener parentesisA OP:n parentesisC punto set parentesi
 :};
 
 
+LLAMADAOPCION::=LLAMADA:n ACCESO2:a{: 
+    NodoCJS A = new NodoCJS("LLAMADAOPCION");
+    RESULT = new Caracter();
+    A.insertar(n.nodo); A.insertar(a.nodo); 
+    RESULT.nodo = A;
+:}
+|LLAMADA:a{: 
+    NodoCJS A = new NodoCJS("LLAMADAOPCION");
+    RESULT = new Caracter();
+    A.insertar(a.nodo); 
+    RESULT.nodo = A;
+:};
+
+
 LLAMADA::=id:i parentesisA parentesisC{: //3
     NodoCJS INSTANCIA = new NodoCJS("LLAMADA");
     RESULT = new Caracter();
@@ -504,6 +512,26 @@ ACCESO::=id:i llaveA OP:n llaveC{:
     NodoCJS A = new NodoCJS("ACCESO");
     RESULT = new Caracter();
     A.insertar(new NodoCJS(i,iright,ileft)); A.insertar(new NodoCJS(".")); A.insertar(new NodoCJS("atexto()")); 
+    RESULT.nodo = A;
+:};
+
+
+ACCESO2::= llaveA OP:n llaveC{: 
+    NodoCJS A = new NodoCJS("ACCESO2");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS("{")); A.insertar(n.nodo); A.insertar(new NodoCJS("}")); 
+    RESULT.nodo = A;
+:}
+|punto conteo{: 
+    NodoCJS A = new NodoCJS("ACCESO2");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS(".")); A.insertar(new NodoCJS("conteo")); 
+    RESULT.nodo = A;
+:}
+|punto atexto{: 
+    NodoCJS A = new NodoCJS("ACCESO2");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS(".")); A.insertar(new NodoCJS("atexto()")); 
     RESULT.nodo = A;
 :};
 
@@ -690,4 +718,16 @@ E::=parentesisA E:a parentesisC{:
     NodoCJS E = new NodoCJS("E");
     E.insertar(i.nodo);
     RESULT.nodo = E;
+:}
+|LLAMADAOPCION:i{:
+    RESULT = new Caracter();
+    NodoCJS E = new NodoCJS("E");
+    E.insertar(i.nodo);
+    RESULT.nodo = E;
+:}
+|llaveA VALORES:v llaveC{://1
+    NodoCJS ASIGNAR = new NodoCJS("E");
+    RESULT = new Caracter();
+    ASIGNAR.insertar(new NodoCJS("{")); ASIGNAR.insertar(v.nodo);  ASIGNAR.insertar(new NodoCJS("}")); 
+    RESULT.nodo = ASIGNAR;
 :};

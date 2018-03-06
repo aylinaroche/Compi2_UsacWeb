@@ -34,8 +34,10 @@ public class FuncionCJS {
                     parametro.clear();
                     Recorrido r = new Recorrido();
                     retorno = r.Recorrido(mf.nodo);
+                    VariableCJS.eliminarVariables();
                     html.nivelAmbito--;
                     html.pilaAmbito.pop();
+                    html.listaElementos.clear();
                     return retorno;
                 }
                 if (parametro.size() == mf.parametro.size()) {
@@ -50,6 +52,7 @@ public class FuncionCJS {
                     VariableCJS.eliminarVariables();
                     html.nivelAmbito--;
                     html.pilaAmbito.pop();
+                    html.listaElementos.clear();
                     return retorno;
                 }
             }

@@ -24,6 +24,7 @@ public class Imagen {
         JButton boton = new JButton();
         boton.setBackground(Color.WHITE);
         Boolean correcta = false;
+        boton.setName("");
 
         for (int i = 0; i < elementos.size(); i++) {
             try {

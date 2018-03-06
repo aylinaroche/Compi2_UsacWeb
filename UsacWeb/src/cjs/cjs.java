@@ -37,7 +37,7 @@ public class cjs {
             System.out.println(e);
         }
         html.pilaArchivo.push("ArchivoPrueba.cjs");
-        archivo3();
+        archivo4();
         // VariableCJS.imprimir();
     }
 
@@ -80,32 +80,32 @@ public class cjs {
     public static void archivo1() {
         try {
             analizar(""
-                    //                    + "DimV NOMBRE: \"Henry\"; \n"
-                    //                    + "Nombre: \"Julia\";\n"
-                    //                    + "\n"
-                    //                    + "Dimv miVector : { 14 ,240 , 350 };\n"
-                    //                    + "Dimv nombres : {\"Hola\", \"Mundo\" , \"Otra\" , \"Vez\" };\n"
-                    //                    + "DimV nuevoVector : { \"Hola\" , \"Mundo\" , 1 , 2 , 3 };\n"
-                    //                    + "DimV vectorEstatico{3}; \n"
-                    //                    + "vectorEstatico : { \"H ola\" , \"Otravez\" , 250}; \n"
-                    //                    + "DimV miNumero: 4; \n"
-                    //                    + "DimV vector_miNumero{miNumero};\n"
-                    //                    + "vectorEstatico : { 51 , 200 , 40 , 56};\n"
-                    //                    + "DimV valorVector; \n"
-                    //                    + "Dimv miVector : { 14 ,240 , 350 }; \n"
-                    //                    + "'Modificación del vector en la primera posición \n"
-                    //                    + "miVector{0} : 100; \n"
-                    //                    + "'Obtener valor del vector\n"
-                    //                    + "valorVector : miVector{0}; \n"
-                    //                    + "miVector{2} : valorVector + miVector{1};\n"
-                    //                    + "\n"
-                    //                    + "DimV tamanioVector;\n"
-                    //                    + " 'Obtener el tamanio de la lista 'El tamanio de la lista es 3 \n"
-                    //                    + " tamanioVector : miVector.Conteo;\n"
-                    //                    + " \n"
-                    //                    + " DimV miCadena; \n"
-                    //                    + " DimV miLista : { \"hola\" , 1 , 2 , 3 , \"prueba\" }; \n"
-                    //                    + " MiCadena : miLista.aTexto();\n"
+                                        + "DimV NOMBRE: \"Henry\"; \n"
+                                        + "Nombre: \"Julia\";\n"
+                                        + "\n"
+                                        + "Dimv miVector : { 14 ,240 , 350 };\n"
+                                        + "Dimv nombres : {\"Hola\", \"Mundo\" , \"Otra\" , \"Vez\" };\n"
+                                        + "DimV nuevoVector : { \"Hola\" , \"Mundo\" , 1 , 2 , 3 };\n"
+                                        + "DimV vectorEstatico{3}; \n"
+                                        + "vectorEstatico : { \"H ola\" , \"Otravez\" , 250}; \n"
+                                        + "DimV miNumero: 4; \n"
+                                        + "DimV vector_miNumero{miNumero};\n"
+                                        + "vectorEstatico : { 51 , 200 , 40 , 56};\n"
+                                        + "DimV valorVector; \n"
+                                        + "Dimv miVector : { 14 ,240 , 350 }; \n"
+                                        + "'Modificación del vector en la primera posición \n"
+                                        + "miVector{0} : 100; \n"
+                                        + "'Obtener valor del vector\n"
+                                        + "valorVector : miVector{0}; \n"
+                                        + "miVector{2} : valorVector + miVector{1};\n"
+                                        + "\n"
+                                        + "DimV tamanioVector;\n"
+                                        + " 'Obtener el tamanio de la lista 'El tamanio de la lista es 3 \n"
+                                        + " tamanioVector : miVector.Conteo;\n"
+                                        + " \n"
+                                        + " DimV miCadena; \n"
+                                        + " DimV miLista : { \"hola\" , 1 , 2 , 3 , \"prueba\" }; \n"
+                                        + " MiCadena : miLista.aTexto();\n"
                     //                    + " \n"
                     //                    + " DimV a:15; \n"
                     //                    + " DimV b; \n"
@@ -298,4 +298,29 @@ public class cjs {
         }
     }
 
+    public static void archivo4() {
+        try {
+            analizar(""
+                    + "funcion valorMayor(x,y){\n"
+                    + "Dimv miVector : { 14 ,240 , 350 };\n"
+                    + "\n"
+                    + "	si(x>y){\n"
+                    + "		imprimir(x);\n"
+                    + "	}sino{\n"
+                    + "		imprimir(y);\n"
+                    + "	}\n"
+                    + "	retornar {5,6,7};\n"
+                    + "\n"
+                    + "}\n"
+                    + "\n"
+                    + "imprimir(\"La funcion es:\" +valorMayor(5,10).atexto());\n"
+                    + "\n"
+                    + "imprimir(valorMayor(10,5){1});\n"
+                    + "		"
+                    + "");
+        } catch (Exception ex) {
+            Logger.getLogger(cjs.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERROR :OOOO = " + ex);
+        }
+    }
 }

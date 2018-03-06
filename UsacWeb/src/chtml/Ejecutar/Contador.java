@@ -30,6 +30,7 @@ public class Contador {
         JSpinner spinner = new JSpinner();
         spinner.setFont(new Font(letra, estilo, tamanio));
         spinner.setValue(0);
+        spinner.setName("");
         try {
             int cont = Integer.parseInt(texto);
             spinner.setValue(cont);

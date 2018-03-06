@@ -32,6 +32,7 @@ public class CajaTexto {
         caja.setText(texto);
         caja.setFont(new Font(letra, estilo, tamanio));
         caja.setBackground(new Color(255, 255, 255));
+        caja.setName("");
 
         for (int i = 0; i < elementos.size(); i++) {
             try {

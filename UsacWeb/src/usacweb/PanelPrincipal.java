@@ -20,7 +20,7 @@ import static usacweb.UsacWeb.listaFavoritos;
 
 public class PanelPrincipal extends javax.swing.JPanel {
 
-    JTextField ruta = new JTextField();
+    public JTextField ruta = new JTextField();
     JTextArea prueba = new JTextArea();
     PanelSecundario panel = new PanelSecundario();
     JButton botonAtras = new JButton();
@@ -29,7 +29,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
     JButton botonOpciones = new JButton();
     JButton botonHistorial = new JButton();
     JButton botonFavorito = new JButton();
-    static String rutaAux = "C:\\Users\\Aroche\\Documents\\Archivos\\Prueba1.chtml";
+    static String rutaAux = "C:\\Users\\Aroche\\Documents\\Archivos\\Paso4.chtml";
     String nombrePestania = "";
 
     Box boxV1 = Box.createVerticalBox();
@@ -167,7 +167,8 @@ public class PanelPrincipal extends javax.swing.JPanel {
                         System.out.println("Nombre = " + nombrePestania);
                         UsacWeb.listaHTML.set(i, new HTML(nombrePestania));
                         html.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
-
+                        html.ruta = ruta.getText();
+                        
                         try {
                             Object result = chtml.analizar(texto, html);
                             html.codigoCHTML = texto;
@@ -176,7 +177,6 @@ public class PanelPrincipal extends javax.swing.JPanel {
                             } else if (result instanceof JScrollPane) {
                                 crearHTML((JScrollPane) result);
                             }
-                            Documento.verificarEvento("Documento", "Listo");
                         } catch (Exception ex) {
                             System.out.println("Error al analizar archivo: " + ruta.getText() + "\n" + ex);
                         }
@@ -188,6 +188,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
                     }
                 }
                 UsacWeb.agregarHistorial(ruta.getText());
+                Documento.verificarEvento("Documento", "Listo");
             }
         });
 
@@ -206,7 +207,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
                     if (html.nombre.equalsIgnoreCase(nombrePestania)) {
                         System.out.println("Nombre = " + nombrePestania);
                         UsacWeb.listaHTML.set(i, new HTML(chtml.html.nombre));
-                       // html = chtml.html;
+                        // html = chtml.html;
                         html.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
                         html.numPagina = auxNum;
                         html.listaPaginas = auxPaginas;

@@ -42,6 +42,10 @@ cb          = "<"[\ \t\n\r\f]*"CB"
 fincb       = "FIN-CB"[\ \t\n\r\f]*">"
 ct          = "<"[\ \t\n\r\f]*"CT"
 finct       = "FIN-CT"[\ \t\n\r\f]*">"
+
+ct2          = "<"[\ \t\n\r\f]*"CT"[\ \t\n\r\f]*">"
+finct2       = "<"[\ \t\n\r\f]*"FIN-CT"[\ \t\n\r\f]*">"
+
 textoa      = "<"[\ \t\n\r\f]*"TEXTO_A"
 fintextoa   = "FIN-TEXTO_A"[\ \t\n\r\f]*">"
 cajatexto   = "<"[\ \t\n\r\f]*"CAJA_TEXTO"
@@ -64,7 +68,7 @@ Sin= [^\r|\n]
 Comentario = "<//" [^/] ~"//>" | "<//" "/"+ "//>"
 
 CadenaComillas = "\"" {SinSaltos}* ~"\"" |  “ {SinSaltos}* ~” |” {SinSaltos}* ~”
-CadenaSinSaltos   = ">"[\ \t\n\r\f]*([A-Za-z]|[0-9]|[@]|[-]|[+]|[/]|[\\]|[*]|[=]|[.]|[,]|[{]|[}]|[']|[;]|[:]|[%]|[$]|[#])[^"\n"]*"<"
+CadenaSinSaltos   = ">"[\ \t\n\r\f]*([A-Za-z]|[0-9]|[@]|[-]|[+]|[/]|[\\]|[*]|[=]|[.]|[,]|[{]|[}]|[']|[;]|[:]|[%]|[$]|[#])[^"\n"|"<"]*"<"
 CadenaConSaltos  = ">"[\ \t\n\r\f]*([A-Za-z0-9]|[@]|[-]|[+]|[/]|[\\]|[*]|[=]|[.]|[,]|[{]|[}]|[']|[;]|[:]|[%]|[$]|[#])([^[<]]+([\n]))([^[<]]+)"<"
 
 

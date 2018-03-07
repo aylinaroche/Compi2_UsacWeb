@@ -455,9 +455,8 @@ public class Recorrido {
                         case 7: //set 
                             for (int i = 0; i < html.listaElementos.size(); i++) {
                                 Elemento e = html.listaElementos.get(i);
-                                System.out.println("" + e.nombre + " - - - " + raiz.hijos[0].texto);
+                                //System.out.println("" + e.nombre + " - - - " + raiz.hijos[0].texto);
                                 if (e.nombre.equals(raiz.hijos[0].texto)) {
-                                    System.out.println("entro");
                                     result = Recorrido(raiz.hijos[4]);
                                     Documento.setElemento(e.nombreElemento, raiz.hijos[2].texto.replace("\"", ""), result, raiz.hijos[0].fila, raiz.hijos[0].col);
                                     return null;

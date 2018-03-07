@@ -17,8 +17,10 @@ public class sym {
   public static final int finspinner = 45;
   public static final int fincaja = 40;
   public static final int imagen = 23;
+  public static final int ct2 = 64;
   public static final int idd = 51;
   public static final int igual = 61;
+  public static final int finct2 = 65;
   public static final int filt = 31;
   public static final int alto = 48;
   public static final int panel = 16;
@@ -136,7 +138,9 @@ public class sym {
   "cadenasin",
   "igual",
   "mayor",
-  "menor"
+  "menor",
+  "ct2",
+  "finct2"
   };
 }
 

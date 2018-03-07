@@ -120,7 +120,18 @@ public class CajaOpcion {
                                 letra = (String) e2.valor;
                                 break;
                             case "tamtex":
-                                tamanio = Integer.parseInt(e2.valor.toString());
+                                if (e2.valor instanceof Double) {
+                                    Double decimal = (Double) e2.valor;
+                                    tamanio = decimal.intValue();
+                                } else if (e2.valor instanceof Integer) {
+                                    tamanio = Integer.parseInt(e2.valor.toString());
+                                } else if (e.valor instanceof String) {
+                                    try {
+                                        tamanio = Integer.parseInt((String) e.valor);
+                                    } catch (NumberFormatException ex) {
+                                        System.out.println("Problema al castear: " + ex);
+                                    }
+                                }
                                 break;
                             case "visible":
                                 combo.setVisible(false);
@@ -161,9 +172,31 @@ public class CajaOpcion {
                     Color color = convertirColor((String) e.valor);
                     combo.setBackground(color);
                 } else if (e.nombre.equalsIgnoreCase("alto")) {
-                    alto = Integer.parseInt((String) e.valor);
+                    if (e.valor instanceof Double) {
+                        Double decimal = (Double) e.valor;
+                        alto = decimal.intValue();
+                    } else if (e.valor instanceof Integer) {
+                        alto = Integer.parseInt(e.valor.toString());
+                    } else if (e.valor instanceof String) {
+                        try {
+                            alto = Integer.parseInt((String) e.valor);
+                        } catch (NumberFormatException ex) {
+                            System.out.println(ex);
+                        }
+                    }
                 } else if (e.nombre.equalsIgnoreCase("ancho")) {
-                    ancho = Integer.parseInt((String) e.valor);
+                    if (e.valor instanceof Double) {
+                        Double decimal = (Double) e.valor;
+                        ancho = decimal.intValue();
+                    } else if (e.valor instanceof Integer) {
+                        ancho = Integer.parseInt(e.valor.toString());
+                    } else if (e.valor instanceof String) {
+                        try {
+                            ancho = Integer.parseInt((String) e.valor);
+                        } catch (NumberFormatException ex) {
+                            System.out.println(ex);
+                        }
+                    }
                 } else if (e.nombre.equalsIgnoreCase("alineado")) {
                     switch (e.valor.toString()) {
                         case "izquierda":
@@ -224,17 +257,15 @@ public class CajaOpcion {
         return resultado;
     }
 
-    public static Componente modificarCajaOpcion(JComboBox area, String nombre, Object valor, int f, int c) {
+    public static Componente modificarCajaOpcion(JComboBox combo, String nombre, Object valor, int f, int c) {
 
-        String letra = area.getFont().getFontName();
-        int tamanio = area.getFont().getSize();
-        int estilo = area.getFont().getStyle();
-        int alto = area.getHeight();
-        int ancho = area.getWidth();
+        String letra = combo.getFont().getFontName();
+        int tamanio = combo.getFont().getSize();
+        int estilo = combo.getFont().getStyle();
+        int alto = combo.getHeight();
+        int ancho = combo.getWidth();
         int estilo2 = 0;
-        JComboBox combo = new JComboBox();
-        combo.setFont(new Font(letra, estilo, tamanio));
-
+     
         if (nombre.equalsIgnoreCase("id") || nombre.equalsIgnoreCase("grupo")) {
             ArrayList listaCCSS = BloqueCCSS.obtenerBloque(nombre, (String) valor);
             if (nombre.equalsIgnoreCase("id")) {
@@ -321,7 +352,18 @@ public class CajaOpcion {
                         letra = (String) e2.valor;
                         break;
                     case "tamtex":
-                        tamanio = Integer.parseInt(e2.valor.toString());
+                        if (e2.valor instanceof Double) {
+                            Double decimal = (Double) e2.valor;
+                            tamanio = decimal.intValue();
+                        } else if (e2.valor instanceof Integer) {
+                            tamanio = Integer.parseInt(e2.valor.toString());
+                        } else if (e2.valor instanceof String) {
+                            try {
+                                tamanio = Integer.parseInt((String) e2.valor);
+                            } catch (NumberFormatException ex) {
+                                System.out.println("Problema al castear: " + ex);
+                            }
+                        }
                         break;
                     case "visible":
                         combo.setVisible(false);
@@ -362,9 +404,31 @@ public class CajaOpcion {
             Color color = convertirColor((String) valor);
             combo.setBackground(color);
         } else if (nombre.equalsIgnoreCase("alto")) {
-            alto = Integer.parseInt((String) valor);
+            if (valor instanceof Double) {
+                Double decimal = (Double) valor;
+                alto = decimal.intValue();
+            } else if (valor instanceof Integer) {
+                alto = Integer.parseInt(valor.toString());
+            } else if (valor instanceof String) {
+                try {
+                    alto = Integer.parseInt((String) valor);
+                } catch (NumberFormatException ex) {
+                    System.out.println(ex);
+                }
+            }
         } else if (nombre.equalsIgnoreCase("ancho")) {
-            ancho = Integer.parseInt((String) valor);
+            if (valor instanceof Double) {
+                Double decimal = (Double) valor;
+                ancho = decimal.intValue();
+            } else if (valor instanceof Integer) {
+                ancho = Integer.parseInt(valor.toString());
+            } else if (valor instanceof String) {
+                try {
+                    ancho = Integer.parseInt((String) valor);
+                } catch (NumberFormatException ex) {
+                    System.out.println(ex);
+                }
+            }
         } else if (nombre.equalsIgnoreCase("alineado")) {
             switch (valor.toString()) {
                 case "izquierda":

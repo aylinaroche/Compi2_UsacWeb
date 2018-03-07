@@ -3,7 +3,6 @@ package chtml.Ejecutar;
 import ccss.Ejecutar.Estilo;
 import chtml.NodoCHTML;
 import static chtml.chtml.html;
-import cjs.Ejecutar.Documento;
 import java.util.ArrayList;
 import usacweb.Datos;
 import usacweb.Metodos;
@@ -39,7 +38,8 @@ public class Recorrido {
                             // JPanel panel = (JPanel) Elementos.dibujar((Componente) result, 0);
                             try {
                                 html.componentes = (Componente) result;
-                                result = Elementos.dibujar((Componente) result, 0);
+                                html.componentesAux = (Componente) result;
+                                result = Elementos.dibujar((Componente) result, 0, true);
                             } catch (Exception e) {
                                 System.out.println("Error al dibujar");
                             }
@@ -346,8 +346,8 @@ public class Recorrido {
                             break;
                         case 3:
                             if (raiz.hijos[0].texto.equalsIgnoreCase("<cb")) {
-                                result = Recorrido(raiz.hijos[1]);
-                                result = new Componente("cb", "Texto", result, new ArrayList());
+                                String texto = raiz.hijos[1].texto.replace(">", "").replace("<", "");
+                                result = new Componente("cb", "texto", texto, new ArrayList());
                             } else {
                                 result = Recorrido(raiz.hijos[1]);
                                 result = new Componente("ct", "texto", result, new ArrayList());

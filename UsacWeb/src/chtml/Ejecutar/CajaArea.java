@@ -161,6 +161,14 @@ public class CajaArea {
                                     tamanio = Integer.parseInt(e2.valor.toString());
                                     StyleConstants.setFontSize(attribs, tamanio);
                                     area.setParagraphAttributes(attribs, true);
+                                } else if (e.valor instanceof String) {
+                                    try {
+                                        tamanio = Integer.parseInt((String) e.valor);
+                                        StyleConstants.setFontSize(attribs, tamanio);
+                                        area.setParagraphAttributes(attribs, true);
+                                    } catch (NumberFormatException ex) {
+                                        System.out.println(ex);
+                                    }
                                 }
                                 break;
                             case "visible":
@@ -171,7 +179,6 @@ public class CajaArea {
                                 break;
                             case "colortext":
                                 Color colorT = convertirColor(e2.valor.toString());
-                                //area.setForeground(colorT);
                                 StyleConstants.setForeground(attribs, colorT);
                                 area.setParagraphAttributes(attribs, true);
                                 break;
@@ -208,9 +215,31 @@ public class CajaArea {
                     Color color = convertirColor((String) e.valor);
                     area.setBackground(color);
                 } else if (e.nombre.equalsIgnoreCase("alto")) {
-                    alto = Integer.parseInt((String) e.valor);
+                    if (e.valor instanceof Double) {
+                        Double decimal = (Double) e.valor;
+                        alto = decimal.intValue();
+                    } else if (e.valor instanceof Integer) {
+                        alto = Integer.parseInt(e.valor.toString());
+                    } else if (e.valor instanceof String) {
+                        try {
+                            alto = Integer.parseInt((String) e.valor);
+                        } catch (NumberFormatException ex) {
+                            System.out.println("Problema al castear: " + ex);
+                        }
+                    }
                 } else if (e.nombre.equalsIgnoreCase("ancho")) {
-                    ancho = Integer.parseInt((String) e.valor);
+                    if (e.valor instanceof Double) {
+                        Double decimal = (Double) e.valor;
+                        ancho = decimal.intValue();
+                    } else if (e.valor instanceof Integer) {
+                        ancho = Integer.parseInt(e.valor.toString());
+                    } else if (e.valor instanceof String) {
+                        try {
+                            ancho = Integer.parseInt((String) e.valor);
+                        } catch (NumberFormatException ex) {
+                            System.out.println("Problema al castear: " + ex);
+                        }
+                    }
                 } else if (e.nombre.equalsIgnoreCase("alineado")) {
                     switch (e.valor.toString()) {
                         case "izquierda":
@@ -381,6 +410,14 @@ public class CajaArea {
                             tamanio = Integer.parseInt(e2.valor.toString());
                             StyleConstants.setFontSize(attribs, tamanio);
                             area.setParagraphAttributes(attribs, true);
+                        } else if (e2.valor instanceof String) {
+                            try {
+                                tamanio = Integer.parseInt((String) e2.valor);
+                                StyleConstants.setFontSize(attribs, tamanio);
+                                area.setParagraphAttributes(attribs, true);
+                            } catch (NumberFormatException ex) {
+                                System.out.println(ex);
+                            }
                         }
                         break;
                     case "visible":
@@ -428,9 +465,31 @@ public class CajaArea {
             Color color = convertirColor((String) valor);
             area.setBackground(color);
         } else if (nombre.equalsIgnoreCase("alto")) {
-            alto = Integer.parseInt((String) valor);
+            if (valor instanceof Double) {
+                Double decimal = (Double) valor;
+                alto = decimal.intValue();
+            } else if (valor instanceof Integer) {
+                alto = Integer.parseInt(valor.toString());
+            } else if (valor instanceof String) {
+                try {
+                    alto = Integer.parseInt((String) valor);
+                } catch (NumberFormatException ex) {
+                    System.out.println("Problema al castear: " + ex);
+                }
+            }
         } else if (nombre.equalsIgnoreCase("ancho")) {
-            ancho = Integer.parseInt((String) valor);
+            if (valor instanceof Double) {
+                Double decimal = (Double) valor;
+                ancho = decimal.intValue();
+            } else if (valor instanceof Integer) {
+                ancho = Integer.parseInt(valor.toString());
+            } else if (valor instanceof String) {
+                try {
+                    ancho = Integer.parseInt((String) valor);
+                } catch (NumberFormatException ex) {
+                    System.out.println("Problema al castear: " + ex);
+                }
+            }
         } else if (nombre.equalsIgnoreCase("alineado")) {
             switch (valor.toString()) {
                 case "izquierda":
@@ -456,8 +515,6 @@ public class CajaArea {
             Datos.agregarError("Error Semantico", "Atributo " + nombre + " incorrecto en area de texto", f, c);
         }
 
-//SETEAR VALORES 
-//FONT
         try {
             area.setFont(new Font(letra, estilo, tamanio));
         } catch (Exception e) {

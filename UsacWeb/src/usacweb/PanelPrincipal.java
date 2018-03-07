@@ -29,8 +29,11 @@ public class PanelPrincipal extends javax.swing.JPanel {
     JButton botonOpciones = new JButton();
     JButton botonHistorial = new JButton();
     JButton botonFavorito = new JButton();
-    static String rutaAux = "C:\\Users\\Aroche\\Documents\\Archivos\\Paso4.chtml";
+    static String rutaAux = "C:\\Users\\Aroche\\Documents\\Archivos\\Paso3.chtml";
     String nombrePestania = "";
+    int w = 0;
+    int h = 0;
+    int cont = 0;
 
     Box boxV1 = Box.createVerticalBox();
 
@@ -168,7 +171,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
                         UsacWeb.listaHTML.set(i, new HTML(nombrePestania));
                         html.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
                         html.ruta = ruta.getText();
-                        
+
                         try {
                             Object result = chtml.analizar(texto, html);
                             html.codigoCHTML = texto;
@@ -342,6 +345,32 @@ public class PanelPrincipal extends javax.swing.JPanel {
     }
 
     public void crearHTML(JPanel panel) {
+        System.out.println("Tamanio panel1 = " + panel.getHeight() + ", " + panel.getWidth() + "\n");
+        rutaAux = ruta.getText();
+        removeAll();
+        crearTODO();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
+        Box boxH1 = Box.createHorizontalBox();
+        boxH1.add(Box.createHorizontalGlue());
+        boxH1.add(panel);
+        boxH1.add(Box.createHorizontalGlue());
+        JScrollPane scroll = new JScrollPane();
+        scroll.setViewportView(boxH1);
+        boxV1.add(boxH1);
+        scroll.setViewportView(boxV1);
+        setLayout(new BorderLayout());
+        add(boxV1, BorderLayout.CENTER);
+        updateUI();
+    }
+
+    public void crearHTML2(JPanel panel) {
+        if (cont == 0) {
+            w = panel.getWidth();
+            h = panel.getHeight();
+        }
+        panel.setSize(w, h);
+        cont++;
+        System.out.println("Tamanio panel 1.1 = " + panel.getHeight() + ", " + panel.getWidth() + "\n");
         rutaAux = ruta.getText();
         removeAll();
         crearTODO();
@@ -359,6 +388,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
     }
 
     public void crearHTML(JScrollPane panel) {
+        System.out.println("Tamanio panel2 = " + panel.getHeight() + ", " + panel.getWidth() + "\n");
         rutaAux = ruta.getText();
         removeAll();
         crearTODO();

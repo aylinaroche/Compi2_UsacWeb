@@ -72,20 +72,21 @@ public class Elementos {
         return nuevo;
     }
 
-    public static Object dibujar(Componente comp, int aux) {
+    public static Object dibujar(Componente comp, int aux, boolean nuevo) {
 
         if (comp.tipo.equalsIgnoreCase("panel")) {
             JPanel panel = (JPanel) comp.valor;
+            System.out.println("Dibujar " + panel.getName() + " Tam = " + panel.getHeight() + ", " + panel.getWidth());
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
             Box boxV1 = Box.createVerticalBox();
             Box boxH1 = Box.createHorizontalBox();
-            if (comp.alineado.equalsIgnoreCase("derecha")) {
+            if (comp.alineado.equalsIgnoreCase("derecha") && nuevo == true) {
                 boxH1.add(Box.createHorizontalGlue());
             }
             for (int i = 0; i < comp.listaComponentes.size(); i++) {
                 if (comp.listaComponentes.get(i) != null) {
                     Componente c = comp.listaComponentes.get(i);
-                    Object d = dibujar(c, aux + 1);
+                    Object d = dibujar(c, aux + 1, nuevo);
                     if (d instanceof JButton) {
                         JButton b = (JButton) d;
                         boxH1.add(b);
@@ -148,13 +149,19 @@ public class Elementos {
             if (aux == 0) {
                 boxV1.add(Box.createVerticalGlue());
             }
+//            if(panel.getName().equalsIgnoreCase("cuerpo")){
+//                boxV1.add(Box.createVerticalGlue());
+//            }
             panel.add(boxV1);
-//              JScrollPane scroll = new JScrollPane();
-//            scroll.setViewportView(panel);
-//            scroll.setSize(panel.getSize());
-//            scroll.setPreferredSize(panel.getSize());
-//            scroll.setMaximumSize(scroll.getPreferredSize());
-            return panel;
+            System.out.println(" * TAM = " + panel.getHeight() + ", " + panel.getWidth());
+            JScrollPane scroll = new JScrollPane();
+            scroll.setViewportView(panel);
+            if (panel.getHeight() != 0 && panel.getWidth() != 0) {
+
+                scroll.setPreferredSize(new Dimension(panel.getWidth() + 15, panel.getHeight() + 15));
+                scroll.setMaximumSize(scroll.getPreferredSize());
+            }
+            return scroll;
         }
         return comp.valor;
     }

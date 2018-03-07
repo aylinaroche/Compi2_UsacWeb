@@ -31,7 +31,7 @@ action code
 terminal String chtml,finchtml,encabezado,finencabezado,cjs,fincjs,ruta,ccss,finccss,fondo,cuerpo,fincuerpo,titulo,fintitulo,
 panel,finpanel,cajatexto,fincajatexto,texto,fintexto,click,imagen,finimagen,boton,finboton,enlace,finenlace,tabla,fintabla,
 filt,finfilt,cb,fincb,ct,finct,textoa,fintextoa,caja,fincaja,opcion,finopcion,valor,spinner,finspinner,saltofin,grupo,alto,
-ancho,alineado,idd,id,entero,decimal,puntoComa,parentesisA,parentesisC,cadenacon,cadena,cadenasin,igual,mayor,menor;
+ancho,alineado,idd,id,entero,decimal,puntoComa,parentesisA,parentesisC,cadenacon,cadena,cadenasin,igual,mayor,menor,ct2,finct2;
 
 non terminal Caracter INICIO,RAIZ,ENCABEZADO,CUERPO,INFORMACION,INFO,CONTENIDO,HTML,ETIQUETAS,ETIQUETA,LISTAFILA,
 PANEL,TEXTO,IMAGEN,BOTON,ENLACE,TABLA,CAJATEXTO,CAJA,ELEMENTOS,ELEMENTO,TEXTOA,OPCION,SPINNER,FILA,CELDAS,CELDA,OPCIONES,R;
@@ -595,10 +595,11 @@ CELDAS::= CELDAS:n CELDA:e{: //2
 :};
 
 
-CELDA::= cb:i CONTENIDO:s fincb{: //3
+
+CELDA::= cb:i cadenasin:s fincb{: //3
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("CELDA");
-    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(s.nodo); E.insertar(new NodoCHTML("fincb>"));
+    E.insertar(new NodoCHTML(i,iright,ileft));E.insertar(new NodoCHTML(s)); E.insertar(new NodoCHTML("fincb>"));
     RESULT.nodo = E;
 :}
 |cb:i mayor menor fincb{: //3
@@ -610,7 +611,7 @@ CELDA::= cb:i CONTENIDO:s fincb{: //3
 |ct:i CONTENIDO:n finct{: //3
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("CELDA");
-    E.insertar(new NodoCHTML(i,iright,ileft)); E.insertar(n.nodo); E.insertar(new NodoCHTML("finct>"));
+    E.insertar(new NodoCHTML(i,iright,ileft));  E.insertar(n.nodo); E.insertar(new NodoCHTML("finct>"));
     RESULT.nodo = E;
 :}
 |ct:i mayor menor finct{: //3
@@ -640,6 +641,12 @@ CONTENIDO::= cadenasin:s{: //1
     RESULT.nodo = E;
 :}
 |mayor BOTON:n menor{: //3
+    RESULT = new Caracter();
+    NodoCHTML E = new NodoCHTML("CONTENIDO");
+    E.insertar(new NodoCHTML(">")); E.insertar(n.nodo); E.insertar(new NodoCHTML("<"));
+    RESULT.nodo = E;
+:}
+|mayor IMAGEN:n menor{: //3
     RESULT = new Caracter();
     NodoCHTML E = new NodoCHTML("CONTENIDO");
     E.insertar(new NodoCHTML(">")); E.insertar(n.nodo); E.insertar(new NodoCHTML("<"));

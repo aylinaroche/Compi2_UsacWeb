@@ -63,6 +63,7 @@ public class VariableCJS {
                         return;
                     }
                 }
+                s.tamanio = 0;
                 s.valor = valor;
                 return;
             }

@@ -13,7 +13,7 @@
             <url>src/chtml/Ejecutar/Contador.java</url>
             <bookmark id="2">
                 <name/>
-                <line>37</line>
+                <line>36</line>
                 <key/>
             </bookmark>
         </file>
@@ -28,8 +28,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Aroche/Documents/NetBeansProjects/UsacWeb/src/chtml/Ejecutar/Boton.java</file>
             <file>file:/C:/Users/Aroche/Documents/NetBeansProjects/UsacWeb/src/chtml/Ejecutar/Panel.java</file>
-            <file>file:/C:/Users/Aroche/Documents/NetBeansProjects/UsacWeb/src/cjs/cjs.java</file>
+            <file>file:/C:/Users/Aroche/Documents/NetBeansProjects/UsacWeb/src/chtml/Ejecutar/CajaArea.java</file>
+            <file>file:/C:/Users/Aroche/Documents/NetBeansProjects/UsacWeb/src/chtml/Ejecutar/Tabla.java</file>
         </group>
     </open-files>
 </project-private>

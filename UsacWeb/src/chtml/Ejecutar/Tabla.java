@@ -68,7 +68,7 @@ public class Tabla {
                                             curva = true;
                                         }
                                         Border border = BorderFactory.createLineBorder(colorBorde, tam, curva);
-                                        
+
                                         tabla.setBorder(border);
                                     } catch (NumberFormatException ex) {
                                         Datos.agregarError("Error Semantico", "Error al asignar borde al panel " + e2.valor.toString(), f, c);
@@ -130,9 +130,9 @@ public class Tabla {
                     titulo = new Object[celdas.size()];
                     for (int k = 0; k < celdas.size(); k++) {
                         Componente celda = (Componente) celdas.get(k);
-                        Componente valor = (Componente) celda.valor;
-                        if (valor.tipo.equalsIgnoreCase("texto")) {
-                            titulo[k] = valor.valor.toString();
+                        //Componente valor = (Componente) celda.valor;
+                        if (celda.nombre.equalsIgnoreCase("texto")) {
+                            titulo[k] = celda.valor.toString();
                         }
                     }
                     tamF++;
@@ -144,8 +144,13 @@ public class Tabla {
         }
         int tamF2 = filas.size() - tamF;
         System.out.println("Filas = " + tamF2 + ", Col = " + tamC);
-        Object[][] objetos = new Object[tamF2][tamC];
-        int j = 0;
+        Object[][] objetos = new Object[tamF2 + 1][tamC];
+
+        for (int i = 0; i < tamC; i++) {
+            objetos[0][i] = titulo[i];
+        }
+
+        int j = 1;
         for (int i = 0; i < filas.size(); i++) {
             //Filas
             ArrayList celdas = (ArrayList) filas.get(i);
@@ -157,28 +162,34 @@ public class Tabla {
                         Componente celda = (Componente) celdas.get(k);
                         Componente valor = (Componente) celda.valor;
                         //if (valor.tipo.equalsIgnoreCase("texto")) {
-                            objetos[j][k] = valor.valor;
+                        objetos[j][k] = valor.valor;
                         //}
                     }
                     j++;
                 }
-                 
             }
-           
         }
 
-        DefaultTableModel d = new DefaultTableModel(objetos, titulo);
-        tabla.setModel(d);
         if (objetos == null) {
             objetos = new Object[1][titulo.length];
             for (int i = 0; i < titulo.length; i++) {
                 objetos[0][i] = " - ";
             }
         }
+        if (titulo != null) {
+            tabla.setDefaultRenderer(Object.class, new Render());
 
-        JTable prueba = new JTable(objetos, titulo);
-
-        Componente resultado = new Componente("Tabla", tabla.getName(), prueba, new ArrayList(), alineado);
+            DefaultTableModel d = new DefaultTableModel(objetos, titulo) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            tabla.setModel(d);
+            tabla.setPreferredScrollableViewportSize(tabla.getPreferredSize());
+        }
+        // JTable prueba = new JTable(objetos, titulo);
+        Componente resultado = new Componente("Tabla", tabla.getName(), tabla, new ArrayList(), alineado);
         return resultado;
     }
 

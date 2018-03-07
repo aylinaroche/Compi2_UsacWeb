@@ -16,6 +16,7 @@ public class HTML {
 
     public String nombre;
     public Componente componentes= null;
+    public Componente componentesAux= null;
     public String ruta;
     public PanelPrincipal panel = null;
     //GLOBAL

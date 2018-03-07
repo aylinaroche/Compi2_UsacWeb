@@ -70,7 +70,7 @@ public class Boton {
                                         Border border = BorderFactory.createLineBorder(colorBorde, tam, curva);
                                         boton.setBorder(border);
                                     } catch (NumberFormatException ex) {
-                                        Datos.agregarError("Error Semantico", "Error al asignar borde al panel " + e2.valor.toString(), f, c);
+                                        Datos.agregarError("Error Semantico", "Error al asignar borde al boton " + e2.valor.toString(), f, c);
                                     }
                                 }
                                 break;
@@ -129,11 +129,11 @@ public class Boton {
                                     tamanio = decimal.intValue();
                                 } else if (e2.valor instanceof Integer) {
                                     tamanio = Integer.parseInt(e2.valor.toString());
-                                } else if (e.valor instanceof String) {
+                                } else if (e2.valor instanceof String) {
                                     try {
-                                        tamanio = Integer.parseInt((String) e.valor);
+                                        tamanio = Integer.parseInt((String) e2.valor);
                                     } catch (NumberFormatException ex) {
-                                        System.out.println("Problema al castear: "+ ex);
+                                        System.out.println("Problema al castear: " + ex);
                                     }
                                 }
                                 break;
@@ -242,7 +242,7 @@ public class Boton {
 
                     });
                 } else {
-                    Datos.agregarError("Error Semantico", "Atributo " + e.nombre + " incorrecto en panel", f, c);
+                    Datos.agregarError("Error Semantico", "Atributo " + e.nombre + " incorrecto en boton", f, c);
                 }
 
             } catch (NumberFormatException e) {
@@ -304,7 +304,7 @@ public class Boton {
                                 Border border = BorderFactory.createLineBorder(colorBorde, tam, curva);
                                 boton.setBorder(border);
                             } catch (NumberFormatException ex) {
-                                Datos.agregarError("Error Semantico", "Error al asignar borde al panel " + e2.valor.toString(), f, c);
+                                Datos.agregarError("Error Semantico", "Error al asignar borde al boton " + e2.valor.toString(), f, c);
                             }
                         }
                         break;
@@ -363,7 +363,13 @@ public class Boton {
                             tamanio = decimal.intValue();
                         } else if (e2.valor instanceof Integer) {
                             tamanio = Integer.parseInt(e2.valor.toString());
+                        } else if (e2.valor instanceof String) {
+                        try {
+                            alto = Integer.parseInt((String) e2.valor);
+                        } catch (NumberFormatException ex) {
+                            System.out.println(ex);
                         }
+                    }
                         break;
                     case "visible":
                         boton.setVisible(false);
@@ -409,6 +415,12 @@ public class Boton {
                 alto = decimal.intValue();
             } else if (valor instanceof Integer) {
                 alto = Integer.parseInt(valor.toString());
+            } else if (valor instanceof String) {
+                try {
+                    ancho = Integer.parseInt((String) valor);
+                } catch (NumberFormatException ex) {
+                    System.out.println(ex);
+                }
             }
         } else if (atributo.equalsIgnoreCase("ancho")) {
             if (valor instanceof Double) {
@@ -416,6 +428,12 @@ public class Boton {
                 ancho = decimal.intValue();
             } else if (valor instanceof Integer) {
                 ancho = Integer.parseInt(valor.toString());
+            } else if (valor instanceof String) {
+                try {
+                    ancho = Integer.parseInt((String) valor);
+                } catch (NumberFormatException ex) {
+                    System.out.println(ex);
+                }
             }
         } else if (atributo.equalsIgnoreCase("alineado")) {
             switch (valor.toString()) {
@@ -457,10 +475,8 @@ public class Boton {
 
             });
         } else {
-            Datos.agregarError("Error Semantico", "Atributo " + atributo + " incorrecto en panel", f, c);
+            Datos.agregarError("Error Semantico", "Atributo " + atributo + " incorrecto en boton", f, c);
         }
-
-//SETEAR VALORES 
 //FONT
         try {
             boton.setFont(new Font(letra, estilo, tamanio));

@@ -1,5 +1,6 @@
 package cjs.Ejecutar;
 
+import chtml.Ejecutar.Componente;
 import static chtml.chtml.html;
 import java.util.ArrayList;
 import cjs.NodoCJS;
@@ -359,10 +360,20 @@ public class Recorrido {
                                 }
                             }
                             break;
+                        case 7: // funcion con .setElemento
+                            result = Recorrido(raiz.hijos[0]);
+                            if (result instanceof Componente) {
+                                Componente c = (Componente) result;
+                                System.out.println(" - - - " + c.nombre);
+                                result = Recorrido(raiz.hijos[4]);
+                                Documento.setElemento(c.nombre, raiz.hijos[2].texto.replace("\"", ""), result, raiz.hijos[0].fila, raiz.hijos[0].col);
+                                return null;
+                            }
+                            Datos.agregarError("Error Semantico", "No existe la variable " + raiz.hijos[0].texto + " para el SetElemento", 0, 0);
+                            retornar = false;
+                            salir = false;
+                            break;
                     }
-                    retornar = false;
-                    salir = false;
-                    break;
                 case "LLAMADA":
                     switch (raiz.cantidadHijos) {
                         case 3:
@@ -442,25 +453,34 @@ public class Recorrido {
                             result = Recorrido(raiz.hijos[1]);
                             result = Documento.obtener(result.toString());
                             break;
+                        case 4://id
+                            result = VariableCJS.obtenerVariable(raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            if (result instanceof Componente) {
+                                Componente c = (Componente) result;
+                                Documento.crearEvento(c.nombre, raiz.hijos[2].texto.replace("\"", ""), raiz.hijos[3]);
+                            }
+                            break;
                         case 5: //observador
                             Documento.crearEvento("documento", raiz.hijos[1].texto.replace("\"", ""), raiz.hijos[3]);
                             break;
                         case 6://id
-                            Documento.crearEvento(raiz.hijos[0].texto, raiz.hijos[2].texto.replace("\"", ""), raiz.hijos[4]);
+                            result = VariableCJS.obtenerVariable(raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            if (result instanceof Componente) {
+                                Componente c = (Componente) result;
+                                Documento.crearEvento(c.nombre, raiz.hijos[2].texto.replace("\"", ""), raiz.hijos[4]);
+                            }
                             break;
                     }
                     break;
                 case "SET":
                     switch (raiz.cantidadHijos) {
                         case 7: //set 
-                            for (int i = 0; i < html.listaElementos.size(); i++) {
-                                Elemento e = html.listaElementos.get(i);
-                                //System.out.println("" + e.nombre + " - - - " + raiz.hijos[0].texto);
-                                if (e.nombre.equals(raiz.hijos[0].texto)) {
-                                    result = Recorrido(raiz.hijos[4]);
-                                    Documento.setElemento(e.nombreElemento, raiz.hijos[2].texto.replace("\"", ""), result, raiz.hijos[0].fila, raiz.hijos[0].col);
-                                    return null;
-                                }
+                            result = VariableCJS.obtenerVariable(raiz.hijos[0].texto, 0, 0);
+                            if (result instanceof Componente) {
+                                Componente c = (Componente) result;
+                                result = Recorrido(raiz.hijos[4]);
+                                Documento.setElemento(c.nombre, raiz.hijos[2].texto.replace("\"", ""), result, raiz.hijos[0].fila, raiz.hijos[0].col);
+                                return null;
                             }
                             Datos.agregarError("Error Semantico", "No existe la variable " + raiz.hijos[0].texto + " para el SetElemento", 0, 0);
                             break;

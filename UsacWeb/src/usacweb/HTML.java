@@ -31,7 +31,7 @@ public class HTML {
     public int nivelAmbito;
     public ArrayList<Variable> listaVariables = new ArrayList<>();
     public ArrayList<Funcion> listaFunciones = new ArrayList();
-    public ArrayList<Elemento> listaElementos = new ArrayList();
+    //public ArrayList<Elemento> listaElementos = new ArrayList();
     //CCSS
     public ArrayList<Bloque> listaBloques = new ArrayList<>();
 

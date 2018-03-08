@@ -3,6 +3,7 @@ package chtml.Ejecutar;
 import ccss.Ejecutar.BloqueCCSS;
 import ccss.Ejecutar.Estilo;
 import static chtml.Ejecutar.Elementos.convertirColor;
+import cjs.Ejecutar.Documento;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -444,6 +445,7 @@ public class Enlace {
 
                         private void MouseClicked(MouseEvent evt) {
                             Metodos.crearPestania(valor.toString());
+                            Documento.verificarEvento(enlace.getName(),"Cliqueado");
                         }
                     });
                 } catch (Exception ex) {

@@ -1,14 +1,10 @@
 package chtml.Ejecutar;
 
-import cjs.Ejecutar.Documento;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.awt.Component.CENTER_ALIGNMENT;
-import static java.awt.Component.LEFT_ALIGNMENT;
-import static java.awt.Component.RIGHT_ALIGNMENT;
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -76,7 +72,7 @@ public class Elementos {
 
         if (comp.tipo.equalsIgnoreCase("panel")) {
             JPanel panel = (JPanel) comp.valor;
-            System.out.println("Dibujar " + panel.getName() + " Tam = " + panel.getHeight() + ", " + panel.getWidth());
+            //System.out.println("Dibujar " + panel.getName() + " Tam = " + panel.getHeight() + ", " + panel.getWidth());
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
             Box boxV1 = Box.createVerticalBox();
             Box boxH1 = Box.createHorizontalBox();
@@ -153,7 +149,7 @@ public class Elementos {
 //                boxV1.add(Box.createVerticalGlue());
 //            }
             panel.add(boxV1);
-            System.out.println(" * TAM = " + panel.getHeight() + ", " + panel.getWidth());
+            //System.out.println(" * TAM = " + panel.getHeight() + ", " + panel.getWidth());
             JScrollPane scroll = new JScrollPane();
             scroll.setViewportView(panel);
             if (panel.getHeight() != 0 && panel.getWidth() != 0) {

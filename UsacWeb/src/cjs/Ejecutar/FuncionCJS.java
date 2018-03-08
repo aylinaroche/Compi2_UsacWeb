@@ -37,7 +37,7 @@ public class FuncionCJS {
                     VariableCJS.eliminarVariables();
                     html.nivelAmbito--;
                     html.pilaAmbito.pop();
-                    html.listaElementos.clear();
+                   // html.listaElementos.clear();
                     return retorno;
                 }
                 if (parametro.size() == mf.parametro.size()) {
@@ -52,12 +52,12 @@ public class FuncionCJS {
                     VariableCJS.eliminarVariables();
                     html.nivelAmbito--;
                     html.pilaAmbito.pop();
-                    html.listaElementos.clear();
+                    //html.listaElementos.clear();
                     return retorno;
                 }
             }
         }
-        Datos.agregarError("Error Semantico", "No se ha encontrado el metodo", f, c);
+        Datos.agregarError("Error Semantico", "No se ha encontrado el metodo = "+id, f, c);
 
         return "";
     }

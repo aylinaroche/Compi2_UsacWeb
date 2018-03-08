@@ -133,13 +133,16 @@ public class Panel {
         return resultado;
     }
 
-    public static Componente crearCuerpo(ArrayList elementos, ArrayList componentes, int f, int c) {
+    public static Componente crearCuerpo(ArrayList elementos, ArrayList componentes, int f, int c, int fondo) {
         String alineado = "centrado";
         int alto = 0, ancho = 0;
         JPanel panel = new JPanel();
         //panel.setSize(100, 100);
         panel.setName("cuerpo");
         panel.setLayout(new BorderLayout());
+        if(fondo== 1){
+            panel.setBackground(Color.WHITE);
+        }
 
         for (int i = 0; i < elementos.size(); i++) {
             try {

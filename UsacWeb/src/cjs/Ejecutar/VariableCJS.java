@@ -1,6 +1,5 @@
 package cjs.Ejecutar;
 
-import chtml.Ejecutar.Componente;
 import java.util.ArrayList;
 import static chtml.chtml.html;
 import usacweb.Datos;
@@ -13,10 +12,7 @@ public class VariableCJS {
             ArrayList a = (ArrayList) valor;
             crearVector(nombre, a.size(), valor, f, c);
             return;
-        } else if (valor instanceof Componente) {
-            Componente comp = (Componente) valor;
-            chtml.chtml.html.listaElementos.add(new Elemento(nombre, comp.nombre, comp));
-        }
+        } 
         for (int i = 0; i < html.listaVariables.size(); i++) {
             Variable s = (Variable) html.listaVariables.get(i);
             if (s.nombre.equalsIgnoreCase(nombre) && s.ambito.equalsIgnoreCase(html.pilaAmbito.peek()) && s.nivel == html.nivelAmbito && s.archivo.equalsIgnoreCase(html.pilaArchivo.peek())) {

@@ -133,7 +133,7 @@ OPCION::=SWITCH:n{:
     OPCION.insertar(n.nodo);
     RESULT.nodo = OPCION;
 :}
-|LLAMADA:n puntoComa{:
+|LLAMADAOPCION:n puntoComa{:
     NodoCJS OPCION = new NodoCJS("OPCION");
     RESULT = new Caracter();
     OPCION.insertar(n.nodo);
@@ -443,6 +443,12 @@ DOCUMENTO::=documento punto obtener parentesisA OP:n parentesisC{: //2
     A.insertar(new NodoCJS("})"));
     RESULT.nodo = A;
 :}
+|id:i punto observador parentesisA cadena:n coma funcion parentesisA parentesisC llaveA INSTRUCCION:l llaveC parentesisC{: //4
+    NodoCJS A = new NodoCJS("DOCUMENTO");
+    RESULT = new Caracter();
+    A.insertar(new NodoCJS(i,iright,ileft)); A.insertar(new NodoCJS(n)); A.insertar(new NodoCJS(",funcion(){"));A.insertar(l.nodo); 
+    RESULT.nodo = A;
+:}
 |id:i punto observador parentesisA cadena:n coma LLAMADA:l parentesisC{: //6
     NodoCJS A = new NodoCJS("DOCUMENTO");
     RESULT = new Caracter();
@@ -468,7 +474,14 @@ SET::=documento:i punto obtener parentesisA OP:n parentesisC punto set parentesi
 :};
 
 
-LLAMADAOPCION::=LLAMADA:n ACCESO2:a{: 
+LLAMADAOPCION::=LLAMADA:l punto set parentesisA cadena:s coma OP:n parentesisC{: //7
+    NodoCJS A = new NodoCJS("LLAMADAOPCION");
+    RESULT = new Caracter();
+    A.insertar(l.nodo);  A.insertar(new NodoCJS(").setElemento(")); A.insertar(new NodoCJS(s)); A.insertar(new NodoCJS(","));A.insertar(n.nodo); 
+    A.insertar(new NodoCJS(")")); ; A.insertar(new NodoCJS(";")); 
+    RESULT.nodo = A;
+:}
+|LLAMADA:n ACCESO2:a{: 
     NodoCJS A = new NodoCJS("LLAMADAOPCION");
     RESULT = new Caracter();
     A.insertar(n.nodo); A.insertar(a.nodo); 

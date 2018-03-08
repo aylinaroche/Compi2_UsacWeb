@@ -3,6 +3,7 @@ package chtml.Ejecutar;
 import ccss.Ejecutar.BloqueCCSS;
 import ccss.Ejecutar.Estilo;
 import static chtml.Ejecutar.Elementos.convertirColor;
+import cjs.Ejecutar.Documento;
 import cjs.Ejecutar.FuncionCJS;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,6 +29,7 @@ public class Imagen {
         Boolean correcta = false;
         boton.setName("");
 
+        ArrayList listaClick = new ArrayList();
         for (int i = 0; i < elementos.size(); i++) {
             try {
                 Estilo e = (Estilo) elementos.get(i);
@@ -144,7 +146,10 @@ public class Imagen {
                         }
 
                         private void ActionPerformed(ActionEvent evt) {
-                            FuncionCJS.buscarFuncion(e.valor.toString(), new ArrayList(), f, c);
+                            String nF = e.valor.toString().replace("(", "").replace(")", "");
+                            FuncionCJS.buscarFuncion(nF, new ArrayList(), f, c);
+                            listaClick.add(e.valor.toString());
+                            Documento.verificarEvento(boton.getName(), "Cliqueado");
                         }
                     });
                 } else {
@@ -172,11 +177,11 @@ public class Imagen {
             boton.setPreferredSize(new Dimension(ancho, alto));
             boton.setMaximumSize(boton.getPreferredSize());
         }
-        Componente resultado = new Componente("Imagen", boton.getName(), boton, new ArrayList());
+        Componente resultado = new Componente("Imagen", boton.getName(), boton, new ArrayList(), listaClick);
         return resultado;
     }
 
-    public static Componente modificarImagen(JButton boton, String nombre, Object valor, int f, int c) {
+    public static Componente modificarImagen(JButton boton, String nombre, Object valor, ArrayList listaClick, int f, int c) {
         int alto = boton.getHeight();
         int ancho = boton.getWidth();
         boton.setBackground(Color.WHITE);
@@ -294,7 +299,14 @@ public class Imagen {
                 }
 
                 private void ActionPerformed(ActionEvent evt) {
-                    FuncionCJS.buscarFuncion(valor.toString(), new ArrayList(), f, c);
+                   String nF = valor.toString().replace("(", "").replace(")", "");
+                    listaClick.add(nF);
+//                    for (int i = 0; i < listaClick.size(); i++) {
+//                        String nFuncion = (String) listaClick.get(i);
+                        FuncionCJS.buscarFuncion(nF, new ArrayList(), f, c);
+//                    }
+                    Documento.verificarEvento(boton.getName(), "Cliqueado");
+
                 }
             });
         } else {
@@ -306,7 +318,7 @@ public class Imagen {
             boton.setPreferredSize(new Dimension(ancho, alto));
             boton.setMaximumSize(boton.getPreferredSize());
         }
-        Componente resultado = new Componente("Imagen", boton.getName(), boton, new ArrayList());
+        Componente resultado = new Componente("Imagen", boton.getName(), boton, new ArrayList(), listaClick);
         return resultado;
     }
 }

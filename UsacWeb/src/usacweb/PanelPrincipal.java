@@ -1,7 +1,6 @@
 package usacweb;
 
 import chtml.chtml;
-import cjs.Ejecutar.Documento;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,9 +30,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
     JButton botonFavorito = new JButton();
     static String rutaAux = "C:\\Users\\Aroche\\Documents\\Archivos\\Paso3.chtml";
     String nombrePestania = "";
-    int w = 0;
-    int h = 0;
-    int cont = 0;
+    Boolean estadoOpcion = false;
 
     Box boxV1 = Box.createVerticalBox();
 
@@ -191,7 +188,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
                     }
                 }
                 UsacWeb.agregarHistorial(ruta.getText());
-                Documento.verificarEvento("Documento", "Listo");
+                //Documento.verificarEvento("Documento", "Listo");
             }
         });
 
@@ -202,6 +199,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
             }
 
             private void ActionPerformed(ActionEvent evt) {
+                UsacWeb.verificarPestania();
                 int auxNum = chtml.html.numPagina;
                 ArrayList auxPaginas = chtml.html.listaPaginas;
                 for (int i = 0; i < UsacWeb.listaHTML.size(); i++) {
@@ -226,7 +224,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
                                 } else if (result instanceof JScrollPane) {
                                     crearHTML((JScrollPane) result);
                                 }
-                                Documento.verificarEvento("Documento", "Listo");
+                                //Documento.verificarEvento("Documento", "Listo");
                             } catch (Exception ex) {
                                 System.out.println("Error al analizar archivo: " + rutaAtras + "\n" + ex);
                             }
@@ -248,6 +246,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
             }
 
             private void ActionPerformed(ActionEvent evt) {
+                UsacWeb.verificarPestania();
                 int auxNum = chtml.html.numPagina;
                 ArrayList auxPaginas = chtml.html.listaPaginas;
                 for (int i = 0; i < UsacWeb.listaHTML.size(); i++) {
@@ -274,7 +273,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
                                 } else if (result instanceof JScrollPane) {
                                     crearHTML((JScrollPane) result);
                                 }
-                                Documento.verificarEvento("Documento", "Listo");
+                                // Documento.verificarEvento("Documento", "Listo");
                             } catch (Exception ex) {
                                 System.out.println("Error al analizar archivo: " + rutaAdelante + "\n" + ex);
                             }
@@ -308,8 +307,17 @@ public class PanelPrincipal extends javax.swing.JPanel {
                 scroll.setMaximumSize(scroll.getPreferredSize());
                 box.add(scroll);
                 box.add(Box.createVerticalGlue());
-                panelPestanias.addTab("Opciones", box);
-                panelPestanias.setSelectedIndex(panelPestanias.getTabCount() - 1);
+                if (estadoOpcion == false) {
+                    boxV1.add(box);
+                    estadoOpcion = true;
+                } else {
+                    boxV1.remove(boxV1.getComponentCount() - 1);
+                    estadoOpcion = false;
+                }
+                panel.updateUI();
+                updateUI();
+                //                panelPestanias.addTab("Opciones", box);
+//                panelPestanias.setSelectedIndex(panelPestanias.getTabCount() - 1);
             }
 
         });
@@ -345,7 +353,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
     }
 
     public void crearHTML(JPanel panel) {
-        System.out.println("Tamanio panel1 = " + panel.getHeight() + ", " + panel.getWidth() + "\n");
+        /// System.out.println("Tamanio panel1 = " + panel.getHeight() + ", " + panel.getWidth() + "\n");
         rutaAux = ruta.getText();
         removeAll();
         crearTODO();
@@ -363,32 +371,8 @@ public class PanelPrincipal extends javax.swing.JPanel {
         updateUI();
     }
 
-    public void crearHTML2(JPanel panel) {
-        if (cont == 0) {
-            w = panel.getWidth();
-            h = panel.getHeight();
-        }
-        panel.setSize(w, h);
-        cont++;
-        System.out.println("Tamanio panel 1.1 = " + panel.getHeight() + ", " + panel.getWidth() + "\n");
-        rutaAux = ruta.getText();
-        removeAll();
-        crearTODO();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
-        Box boxH1 = Box.createHorizontalBox();
-        boxH1.add(Box.createHorizontalGlue());
-        boxH1.add(panel);
-        boxH1.add(Box.createHorizontalGlue());
-        JScrollPane scroll = new JScrollPane();
-        scroll.setViewportView(boxH1);
-        boxV1.add(boxH1);
-        setLayout(new BorderLayout());
-        add(boxV1, BorderLayout.CENTER);
-        updateUI();
-    }
-
     public void crearHTML(JScrollPane panel) {
-        System.out.println("Tamanio panel2 = " + panel.getHeight() + ", " + panel.getWidth() + "\n");
+        //System.out.println("Tamanio panel2 = " + panel.getHeight() + ", " + panel.getWidth() + "\n");
         rutaAux = ruta.getText();
         removeAll();
         crearTODO();

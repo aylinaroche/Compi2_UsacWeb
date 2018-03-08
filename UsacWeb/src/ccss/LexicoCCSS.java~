@@ -1067,7 +1067,7 @@ public String lexeme;
             }
           case 73: break;
           case 25: 
-            { return new Symbol(sym.falso, yycolumn, yyline,new String(yytext()));
+            { return new Symbol(sym.verdadero, yycolumn, yyline,new String(yytext()));
             }
           case 74: break;
           case 26: 
@@ -1079,7 +1079,7 @@ public String lexeme;
             }
           case 76: break;
           case 28: 
-            { return new Symbol(sym.verdadero, yycolumn, yyline,new String(yytext()));
+            { return new Symbol(sym.falso, yycolumn, yyline,new String(yytext()));
             }
           case 77: break;
           case 29: 

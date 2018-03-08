@@ -6,7 +6,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -56,6 +58,7 @@ public class Interfaz extends javax.swing.JFrame {
         panelPestanias.setForeground(new Color(255, 255, 255));
         panelPestanias.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 14));
         panelPestanias.setName("Pestania1");
+        accionPanelPestanias();
         boxH2.add(panelPestanias);
 
         Box boxV1 = Box.createVerticalBox();
@@ -110,7 +113,7 @@ public class Interfaz extends javax.swing.JFrame {
             private void MasActionPerformed(ActionEvent evt) {
                 Box boxH = Box.createHorizontalBox();
                 panelPestanias.setName("Pestania" + contPestania);
-                PanelPrincipal panel = new PanelPrincipal("Pestania"+contPestania);
+                PanelPrincipal panel = new PanelPrincipal("Pestania" + contPestania);
                 panel.setBackground(Color.BLACK);
                 panel.setPreferredSize(new Dimension(30000, 30000));
                 panel.setMaximumSize(panel.getPreferredSize());
@@ -118,7 +121,7 @@ public class Interfaz extends javax.swing.JFrame {
                 panelPestanias.addTab("Pestania" + contPestania, boxH);
                 panelPestanias.setSelectedIndex(panelPestanias.getTabCount() - 1);
                 UsacWeb.listaHTML.add(new HTML(panelPestanias.getName()));
-                
+
                 contPestania++;
             }
         });
@@ -130,13 +133,32 @@ public class Interfaz extends javax.swing.JFrame {
             }
 
             private void MenosActionPerformed(ActionEvent evt) {
+                ArrayList<HTML> listaNueva = new ArrayList();
+                for (int i = 0; i < UsacWeb.listaHTML.size(); i++) {
+                    if (i != panelPestanias.getSelectedIndex()) {
+                        listaNueva.add(UsacWeb.listaHTML.get(i));
+                    }
+                }
+                UsacWeb.listaHTML.clear();
+                UsacWeb.listaHTML = listaNueva;
                 panelPestanias.remove(panelPestanias.getSelectedIndex());
             }
         });
     }
 
-    public void actualizar() {
-        this.repaint();
+    private void accionPanelPestanias() {
+        panelPestanias.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PestaniasMouseClicked(evt);
+            }
+
+            private void PestaniasMouseClicked(MouseEvent evt) {
+                
+                UsacWeb.verificarPestania();
+             
+            }
+        });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

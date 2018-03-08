@@ -3,6 +3,8 @@ package chtml.Ejecutar;
 import ccss.Ejecutar.BloqueCCSS;
 import ccss.Ejecutar.Estilo;
 import static chtml.Ejecutar.Elementos.convertirColor;
+import cjs.Ejecutar.Documento;
+import cjs.Ejecutar.FuncionCJS;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -30,6 +32,7 @@ public class CajaOpcion {
         JComboBox combo = new JComboBox();
         combo.setFont(new Font(letra, estilo, tamanio));
         combo.setName("");
+        ArrayList listaClick = new ArrayList();
 
         for (int i = 0; i < elementos.size(); i++) {
             try {
@@ -221,7 +224,10 @@ public class CajaOpcion {
                         }
 
                         private void ActionPerformed(ActionEvent evt) {
-
+                            String r = e.valor.toString().replace("(", "").replace(")", "");
+                            FuncionCJS.buscarFuncion(r, new ArrayList(), f, c);
+                            listaClick.add(r);
+                            Documento.verificarEvento(combo.getName(),"Cliqueado");
                         }
 
                     });
@@ -253,11 +259,11 @@ public class CajaOpcion {
 
             }
         }
-        Componente resultado = new Componente("CajaOpcion", combo.getName(), combo, new ArrayList());
+        Componente resultado = new Componente("CajaOpcion", combo.getName(), combo, new ArrayList(), listaClick);
         return resultado;
     }
 
-    public static Componente modificarCajaOpcion(JComboBox combo, String nombre, Object valor, int f, int c) {
+    public static Componente modificarCajaOpcion(JComboBox combo, String nombre, Object valor, ArrayList listaClick, int f, int c) {
 
         String letra = combo.getFont().getFontName();
         int tamanio = combo.getFont().getSize();
@@ -265,7 +271,7 @@ public class CajaOpcion {
         int alto = combo.getHeight();
         int ancho = combo.getWidth();
         int estilo2 = 0;
-     
+
         if (nombre.equalsIgnoreCase("id") || nombre.equalsIgnoreCase("grupo")) {
             ArrayList listaCCSS = BloqueCCSS.obtenerBloque(nombre, (String) valor);
             if (nombre.equalsIgnoreCase("id")) {
@@ -452,6 +458,13 @@ public class CajaOpcion {
                 }
 
                 private void ActionPerformed(ActionEvent evt) {
+                   String nF = valor.toString().replace("(", "").replace(")", "");
+                    listaClick.add(nF);
+//                    for (int i = 0; i < listaClick.size(); i++) {
+//                        String nFuncion = (String) listaClick.get(i);
+                        FuncionCJS.buscarFuncion(nF, new ArrayList(), f, c);
+//                    }
+                    Documento.verificarEvento(combo.getName(), "Cliqueado");
 
                 }
 

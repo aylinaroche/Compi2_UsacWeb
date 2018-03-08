@@ -3,6 +3,7 @@ package chtml.Ejecutar;
 import ccss.Ejecutar.BloqueCCSS;
 import ccss.Ejecutar.Estilo;
 import static chtml.Ejecutar.Elementos.convertirColor;
+import cjs.Ejecutar.Documento;
 import cjs.Ejecutar.FuncionCJS;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -35,6 +36,8 @@ public class Boton {
         boton.setName("");
         boton.setFont(new Font(letra, estilo, tamanio));
 
+        ArrayList listaClick = new ArrayList();
+
         for (int i = 0; i < elementos.size(); i++) {
             try {
                 Estilo e = (Estilo) elementos.get(i);
@@ -48,6 +51,7 @@ public class Boton {
 
                         switch (e2.nombre.toLowerCase()) {
                             case "fondo":
+                            //case "fondoelemento":
                                 Color color = convertirColor(e2.valor.toString());
                                 boton.setBackground(color);
                                 break;
@@ -170,7 +174,6 @@ public class Boton {
                                 Datos.agregarError("Error Semantico", "Atributo " + e2.nombre + " incorrecto en el boton", f, c);
                                 break;
                         }
-
                     }
                 } else if (e.nombre.equalsIgnoreCase("fondo")) {
                     Color color = convertirColor((String) e.valor);
@@ -238,6 +241,8 @@ public class Boton {
                         private void ActionPerformed(ActionEvent evt) {
                             String r = e.valor.toString().replace("(", "").replace(")", "");
                             FuncionCJS.buscarFuncion(r, new ArrayList(), f, c);
+                            //listaClick.add(r);
+                            Documento.verificarEvento(boton.getName(), "Cliqueado");
                         }
 
                     });
@@ -261,11 +266,11 @@ public class Boton {
             boton.setPreferredSize(new Dimension(ancho, alto));
             boton.setMaximumSize(boton.getPreferredSize());
         }
-        Componente resultado = new Componente("Boton", boton.getName(), boton, new ArrayList());
+        Componente resultado = new Componente("Boton", boton.getName(), boton, new ArrayList(), listaClick);
         return resultado;
     }
 
-    public static Componente modificarBoton(JButton boton, String atributo, Object valor, int f, int c) {
+    public static Componente modificarBoton(JButton boton, String atributo, Object valor, ArrayList listaClick, int f, int c) {
         String letra = boton.getFont().getFontName();
         int tamanio = boton.getFont().getSize();
         int estilo = boton.getFont().getStyle();
@@ -364,12 +369,12 @@ public class Boton {
                         } else if (e2.valor instanceof Integer) {
                             tamanio = Integer.parseInt(e2.valor.toString());
                         } else if (e2.valor instanceof String) {
-                        try {
-                            alto = Integer.parseInt((String) e2.valor);
-                        } catch (NumberFormatException ex) {
-                            System.out.println(ex);
+                            try {
+                                alto = Integer.parseInt((String) e2.valor);
+                            } catch (NumberFormatException ex) {
+                                System.out.println(ex);
+                            }
                         }
-                    }
                         break;
                     case "visible":
                         boton.setVisible(false);
@@ -470,7 +475,14 @@ public class Boton {
                 }
 
                 private void ActionPerformed(ActionEvent evt) {
-                    FuncionCJS.buscarFuncion(valor.toString(), new ArrayList(), f, c);
+                    String nF = valor.toString().replace("(", "").replace(")", "");
+                    listaClick.add(nF);
+//                    for (int i = 0; i < listaClick.size(); i++) {
+//                        String nFuncion = (String) listaClick.get(i);
+                        FuncionCJS.buscarFuncion(nF, new ArrayList(), f, c);
+//                    }
+                    Documento.verificarEvento(boton.getName(), "Cliqueado");
+
                 }
 
             });
@@ -488,7 +500,7 @@ public class Boton {
             boton.setPreferredSize(new Dimension(ancho, alto));
             boton.setMaximumSize(boton.getPreferredSize());
         }
-        Componente resultado = new Componente("Boton", boton.getName(), boton, new ArrayList());
+        Componente resultado = new Componente("Boton", boton.getName(), boton, new ArrayList(), listaClick);
         return resultado;
     }
 }

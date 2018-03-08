@@ -59,8 +59,8 @@ public String lexeme;
 "Detener" {return new Symbol(sym.detener, yycolumn, yyline,new String(yytext()));}
 "Imprimir" {return new Symbol(sym.imprimir, yycolumn, yyline,new String(yytext()));}
 "Conteo" {return new Symbol(sym.conteo, yycolumn, yyline,new String(yytext()));}
-"'false'" {return new Symbol(sym.verdadero, yycolumn, yyline,new String(yytext()));}
-"'true'" {return new Symbol(sym.falso, yycolumn, yyline,new String(yytext()));}
+"true" {return new Symbol(sym.verdadero, yycolumn, yyline,new String(yytext()));}
+"false" {return new Symbol(sym.falso, yycolumn, yyline,new String(yytext()));}
 "+" {return new Symbol(sym.mas, yycolumn, yyline, new String(yytext()));}
 "*" {return new Symbol(sym.por, yycolumn, yyline,new String(yytext()));}
 "-" {return new Symbol(sym.menos, yycolumn, yyline,new String(yytext()));}

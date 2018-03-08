@@ -3,14 +3,23 @@ package cjs.Ejecutar;
 import chtml.Ejecutar.Boton;
 import chtml.Ejecutar.CajaArea;
 import chtml.Ejecutar.CajaOpcion;
+import chtml.Ejecutar.CajaTexto;
 import chtml.Ejecutar.Componente;
+import chtml.Ejecutar.Contador;
+import chtml.Ejecutar.Enlace;
+import chtml.Ejecutar.Imagen;
 import chtml.Ejecutar.Panel;
+import chtml.Ejecutar.Tabla;
 import cjs.NodoCJS;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import chtml.chtml;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 /**
@@ -30,16 +39,6 @@ public class Documento {
 
         for (int i = 0; i < listaEventos.size(); i++) {
             Evento v = listaEventos.get(i);
-//            if (v.nombre.equalsIgnoreCase("documento") && v.elemento.equalsIgnoreCase("Listo")) {
-//                for (int j = 0; j < chtml.html.listaElementos.size(); j++) {
-//                    Elemento e = chtml.html.listaElementos.get(j);
-//                    if (e.nombreElemento.equalsIgnoreCase(v.nombre)) {
-//                        Recorrido r = new Recorrido();
-//                        r.Recorrido(v.nodo);
-//                    }
-//                }
-//
-//            } else 
             if (v.nombre.equalsIgnoreCase(nombre) && v.elemento.equalsIgnoreCase(elemento)) {
                 Recorrido r = new Recorrido();
                 r.Recorrido(v.nodo);
@@ -82,7 +81,7 @@ public class Documento {
             Componente comp = chtml.html.componentes;
             try {
                 Componente set = set(nombre, elemento, valor, comp, f, c);
-//                Documento.verificarEvento(nombre, "Modificado");
+                Documento.verificarEvento(nombre, "Modificado");
             } catch (Exception ex) {
                 System.out.println("Error en setElemento : " + ex);
             }
@@ -95,8 +94,11 @@ public class Documento {
         for (int i = 0; i < lista.size(); i++) {
             Componente comp = (Componente) lista.get(i);
             if (comp.nombre.equalsIgnoreCase(nombre)) {
-                if (comp.valor instanceof JButton) {
-                    comp = Boton.modificarBoton((JButton) comp.valor, elemento, valor, f, c);
+                if (comp.valor instanceof JButton && comp.tipo.equalsIgnoreCase("boton")) {
+                    comp = Boton.modificarBoton((JButton) comp.valor, elemento, valor, comp.listaClick, f, c);
+                    return comp;
+                } else if (comp.valor instanceof JButton && comp.tipo.equalsIgnoreCase("imagen")) {
+                    comp = Imagen.modificarImagen((JButton) comp.valor, elemento, valor,comp.listaClick, f, c);
                     return comp;
                 } else if (comp.valor instanceof JPanel) {
                     comp = Panel.modificarPanel((JPanel) comp.valor, elemento, comp.listaComponentes, comp.alineado, valor, f, c);
@@ -105,9 +107,22 @@ public class Documento {
                     comp = CajaArea.modificarArea((JTextPane) comp.valor, elemento, valor, f, c);
                     return comp;
                 } else if (comp.valor instanceof JComboBox) {
-                    comp = CajaOpcion.modificarCajaOpcion((JComboBox) comp.valor, elemento, valor, f, c);
+                    comp = CajaOpcion.modificarCajaOpcion((JComboBox) comp.valor, elemento, valor, comp.listaClick, f, c);
+                    return comp;
+                } else if (comp.valor instanceof JLabel) {
+                    comp = Enlace.modificarEnlace((JLabel) comp.valor, elemento, valor, f, c);
+                    return comp;
+                } else if (comp.valor instanceof JSpinner) {
+                    comp = Contador.modificarSpinner((JSpinner) comp.valor, elemento, valor, f, c);
+                    return comp;
+                } else if (comp.valor instanceof JTable) {
+                    comp = Tabla.modificarTabla((JTable) comp.valor, elemento, valor, f, c);
+                    return comp;
+                } else if (comp.valor instanceof JTextField) {
+                    comp = CajaTexto.modificarCajaTexto((JTextField) comp.valor, elemento, valor, f, c);
                     return comp;
                 }
+
             } else if (comp.tipo.equalsIgnoreCase("panel")) {
                 set(nombre, elemento, valor, comp, f, c);
                 if (result != null) {

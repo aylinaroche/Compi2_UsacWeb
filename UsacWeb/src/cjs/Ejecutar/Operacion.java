@@ -62,6 +62,7 @@ public class Operacion {
                                     return true;
                                 }
                                 return false;
+
 //                            case "fecha":
 //                                Date fecha = Fecha.StringToDate(dato.replace("'", ""));
 //                                return fecha;
@@ -199,7 +200,7 @@ public class Operacion {
                                     } else {
                                         return E1;
                                     }
-                                } else {
+                                } else if ((E1 instanceof Integer) && (E2 instanceof Integer)) {
                                     return (Integer) E1 + (Integer) E2;
                                 }
                                 //BOOL
@@ -378,7 +379,8 @@ public class Operacion {
                                 if ((E1 instanceof Boolean) || (E2 instanceof Boolean)) {//Boolean
                                     if (E1 instanceof Boolean) {
                                         if ((Boolean) E1 == true) {
-                                            int v1 = 1 / (Integer) E2;
+                                            int aux = (Integer) E2;
+                                            Double v1 =( 1 / Double.parseDouble(String.valueOf(aux)));
                                             return v1;
                                         } else {
                                             return (Double) 0.0;
@@ -1072,7 +1074,7 @@ public class Operacion {
                         Datos.agregarError("Error Semantico", "Error al operar ||", nodo.hijos[1].fila, nodo.hijos[1].col);
                         return false;
                     default: //(E)
-                        if(nodo.hijos[1].texto.equalsIgnoreCase("valores")){
+                        if (nodo.hijos[1].texto.equalsIgnoreCase("valores")) {
                             Recorrido r = new Recorrido();
                             return r.Recorrido(nodo.hijos[1]);
                         }

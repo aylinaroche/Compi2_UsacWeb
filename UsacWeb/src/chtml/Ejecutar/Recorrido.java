@@ -3,6 +3,7 @@ package chtml.Ejecutar;
 import ccss.Ejecutar.Estilo;
 import chtml.NodoCHTML;
 import static chtml.chtml.html;
+import cjs.Ejecutar.Documento;
 import java.util.ArrayList;
 import usacweb.Datos;
 import usacweb.Metodos;
@@ -35,13 +36,13 @@ public class Recorrido {
                         case 2:
                             Recorrido(raiz.hijos[0]);
                             result = Recorrido(raiz.hijos[1]);
-                            // JPanel panel = (JPanel) Elementos.dibujar((Componente) result, 0);
                             try {
                                 html.componentes = (Componente) result;
                                 html.componentesAux = (Componente) result;
+                                Documento.verificarEvento("Documento", "Listo");
                                 result = Elementos.dibujar((Componente) result, 0, true);
                             } catch (Exception e) {
-                                System.out.println("Error al dibujar");
+                                System.out.println("Error al dibujar: " + e);
                             }
                             break;
                     }
@@ -101,21 +102,32 @@ public class Recorrido {
                 case "CUERPO":
                     switch (raiz.cantidadHijos) {
                         case 2:
-                            result = Panel.crearCuerpo(new ArrayList(), null, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            result = Panel.crearCuerpo(new ArrayList(), null, raiz.hijos[0].fila, raiz.hijos[0].col, 1);
+                            ArrayList l1 = new ArrayList();
+                            l1.add(result);
+                            result = Panel.crearCuerpo(new ArrayList(), l1, raiz.hijos[0].fila, raiz.hijos[0].col, 0);
                             break;
                         case 4:
+                            ArrayList l2 = new ArrayList();
                             if (raiz.hijos[1].texto.equals("ELEMENTOS")) {
                                 result = Recorrido(raiz.hijos[1]);
-                                result = Panel.crearCuerpo((ArrayList) result, null, raiz.hijos[0].fila, raiz.hijos[0].col);
+                                result = Panel.crearCuerpo((ArrayList) result, null, raiz.hijos[0].fila, raiz.hijos[0].col, 1);
+                                l2.add(result);
+                                result = Panel.crearCuerpo((ArrayList) result, l2, raiz.hijos[0].fila, raiz.hijos[0].col, 0);
                             } else {
                                 result = Recorrido(raiz.hijos[2]);
-                                result = Panel.crearCuerpo(new ArrayList(), (ArrayList) result, raiz.hijos[0].fila, raiz.hijos[0].col);
+                                result = Panel.crearCuerpo(new ArrayList(), (ArrayList) result, raiz.hijos[0].fila, raiz.hijos[0].col, 1);
+                                l2.add(result);
+                                result = Panel.crearCuerpo(new ArrayList(), l2, raiz.hijos[0].fila, raiz.hijos[0].col, 0);
                             }
                             break;
                         case 5:
                             ArrayList elem = (ArrayList) Recorrido(raiz.hijos[1]);
                             result = Recorrido(raiz.hijos[3]);
-                            result = Panel.crearCuerpo(elem, (ArrayList) result, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            result = Panel.crearCuerpo(elem, (ArrayList) result, raiz.hijos[0].fila, raiz.hijos[0].col, 1);
+                            ArrayList l3 = new ArrayList();
+                            l3.add(result);
+                            result = Panel.crearCuerpo(elem, l3, raiz.hijos[0].fila, raiz.hijos[0].col, 0);
                             break;
                     }
                     break;

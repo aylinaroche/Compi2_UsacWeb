@@ -456,7 +456,7 @@ class CUP$SintacticoCCSS$actions {
 		int eleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
 		Caracter e = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
-		
+		//5
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("TIPO");
     E.insertar(new NodoCCSS("grupo")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 
@@ -477,7 +477,7 @@ class CUP$SintacticoCCSS$actions {
 		int eleft = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$SintacticoCCSS$stack.peek()).right;
 		Caracter e = (Caracter)((java_cup.runtime.Symbol) CUP$SintacticoCCSS$stack.peek()).value;
-		
+		//5
     RESULT = new Caracter();
     NodoCCSS E = new NodoCCSS("TIPO");
     E.insertar(new NodoCCSS("id")); E.insertar(new NodoCCSS("(")); E.insertar(new NodoCCSS(i,iright,ileft)); E.insertar(new NodoCCSS(")")); 

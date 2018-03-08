@@ -50,16 +50,13 @@ public class Prueba extends javax.swing.JFrame {
 
         initComponents();
         jComboBox1.addItem("hola");
-        pane.setText("cccccccccccccc\naaaaaaaaaaaaa\nccccc");
-        //pane.setAlignmentX(SwingConstants.CENTER);
-        SimpleAttributeSet attribs = new SimpleAttributeSet();
-        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_CENTER);
-        pane.setParagraphAttributes(attribs, true);
+//        pane.setText("cccccccccccccc\naaaaaaaaaaaaa\nccccc");
+//        //pane.setAlignmentX(SwingConstants.CENTER);
+//        SimpleAttributeSet attribs = new SimpleAttributeSet();
+//        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_CENTER);
+//        pane.setParagraphAttributes(attribs, true);
+//
 
-        Font font = jLabel1.getFont();
-        Map atr = font.getAttributes();
-        atr.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-        jLabel1.setFont(font.deriveFont(atr));
         ///////////////////////////
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -91,11 +88,12 @@ public class Prueba extends javax.swing.JFrame {
         jSpinner1 = new javax.swing.JSpinner();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        pane = new javax.swing.JTextPane();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        Pestanias = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -120,21 +118,9 @@ public class Prueba extends javax.swing.JFrame {
         jScrollPane5.setViewportView(jTextPane1);
 
         jPanel1.add(jScrollPane5);
+        jPanel1.add(jTabbedPane1);
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 190, 170));
-
-        jLabel1.setBackground(new java.awt.Color(51, 153, 0));
-        jLabel1.setText("jLabel1");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, 270, 170));
-
-        jScrollPane2.setViewportView(pane);
-
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 180, 140));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -149,7 +135,23 @@ public class Prueba extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 360, 190));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 360, 190));
+
+        Pestanias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PestaniasMouseClicked(evt);
+            }
+        });
+
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
+        Pestanias.addTab("tab1", jPanel2);
+        Pestanias.addTab("tab2", jPanel3);
+
+        getContentPane().add(Pestanias, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 230, 140, 150));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -158,9 +160,13 @@ public class Prueba extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        System.out.println("Enlaceeeee");
-    }//GEN-LAST:event_jLabel1MouseClicked
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+     
+    }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void PestaniasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PestaniasMouseClicked
+          System.out.println("Estoy en Pez"+ Pestanias.getSelectedIndex());
+    }//GEN-LAST:event_PestaniasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -198,17 +204,18 @@ public class Prueba extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane Pestanias;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTextPane pane;
     // End of variables declaration//GEN-END:variables
 }

@@ -39,7 +39,7 @@ public class Recorrido {
                             try {
                                 html.componentes = (Componente) result;
                                 html.componentesAux = (Componente) result;
-                                Documento.verificarEvento("Documento", "Listo");
+                                Documento.verificarEventoListo();
                                 result = Elementos.dibujar((Componente) result, 0, true);
                             } catch (Exception e) {
                                 System.out.println("Error al dibujar: " + e);

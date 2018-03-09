@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.table.JTableHeader;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
@@ -21,32 +22,6 @@ public class Prueba extends javax.swing.JFrame {
      * Creates new form Prueba
      */
     public Prueba() {
-
-        JComboBox<JLabel> combo = new JComboBox();
-        JLabel l1 = new JLabel();
-        l1.setText("Como");
-        combo.addItem(l1);
-
-        JLabel l2 = new JLabel();
-        l2.setText("estas");
-        combo.addItem(l2);
-
-        JLabel l3 = new JLabel();
-        l3.setText("tu");
-        combo.addItem(l3);
-        combo.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ActionPerformed(evt);
-            }
-
-            private void ActionPerformed(ActionEvent evt) {
-                System.out.println(combo.getSelectedItem());
-            }
-        });
-
-        combo.setBounds(0, 0, 300, 50);
-        add(combo);
 
         initComponents();
         jComboBox1.addItem("hola");
@@ -70,6 +45,7 @@ public class Prueba extends javax.swing.JFrame {
                     "Title 1", "Title 2", "Title 3", "Title 4"
                 }
         ));
+        //jTable1.setTableHeader(new JTableHeader);
     }
 
     /**
@@ -133,6 +109,11 @@ public class Prueba extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 360, 190));
@@ -167,6 +148,10 @@ public class Prueba extends javax.swing.JFrame {
     private void PestaniasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PestaniasMouseClicked
           System.out.println("Estoy en Pez"+ Pestanias.getSelectedIndex());
     }//GEN-LAST:event_PestaniasMouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

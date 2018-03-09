@@ -10,6 +10,7 @@ import usacweb.Mensaje;
 public class Recorrido {
 
     public static String valorSwitch = "";
+    public static String valorCase = "";
     public static Boolean retornar = false, salir = false;
 
     public Object Recorrido(NodoCJS raiz) {
@@ -41,25 +42,25 @@ public class Recorrido {
                             }
                             break;
                         case 2:
-                            switch (raiz.hijos[0].texto) {
-                                case "detener":
-                                    salir = true;
-                                    break;
-                                case "retornar":
-                                    retornar = true;
-                                    break;
-                                default:
-                                    break;
+                            if (raiz.hijos[0].texto.equalsIgnoreCase("detener")) {
+                                salir = true;
+                            } else if (raiz.hijos[0].texto.equalsIgnoreCase("retornar")) {
+                                retornar = true;
+                            } else if (raiz.hijos[1].texto.equalsIgnoreCase("++")) {
+                                VariableCJS.incrementar(raiz.hijos[0].texto, 1);
+                            } else if (raiz.hijos[0].texto.equalsIgnoreCase("--")) {
+                                VariableCJS.incrementar(raiz.hijos[0].texto, -1);
                             }
                             break;
                         case 3:
                             retornar = true;
                             result = Recorrido(raiz.hijos[1]);
+                           // System.out.println("*");
                             break;
                     }
                     break;
                 case "VARIABLE":
-                    ArrayList variables;
+                    ArrayList variables = new ArrayList();
                     switch (raiz.cantidadHijos) {
                         case 2:
                             variables = (ArrayList) Recorrido(raiz.hijos[1]);
@@ -85,7 +86,7 @@ public class Recorrido {
                             result = l1;
                             break;
                         case 3:
-                            ArrayList l2 = (ArrayList) Recorrido(raiz.hijos[1]);
+                            ArrayList l2 = (ArrayList) Recorrido(raiz.hijos[0]);
                             l2.add(raiz.hijos[2].texto);
                             result = l2;
                             break;
@@ -166,6 +167,7 @@ public class Recorrido {
                 case "CICLO":
                     html.pilaAmbito.push("Mientras");
                     html.nivelAmbito += 1;
+                    int aux = 0;
                     switch (raiz.cantidadHijos) {
                         case 7:
                             boolean w;
@@ -181,9 +183,12 @@ public class Recorrido {
                                 if (salir == true || retornar == true) {
                                     w = false;
                                 }
+                                html.nivelAmbito += 1;
+                                aux++;
                             }
                             break;
                     }
+                    html.nivelAmbito -= aux;
                     salir = false;
                     html.pilaAmbito.pop();
                     VariableCJS.eliminarVariables();
@@ -193,6 +198,7 @@ public class Recorrido {
                 case "SWITCH":
                     html.pilaAmbito.push("switch");
                     html.nivelAmbito += 1;
+                    valorCase = "";
                     switch (raiz.cantidadHijos) {
                         case 7:
                             valorSwitch = Recorrido(raiz.hijos[2]).toString();
@@ -200,50 +206,55 @@ public class Recorrido {
                             break;
                         case 8:
                             valorSwitch = Recorrido(raiz.hijos[2]).toString();
-                            result = Recorrido(raiz.hijos[5]).toString();
-                            if (result.equals("false")) { //Si es true, hacer istruccion
-                                Recorrido(raiz.hijos[6]);
+                            result = Recorrido(raiz.hijos[5]);
+                            if (valorCase.equals("false") && salir == false && retornar == false) { //Si es true, hacer istruccion
+                                result = Recorrido(raiz.hijos[6]);
                             }
                             break;
                     }
                     html.pilaAmbito.pop();
                     VariableCJS.eliminarVariables();
                     html.nivelAmbito -= 1;
+                    salir = false;
+                    //retornar =fa
 
                     break;
                 case "CASO":
                     switch (raiz.cantidadHijos) {
                         case 4:
                             String val = Recorrido(raiz.hijos[1]).toString();
-                            result = "false";
-                            if (val.equals(valorSwitch)) {
-                                Recorrido(raiz.hijos[3]);
-                                result = "true";
+                            valorCase = "false";
+                            if (val.equalsIgnoreCase(valorSwitch)) {
+                                result = Recorrido(raiz.hijos[3]);
+                                valorCase = "true";
                             }
-
                             break;
                         case 5:
-                            result = Recorrido(raiz.hijos[0]).toString();
-                            if (result.equals("false")) {
+                            result = Recorrido(raiz.hijos[0]);
+                            if (valorCase.equals("false")) {
                                 val = Recorrido(raiz.hijos[2]).toString();
                                 if (val.equals(valorSwitch)) {
-                                    Recorrido(raiz.hijos[4]);
-                                    result = "true";
+                                    result = Recorrido(raiz.hijos[4]);
+                                    valorCase = "true";
                                 } else {
                                     try {
                                         double a = Double.parseDouble(val);
                                         double b = Double.parseDouble(valorSwitch);
                                         if (a == b) {
-                                            Recorrido(raiz.hijos[4]);
-                                            result = "true";
+                                            result = Recorrido(raiz.hijos[4]);
+                                            valorCase = "true";
                                         }
                                     } catch (NumberFormatException e) {
-                                        System.out.println("Error ss = " + e);
+                                        //System.out.println("Error ss = " + e);
                                     }
                                 }
+                            } else if (valorCase.equals("true") && salir == false && retornar == false) {
+                                result = Recorrido(raiz.hijos[4]);
+                                valorCase = "true";
                             }
                             break;
                     }
+                    break;
                 case "DEFECTO":
                     Recorrido(raiz.hijos[2]);
                     break;
@@ -399,7 +410,7 @@ public class Recorrido {
                             break;
                         case 4:
                             result = Recorrido(raiz.hijos[2]);
-                            result = VariableCJS.obtenerVector(raiz.hijos[0].texto, result, raiz.hijos[0].fila, raiz.hijos[0].col);
+                            result = VariableCJS.obtenerValorVector(raiz.hijos[0].texto, result, raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                     }
                     break;
@@ -451,7 +462,7 @@ public class Recorrido {
                     switch (raiz.cantidadHijos) {
                         case 2: //Obtener
                             result = Recorrido(raiz.hijos[1]);
-                            result = Documento.obtener(result.toString());
+                            result = Documento.obtener(result.toString(), raiz.hijos[0].fila, raiz.hijos[0].col);
                             break;
                         case 4://id
                             result = VariableCJS.obtenerVariable(raiz.hijos[0].texto, raiz.hijos[0].fila, raiz.hijos[0].col);

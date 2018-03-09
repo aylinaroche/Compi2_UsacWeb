@@ -28,7 +28,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
     JButton botonOpciones = new JButton();
     JButton botonHistorial = new JButton();
     JButton botonFavorito = new JButton();
-    static String rutaAux = "C:\\Users\\Aroche\\Documents\\Archivos\\Paso3.chtml";
+    static String rutaAux = "C:\\Users\\Aroche\\Documents\\Archivos\\Prueba1.chtml";
     String nombrePestania = "";
     Boolean estadoOpcion = false;
 
@@ -161,17 +161,21 @@ public class PanelPrincipal extends javax.swing.JPanel {
                     HTML html = UsacWeb.listaHTML.get(i);
 
                     if (html.nombre.equalsIgnoreCase(nombrePestania)) {
-                        html.numPagina = auxNum;
-                        html.listaPaginas = auxPaginas;
+//                        html.numPagina = auxNum;
+//                        html.listaPaginas = auxPaginas;
+//                        
+                        HTML nuevo = new HTML(nombrePestania);
+                        nuevo.numPagina = auxNum;
+                        nuevo.listaPaginas = auxPaginas;
 
-                        System.out.println("Nombre = " + nombrePestania);
-                        UsacWeb.listaHTML.set(i, new HTML(nombrePestania));
-                        html.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
-                        html.ruta = ruta.getText();
+                        //System.out.println("Nombre = " + nombrePestania);
+                        UsacWeb.listaHTML.set(i, nuevo);
+                        nuevo.pilaArchivo.push(Metodos.obtenerNombre(ruta.getText()));
+                        nuevo.ruta = ruta.getText();
 
                         try {
-                            Object result = chtml.analizar(texto, html);
-                            html.codigoCHTML = texto;
+                            Object result = chtml.analizar(texto, nuevo);
+                            nuevo.codigoCHTML = texto;
                             if (result instanceof JPanel) {
                                 crearHTML((JPanel) result);
                             } else if (result instanceof JScrollPane) {
@@ -180,14 +184,15 @@ public class PanelPrincipal extends javax.swing.JPanel {
                         } catch (Exception ex) {
                             System.out.println("Error al analizar archivo: " + ruta.getText() + "\n" + ex);
                         }
-                        html.pilaArchivo.pop();
-                        html.numPagina++;
-                        html.listaPaginas.add(ruta.getText());
+                        nuevo.pilaArchivo.pop();
+                        nuevo.numPagina++;
+                        nuevo.listaPaginas.add(ruta.getText());
 
                         break;
                     }
                 }
                 UsacWeb.agregarHistorial(ruta.getText());
+                System.out.println("\n\n\n* * * * * * * * * * * * * * * * * * * * *\n\n\n");
                 //Documento.verificarEvento("Documento", "Listo");
             }
         });

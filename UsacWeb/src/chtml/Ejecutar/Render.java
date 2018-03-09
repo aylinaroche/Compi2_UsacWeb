@@ -12,18 +12,24 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class Render extends DefaultTableCellRenderer {
 
-    public Render(){
-        
-    }
-    
+    int num = 0;
+
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {
 
         if (value instanceof JButton) {
             JButton btn = (JButton) value;
-            btn.setSize(150, 30);
+            btn.setSize(150, 100);
+            //System.out.println("Este es mi boton: " + btn.getName());
+            JButton nuevo = Boton.obtenerBoton(btn.getName());
+                System.out.println("color = " + nuevo.getBackground().toString());
+                if (nuevo != null) {
+                    btn = nuevo;
+                }
+
             if (isSelected) {
+                //System.out.println("Que puchis");
                 btn.setForeground(table.getSelectionForeground());
                 btn.setBackground(table.getSelectionBackground());
             } else {

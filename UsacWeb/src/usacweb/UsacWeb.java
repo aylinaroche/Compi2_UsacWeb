@@ -33,13 +33,13 @@ public class UsacWeb {
     }
 
     public static void verificarPestania() {
-        int num = chtml.chtml.html.numPagina;
-        ArrayList lista = chtml.chtml.html.listaPaginas;
-        System.out.println(" nAnterior = " + chtml.chtml.html.nombre + ", " + chtml.chtml.html.numPagina);
-        System.out.println("-- " + panelPestanias.getSelectedIndex() + ", " + UsacWeb.listaHTML.size());
-        chtml.chtml.html = UsacWeb.listaHTML.get(panelPestanias.getSelectedIndex());
-        chtml.chtml.html.numPagina = num;
-        chtml.chtml.html.listaPaginas = lista;
+//        int num = chtml.chtml.html.numPagina;
+//        ArrayList lista = chtml.chtml.html.listaPaginas;
+//        System.out.println(" nAnterior = " + chtml.chtml.html.nombre + ", " + chtml.chtml.html.numPagina);
+//        System.out.println("-- " + panelPestanias.getSelectedIndex() + ", " + UsacWeb.listaHTML.size());
+//        chtml.chtml.html = UsacWeb.listaHTML.get(panelPestanias.getSelectedIndex());
+//        chtml.chtml.html.numPagina = num;
+//        chtml.chtml.html.listaPaginas = lista;
         System.out.println(" nDespues = " + chtml.chtml.html.nombre + ", " + chtml.chtml.html.numPagina);
         System.out.println("");
     }

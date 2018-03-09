@@ -12,7 +12,7 @@ public class VariableCJS {
             ArrayList a = (ArrayList) valor;
             crearVector(nombre, a.size(), valor, f, c);
             return;
-        } 
+        }
         for (int i = 0; i < html.listaVariables.size(); i++) {
             Variable s = (Variable) html.listaVariables.get(i);
             if (s.nombre.equalsIgnoreCase(nombre) && s.ambito.equalsIgnoreCase(html.pilaAmbito.peek()) && s.nivel == html.nivelAmbito && s.archivo.equalsIgnoreCase(html.pilaArchivo.peek())) {
@@ -36,6 +36,10 @@ public class VariableCJS {
         if (a.size() > tam) {
             Datos.agregarError("Error Semantico", "El tamanio del vector " + nombre + " es incorrecto", f, c);
             return;
+        } else if (a.isEmpty()) {
+            for (int i = 0; i < tam; i++) {
+                a.add(0);
+            }
         }
         for (int i = 0; i < html.listaVariables.size(); i++) {
             Variable s = (Variable) html.listaVariables.get(i);
@@ -49,7 +53,7 @@ public class VariableCJS {
     }
 
     public static void asignarVariable(String nombre, Object valor, int f, int c) {
-        for (int i = 0; i < html.listaVariables.size(); i++) {
+        for (int i = html.listaVariables.size() - 1; i >= 0; i--) {
             Variable s = (Variable) html.listaVariables.get(i);
             if (s.nombre.equalsIgnoreCase(nombre) && s.archivo.equalsIgnoreCase(html.pilaArchivo.peek())) {
                 if (valor instanceof ArrayList) {
@@ -59,7 +63,10 @@ public class VariableCJS {
                         return;
                     }
                 }
-                s.tamanio = 0;
+                if (!(valor instanceof ArrayList)) {
+                    s.tamanio = 0;
+                }
+                //s.tamanio = 0;
                 s.valor = valor;
                 return;
             }
@@ -75,10 +82,10 @@ public class VariableCJS {
             Datos.agregarError("Error Semantico", "El tamanio es invalido " + posicion, f, c);
             return;
         }
-        for (int i = 0; i < html.listaVariables.size(); i++) {
+        for (int i = html.listaVariables.size() - 1; i >= 0; i--) {
             Variable s = (Variable) html.listaVariables.get(i);
-            if (s.nombre.equalsIgnoreCase(nombre) && s.ambito.equals(html.pilaAmbito.peek()) && s.nivel == html.nivelAmbito && s.archivo.equalsIgnoreCase(html.pilaArchivo.peek())) {
-                if (pos > s.tamanio) {
+            if (s.nombre.equalsIgnoreCase(nombre) && s.archivo.equalsIgnoreCase(html.pilaArchivo.peek())) {
+                if (pos >= s.tamanio) {
                     Datos.agregarError("Error Semantico", "El tamanio del vector " + nombre + " es incorrecto", f, c);
                     return;
                 }
@@ -113,7 +120,7 @@ public class VariableCJS {
         return null;
     }
 
-    public static Object obtenerVector(String nombre, Object posicion, int f, int c) {
+    public static Object obtenerValorVector(String nombre, Object posicion, int f, int c) {
         int pos = 0;
         if (posicion instanceof Integer) {
             pos = (Integer) posicion;
@@ -169,7 +176,7 @@ public class VariableCJS {
     }
 
     public static void incrementar(String nombre, int n) {
-        for (int i = 0; i < html.listaVariables.size(); i++) {
+        for (int i = html.listaVariables.size() - 1; i >= 0; i--) {
             Variable s = (Variable) html.listaVariables.get(i);
             if (s.nombre.equals(nombre) && html.pilaAmbito.contains(s.ambito) && s.archivo.equalsIgnoreCase(html.pilaArchivo.peek())) {
                 try {

@@ -177,6 +177,17 @@ public class Imagen {
             boton.setPreferredSize(new Dimension(ancho, alto));
             boton.setMaximumSize(boton.getPreferredSize());
         }
+        boton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActionPerformed(evt);
+            }
+
+            private void ActionPerformed(ActionEvent evt) {
+                Documento.verificarEvento(boton.getName(), "Cliqueado");
+            }
+
+        });
         Componente resultado = new Componente("Imagen", boton.getName(), boton, new ArrayList(), listaClick);
         return resultado;
     }
@@ -299,11 +310,11 @@ public class Imagen {
                 }
 
                 private void ActionPerformed(ActionEvent evt) {
-                   String nF = valor.toString().replace("(", "").replace(")", "");
+                    String nF = valor.toString().replace("(", "").replace(")", "");
                     listaClick.add(nF);
 //                    for (int i = 0; i < listaClick.size(); i++) {
 //                        String nFuncion = (String) listaClick.get(i);
-                        FuncionCJS.buscarFuncion(nF, new ArrayList(), f, c);
+                    FuncionCJS.buscarFuncion(nF, new ArrayList(), f, c);
 //                    }
                     Documento.verificarEvento(boton.getName(), "Cliqueado");
 

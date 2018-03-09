@@ -106,11 +106,11 @@ public class Operacion {
                     try {
                         if (F1 instanceof Double) {
                             Double n = (Double) F1 + 1;
-                            //VariableCJS.asignarValor(nodo.hijos[0].hijos[0].texto, n);
+                            VariableCJS.asignarVariable(nodo.hijos[0].hijos[0].texto, n, nodo.hijos[1].fila, nodo.hijos[1].col);
                             return n;
                         } else if (F1 instanceof Integer) {
                             int n = (Integer) F1 + 1;
-                            //VariableCJS.asignarValor(nodo.hijos[0].hijos[0].texto, n);
+                            VariableCJS.asignarVariable(nodo.hijos[0].hijos[0].texto, n, nodo.hijos[1].fila, nodo.hijos[1].col);
                             return n;
                         } else {
                             Datos.agregarError("Error Semantico", "Operadores ++ incorrectos", nodo.hijos[1].fila, nodo.hijos[1].col);
@@ -125,11 +125,11 @@ public class Operacion {
                     try {
                         if (F1 instanceof Double) {
                             Double n = (Double) F1 - 1;
-                            // VariableCJS.asignarValor(nodo.hijos[0].hijos[0].texto, n);
+                            VariableCJS.asignarVariable(nodo.hijos[0].hijos[0].texto, n, nodo.hijos[1].fila, nodo.hijos[1].col);
                             return n;
                         } else if (F1 instanceof Integer) {
                             int n = (Integer) F1 - 1;
-                            //VariableCJS.asignarValor(nodo.hijos[0].hijos[0].texto, n);
+                            VariableCJS.asignarVariable(nodo.hijos[0].hijos[0].texto, n, nodo.hijos[1].fila, nodo.hijos[1].col);
                             return n;
                         } else {
                             Datos.agregarError("Error Semantico", "Operadores ++ incorrectos", nodo.hijos[1].fila, nodo.hijos[1].col);
@@ -380,7 +380,7 @@ public class Operacion {
                                     if (E1 instanceof Boolean) {
                                         if ((Boolean) E1 == true) {
                                             int aux = (Integer) E2;
-                                            Double v1 =( 1 / Double.parseDouble(String.valueOf(aux)));
+                                            Double v1 = (1 / Double.parseDouble(String.valueOf(aux)));
                                             return v1;
                                         } else {
                                             return (Double) 0.0;

@@ -227,7 +227,7 @@ public class CajaOpcion {
                             String r = e.valor.toString().replace("(", "").replace(")", "");
                             FuncionCJS.buscarFuncion(r, new ArrayList(), f, c);
                             listaClick.add(r);
-                            Documento.verificarEvento(combo.getName(),"Cliqueado");
+                            Documento.verificarEvento(combo.getName(), "Cliqueado");
                         }
 
                     });
@@ -239,6 +239,17 @@ public class CajaOpcion {
                 Datos.agregarError("Error Semantico", "Error al crear caja opcion", f, c);
             }
         }
+        combo.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActionPerformed(evt);
+            }
+
+            private void ActionPerformed(ActionEvent evt) {
+                Documento.verificarEvento(combo.getName(), "Cliqueado");
+            }
+
+        });
         //SETEAR VALORES 
         //FONT
         try {
@@ -458,11 +469,11 @@ public class CajaOpcion {
                 }
 
                 private void ActionPerformed(ActionEvent evt) {
-                   String nF = valor.toString().replace("(", "").replace(")", "");
+                    String nF = valor.toString().replace("(", "").replace(")", "");
                     listaClick.add(nF);
 //                    for (int i = 0; i < listaClick.size(); i++) {
 //                        String nFuncion = (String) listaClick.get(i);
-                        FuncionCJS.buscarFuncion(nF, new ArrayList(), f, c);
+                    FuncionCJS.buscarFuncion(nF, new ArrayList(), f, c);
 //                    }
                     Documento.verificarEvento(combo.getName(), "Cliqueado");
 

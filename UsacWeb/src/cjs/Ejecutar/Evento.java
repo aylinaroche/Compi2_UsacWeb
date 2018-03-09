@@ -9,14 +9,14 @@ import cjs.NodoCJS;
  */
 public class Evento {
 
-    public String elemento;
-    public String nombre;
+    public String nombreElemento;
+    public String tipoEvento;
     public NodoCJS nodo;
 
-    public Evento(String a, String n, NodoCJS v) {
-        this.nombre = n;
+    public Evento(String n, String e, NodoCJS v) {
+        this.tipoEvento = e;
         this.nodo = v;
-        this.elemento = a;
+        this.nombreElemento = n;
     }
 
 }

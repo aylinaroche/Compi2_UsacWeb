@@ -124,9 +124,9 @@ public class Panel {
         }
 
         if (alto > 0 && ancho > 0) {
-            panel.setSize(ancho, alto);
+            //panel.setSize(ancho, alto);
             panel.setPreferredSize(new Dimension(ancho, alto));
-            panel.setMaximumSize(panel.getPreferredSize());
+            panel.setMinimumSize(panel.getPreferredSize());
         }
         //scroll.setViewportView(panel);
         Componente resultado = new Componente("Panel", panel.getName(), panel, componentes, alineado);

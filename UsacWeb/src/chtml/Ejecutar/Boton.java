@@ -51,7 +51,7 @@ public class Boton {
 
                         switch (e2.nombre.toLowerCase()) {
                             case "fondo":
-                            //case "fondoelemento":
+                                //case "fondoelemento":
                                 Color color = convertirColor(e2.valor.toString());
                                 boton.setBackground(color);
                                 break;
@@ -254,6 +254,18 @@ public class Boton {
                 Datos.agregarError("Error Semantico", "Error al crear el boton", f, c);
             }
         }
+
+        boton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActionPerformed(evt);
+            }
+
+            private void ActionPerformed(ActionEvent evt) {
+                Documento.verificarEvento(boton.getName(), "Cliqueado");
+            }
+
+        });
         //SETEAR VALORES 
         //FONT
         try {
@@ -266,6 +278,7 @@ public class Boton {
             boton.setPreferredSize(new Dimension(ancho, alto));
             boton.setMaximumSize(boton.getPreferredSize());
         }
+        chtml.chtml.html.listaBotones.add(boton);
         Componente resultado = new Componente("Boton", boton.getName(), boton, new ArrayList(), listaClick);
         return resultado;
     }
@@ -479,9 +492,9 @@ public class Boton {
                     listaClick.add(nF);
 //                    for (int i = 0; i < listaClick.size(); i++) {
 //                        String nFuncion = (String) listaClick.get(i);
-                        FuncionCJS.buscarFuncion(nF, new ArrayList(), f, c);
+                    FuncionCJS.buscarFuncion(nF, new ArrayList(), f, c);
 //                    }
-                    Documento.verificarEvento(boton.getName(), "Cliqueado");
+                    // Documento.verificarEvento(boton.getName(), "Cliqueado");
 
                 }
 
@@ -489,6 +502,7 @@ public class Boton {
         } else {
             Datos.agregarError("Error Semantico", "Atributo " + atributo + " incorrecto en boton", f, c);
         }
+
 //FONT
         try {
             boton.setFont(new Font(letra, estilo, tamanio));
@@ -502,5 +516,16 @@ public class Boton {
         }
         Componente resultado = new Componente("Boton", boton.getName(), boton, new ArrayList(), listaClick);
         return resultado;
+    }
+
+    public static JButton obtenerBoton(String nombre) {
+        for (int i = 0; i < chtml.chtml.html.listaBotones.size(); i++) {
+            JButton boton = chtml.chtml.html.listaBotones.get(i);
+            if (boton.getName().equalsIgnoreCase(nombre)) {
+                return boton;
+            }
+
+        }
+        return new JButton();
     }
 }

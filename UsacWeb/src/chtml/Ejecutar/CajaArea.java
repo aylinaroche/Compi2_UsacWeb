@@ -286,6 +286,7 @@ public class CajaArea {
             Componente resultado = new Componente("CajaArea", area.getName(), scroll, new ArrayList());
             return resultado;
         }
+        
         Componente resultado = new Componente("CajaArea", area.getName(), area, new ArrayList());
         return resultado;
     }

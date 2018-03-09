@@ -6,12 +6,15 @@ import static chtml.Ejecutar.Elementos.convertirColor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import tabla.ButtonCellRenderer;
 import usacweb.Datos;
 
 /**
@@ -229,16 +232,17 @@ public class Tabla {
             tabla.setMaximumSize(tabla.getPreferredSize());
         }
 
-        Object[] titulo = null;
+        String[] titulo = null;
         int tamF = 0;
         int tamC = 0;
+        //OBTENER CABECERAS
         for (int i = 0; i < filas.size(); i++) {
             //Filas
             ArrayList celdas = (ArrayList) filas.get(i);
             if (celdas.size() > 0) {
                 Componente t = (Componente) celdas.get(0);
                 if (t.tipo.equalsIgnoreCase("cb")) {
-                    titulo = new Object[celdas.size()];
+                    titulo = new String[celdas.size()];
                     for (int k = 0; k < celdas.size(); k++) {
                         Componente celda = (Componente) celdas.get(k);
                         //Componente valor = (Componente) celda.valor;
@@ -254,13 +258,14 @@ public class Tabla {
             }
         }
         int tamF2 = filas.size() - tamF;
+        int altoCelda = 20;
         System.out.println("Filas = " + tamF2 + ", Col = " + tamC);
         Object[][] objetos = new Object[tamF2 + 1][tamC];
 
         for (int i = 0; i < tamC; i++) {
             objetos[0][i] = titulo[i];
         }
-
+        //OBTENER CUERPO
         int j = 1;
         for (int i = 0; i < filas.size(); i++) {
             //Filas
@@ -274,6 +279,12 @@ public class Tabla {
                         Componente valor = (Componente) celda.valor;
                         //if (valor.tipo.equalsIgnoreCase("texto")) {
                         objetos[j][k] = valor.valor;
+                        if (valor.valor instanceof JButton) {
+                            JButton b = (JButton) valor.valor;
+                            if (b.getHeight() > altoCelda) {
+                                altoCelda = b.getHeight();
+                            }
+                        }
                         //}
                     }
                     j++;
@@ -287,20 +298,47 @@ public class Tabla {
                 objetos[0][i] = " - ";
             }
         }
-        if (titulo != null) {
-            tabla.setDefaultRenderer(Object.class, new Render());
 
-            DefaultTableModel d = new DefaultTableModel(objetos, titulo) {
+        if (titulo != null) {
+            // tabla.setDefaultRenderer(Object.class, new Render());
+            tabla.setDefaultRenderer(Object.class, new ButtonCellRenderer());
+
+            DefaultTableModel d = new DefaultTableModel(objetos, titulo) {//nombre alreves
                 @Override
                 public boolean isCellEditable(int row, int column) {
                     return false;
                 }
             };
+            //JTableHeader header = new JTableHeader();
+            // header.add("hola",new JButton("ello"));
+            //tabla.setTableHeader(header);
             tabla.setModel(d);
+            tabla.setRowHeight(altoCelda);
             tabla.setPreferredScrollableViewportSize(tabla.getPreferredSize());
         }
         // JTable prueba = new JTable(objetos, titulo);
-        Componente resultado = new Componente("Tabla", tabla.getName(), tabla, new ArrayList(), alineado);
+
+        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaMouseClicked(evt);
+            }
+
+            private void TablaMouseClicked(MouseEvent evt) {
+                int column = tabla.getColumnModel().getColumnIndexAtX(evt.getX());
+                int row = evt.getY() / tabla.getRowHeight();
+
+                if (row < tabla.getRowCount() && row >= 0 && column < tabla.getColumnCount() && column >= 0) {
+                    Object value = tabla.getValueAt(row, column);
+                    if (value instanceof JButton) {
+                        ((JButton) value).doClick();
+                        JButton boton = (JButton) value;
+                        System.out.println("Seleccionado: " + boton.getName());
+                    }
+                }
+            }
+        });
+        Componente resultado = new Componente("Tabla", tabla.getName(), tabla, filas, alineado);
         return resultado;
     }
 

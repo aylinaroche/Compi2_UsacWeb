@@ -142,7 +142,7 @@ public class Elementos {
                 boxH1.add(Box.createHorizontalGlue());
             }
             boxV1.add(boxH1);
-            if (aux == 0) {
+            if (aux == 0 || aux ==1) {
                 boxV1.add(Box.createVerticalGlue());
             }
 //            if(panel.getName().equalsIgnoreCase("cuerpo")){

@@ -7,6 +7,7 @@ import cjs.Ejecutar.Documento;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.util.ArrayList;
@@ -234,6 +235,17 @@ public class Enlace {
                 Datos.agregarError("Error Semantico", "Error al crear el enlace", f, c);
             }
         }
+        enlace.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MouseClicked(evt);
+            }
+
+            private void MouseClicked(MouseEvent evt) {
+                Documento.verificarEvento(enlace.getName(), "Cliqueado");
+            }
+        });
+
         //SETEAR VALORES 
         //FONT
         Font font = enlace.getFont();
@@ -445,7 +457,7 @@ public class Enlace {
 
                         private void MouseClicked(MouseEvent evt) {
                             Metodos.crearPestania(valor.toString());
-                            Documento.verificarEvento(enlace.getName(),"Cliqueado");
+                            Documento.verificarEvento(enlace.getName(), "Cliqueado");
                         }
                     });
                 } catch (Exception ex) {
